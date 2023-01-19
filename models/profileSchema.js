@@ -1,6 +1,6 @@
 const profile = require('./profile')
 
-const profileSchema = require('mongoose').Schema
+const Schema = require('mongoose').Schema
 
 const profileSchema = new Schema({
   username: { type: String, required: true },
