@@ -1,6 +1,9 @@
+//needs work. Error message reads cannot define profile when creating profile
+
+
 require('dotenv').config()
 const Profile = require('../../models/profile')
-
+const User = require("../../models/user")
 
 //DELETE
 const destroyProfile = async (req, res, next) => {
@@ -31,7 +34,7 @@ const createProfile = async (req, res, next) => {
     try {
         const createdProfile = await Profile.create(req.body)
         const user = await User.findOne({ email: res.locals.data.email })
-        user.profiles.addToSet(createdProfile)
+        user.profile.addToSet(createdProfile)
         await user.save()
         res.locals.data.profile = createdProfile
         next()

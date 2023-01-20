@@ -1,5 +1,17 @@
 require('dotenv').config()
-const Comments = require('../../models/comments')
+const Comment = require("../../models/comment")
+const User = require('../../models/user')
+
+//INDEX
+const getAllComments = async (req, res, next) => {
+    try {
+        const foundComments = await Comment.find({})
+        res.locals.data.comments = foundComments
+        next()
+    } catch(error){
+        res.status(400).json({ msg: error.message })
+    }
+}
 
 //DELETE
 const destroyComment = async (req, res, next) => {
@@ -27,7 +39,9 @@ const updateComment = async (req, res, next) => {
 const createComment = async (req, res, next) => {
     try {
         const createdComment = await Comment.create(req.body)
+        console.log(createdComment)
         const user = await User.findOne({ email: res.locals.data.email })
+        console.log(user)
         user.comments.addToSet(createdComment)
         await user.save()
         res.locals.data.comment = createdComment
@@ -37,14 +51,20 @@ const createComment = async (req, res, next) => {
     }
 }
 
+
 //RESPOND
 const respondWithComment = (req, res) => {
     res.json(res.locals.data.comment)
 }
+const respondWithComments = (req, res) => {
+    res.json(res.locals.data.comments)
+}
 
 module.exports = {
+    getAllComments,
     destroyComment,
     updateComment,
     createComment,
-    respondWithComment
+    respondWithComment,
+    respondWithComments 
 }

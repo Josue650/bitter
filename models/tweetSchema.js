@@ -1,8 +1,8 @@
-const tweets = require('./tweets')
+const tweet = require('./tweet')
 
 const Schema = require('mongoose').Schema
 
-const tweetsSchema = new Schema({
+const tweetSchema = new Schema({
   username: { type: String, required: true },
   text: { type: String, required: true},
   likes: { type: Number, default: 0 },
@@ -12,4 +12,4 @@ const tweetsSchema = new Schema({
   timestamps: true
 })
 
-module.exports = tweetsSchema
+module.exports = tweetSchema
