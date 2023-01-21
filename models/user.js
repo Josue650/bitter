@@ -22,7 +22,10 @@ const userSchema = new Schema({
     trim: true,
     minLength: 3,
     required: true
-  }
+  },
+  comments: [{
+    type: Schema.Types.ObjectId, ref: 'Comment'
+  }]
 }, {
   timestamps: true,
   toJSON: {

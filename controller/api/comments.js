@@ -39,9 +39,9 @@ const updateComment = async (req, res, next) => {
 const createComment = async (req, res, next) => {
     try {
         const createdComment = await Comment.create(req.body)
-        console.log(createdComment)
         const user = await User.findOne({ email: res.locals.data.email })
         console.log(user)
+        console.log(createdComment  )
         user.comments.addToSet(createdComment)
         await user.save()
         res.locals.data.comment = createdComment
