@@ -10,8 +10,7 @@ const profileSchema = new Schema({
   location: { type: String, required: true },
   interests: { type: String, required: true },
   photo: { type: String },
-  post: { type: String, required: true },
-
+  tweets: [{type: Schema.Types.ObjectId, ref:"Tweet"}]
 })
 
 module.exports = profileSchema
