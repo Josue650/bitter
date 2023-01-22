@@ -1,6 +1,6 @@
 require('dotenv').config()
 const Tweet = require('../../models/tweet')
-const User = require("../../models/user")
+const Profile = require("../../models/profile")
 
 const getAllTweets = async (req, res, next) => {
     try {
@@ -38,12 +38,10 @@ const updateTweet = async (req, res, next) => {
 //CREATE
 const createTweet = async (req, res, next) => {
     try {
-        console.log(res.locals.data.email)
         const createdTweet = await Tweet.create(req.body)
-        const user = await User.findOne({ email: res.locals.data.email })
-        console.log(user)
-        user.tweets.addToSet(createdTweet)
-        await user.save()
+        const profile = await Profile.findOne({ profile: res.locals.data.profile })
+        profile.tweets.addToSet(createdTweet)
+        await profile.save()
         res.locals.data.tweet = createdTweet
         next()
     } catch (error) {

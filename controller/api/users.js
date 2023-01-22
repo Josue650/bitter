@@ -33,15 +33,29 @@ const dataController = {
       res.locals.data.token = createJWT(user)
       // console.log(res.locals.data.token)
       next()
-    } catch (err) {
-      res.status(400).json('Bad Credentials')
+    } catch (error) {
+      res.status(400).json({msg: error.message })
     }
   }
+
+  // async getUserTweets (req, res, next) {
+  //   try {
+  //     const user = await User.findOne({ email: res.locals.data.email }).populate("tweets").sort("tweets.createdAt").exec()
+  //     const tweets = user.tweets
+  //     res.locals.data.tweets = tweets
+  //     next()
+  //   } catch(error) {
+  //     res.status(400).json({msg: error.message})
+  //   }
+  // }
 }
 
 const apiController = {
   auth (req, res) {
     res.json(res.locals.data.token)
+  },
+  tweets (req, res) {
+    res.json(res.locals.data.tweets)
   }
 }
 
