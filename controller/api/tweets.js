@@ -4,7 +4,7 @@ const User = require("../../models/user")
 
 const getAllTweets = async (req, res, next) => {
     try {
-        const foundTweets = await Tweet.find({})
+        const foundTweets = await Tweet.find({}).populate("comments")
         res.locals.data.tweets = foundTweets
         next()
     } catch(error){
@@ -38,8 +38,10 @@ const updateTweet = async (req, res, next) => {
 //CREATE
 const createTweet = async (req, res, next) => {
     try {
+        console.log(res.locals.data.email)
         const createdTweet = await Tweet.create(req.body)
         const user = await User.findOne({ email: res.locals.data.email })
+        console.log(user)
         user.tweets.addToSet(createdTweet)
         await user.save()
         res.locals.data.tweet = createdTweet

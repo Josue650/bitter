@@ -23,8 +23,11 @@ const userSchema = new Schema({
     minLength: 3,
     required: true
   },
-  comments: [{
-    type: Schema.Types.ObjectId, ref: 'Comment'
+  // comments: [{
+  //   type: Schema.Types.ObjectId, ref: 'Comment'
+  // }],
+  tweets: [{
+    type: Schema.Types.ObjectId, ref: 'Tweet'
   }]
 }, {
   timestamps: true,
