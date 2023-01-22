@@ -9,6 +9,9 @@ module.exports = (req, res, next) => {
       req.user = err ? null : decoded.user
       req.exp = err ? null : new Date(decoded.exp * 1000)
       res.locals.data.email = err ? null : decoded.user.email
+      res.locals.data.profile = err ? null : decoded.user.profile
+
+      // console.log(res.locals.data.username)
     })
     return next()
   } else {

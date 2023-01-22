@@ -36,18 +36,18 @@ const dataController = {
     } catch (error) {
       res.status(400).json({msg: error.message })
     }
-  },
-
-  async getUserTweets (req, res, next) {
-    try {
-      const user = await User.findOne({ email: res.locals.data.email }).populate("tweets").sort("tweets.createdAt").exec()
-      const tweets = user.tweets
-      res.locals.data.tweets = tweets
-      next()
-    } catch(error) {
-      res.status(400).json({msg: error.message})
-    }
   }
+
+  // async getUserTweets (req, res, next) {
+  //   try {
+  //     const user = await User.findOne({ email: res.locals.data.email }).populate("tweets").sort("tweets.createdAt").exec()
+  //     const tweets = user.tweets
+  //     res.locals.data.tweets = tweets
+  //     next()
+  //   } catch(error) {
+  //     res.status(400).json({msg: error.message})
+  //   }
+  // }
 }
 
 const apiController = {
