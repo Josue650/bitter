@@ -1,12 +1,14 @@
 require('dotenv').config()
 const Comment = require("../../models/comment")
-const User = require('../../models/user')
+const User = require("../../models/user")
+const Tweet = require("../../models/tweet")
 
 //INDEX
 const getAllComments = async (req, res, next) => {
     try {
-        const foundComments = await Comment.find({})
-        res.locals.data.comments = foundComments
+        // const foundComments = await Comment.find({})
+        const tweet = await Tweet.findById(req.params.tweetId).populate("comments")
+        res.locals.data.comments = tweet.comments
         next()
     } catch(error){
         res.status(400).json({ msg: error.message })
@@ -39,12 +41,16 @@ const updateComment = async (req, res, next) => {
 const createComment = async (req, res, next) => {
     try {
         const createdComment = await Comment.create(req.body)
-        const user = await User.findOne({ email: res.locals.data.email })
-        console.log(user)
-        console.log(createdComment  )
-        user.comments.addToSet(createdComment)
-        await user.save()
+        // const user = await User.findOne({ email: res.locals.data.email })
+        // user.comments.addToSet(createdComment)
+        // await user.save()
         res.locals.data.comment = createdComment
+        try{
+            const tweet = await Tweet.findByIdAndUpdate(req.params.tweetId, { $push: { comments: createdComment._id}})
+            res.locals.data.tweet = tweet
+        } catch(error) {
+            res.status(400).json({ msg: error.message })
+        }
         next()
     } catch (error) {
         res.status(400).json({ msg: error.message })
