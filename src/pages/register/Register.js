@@ -33,6 +33,9 @@ export default function Register() {
         } catch (error) {
             console.error(error)
         }
+        finally {
+            window.location.reload()
+        }
     }
 
     const signUp = async () => {
@@ -49,6 +52,9 @@ export default function Register() {
             localStorage.setItem('token', JSON.stringify(tokenResponse))
         } catch (error) {
             console.error(error)
+        }
+        finally {
+            window.location.reload()
         }
     }
 
