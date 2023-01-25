@@ -85,7 +85,6 @@ export default function Register() {
                         onClick={() => {
                         setShowSignUp(!showSignUp)
                     }}>
-                        {showSignUp ? 'Sign Up With A New Account Below or Click Here to Login in as an Existing User' : 'Welcome Back. Login in as an exisiting user or Click Here To Sign Up With A New Account'}
                     </button>
                         {
                             showSignUp
@@ -101,6 +100,7 @@ export default function Register() {
                                     setUser={setUser}
                                 />
                         }
+                        {showSignUp ? 'Don/t have an account? Register Here' : 'Welcome Back. Login in as an exisiting user or Click Here To Sign Up With A New Account'}
                     </>
             }
         </>
