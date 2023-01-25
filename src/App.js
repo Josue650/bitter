@@ -1,12 +1,13 @@
 import React from "react";
-import Sidebar from "./components/sidebar/Sidebar";
 import './styles.css'
+import Register from "./pages/register/Register";
 
-export default function App(){
-    return(
-        <div className="appContainer">
-            <Sidebar/>
-            <h1>Welcome to Bitter</h1>
-        </div>
-    )
+export default function App() {
+
+
+    return (
+        <main className="appContainer">
+            <Register/>
+        </main>
+    );
 }
