@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Sidebar from "../../components/sidebar/Sidebar";
 import SignUp from "../../components/SignUp/SignUp";
 import Login from "../../components/Login/Login";
 

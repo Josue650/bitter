@@ -1,7 +1,7 @@
-import { useState } from "react";
+
 import TweetForm from "../../components/tweetForm/TweetForm";
 
-export default function Homepage({ user, createTweet, setTweet, tweet }) {
+export default function Homepage({ user, createTweet, setTweets, tweet, getAllTweets, tweets, setTweet, deleteTweet }) {
     return (
         <>
             {/* <Sidebar/>  */}
@@ -12,7 +12,16 @@ export default function Homepage({ user, createTweet, setTweet, tweet }) {
                     createTweet={createTweet}
                     setTweet={setTweet}
                     tweet={tweet}
+                    deleteTweet={deleteTweet}
                 />
+                <ul>
+                    {tweets.length ? tweets.map(item => (
+                        <li key={item._id}>
+                            <h1>{item.text}</h1>
+                            <button onClick={() => deleteTweet(item._id)}>Delete</button>
+                        </li>
+                    )) : <> No Tweet Added</>}
+                </ul>
             </div>
         </>
     );
