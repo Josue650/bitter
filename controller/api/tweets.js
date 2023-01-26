@@ -42,9 +42,9 @@ const updateTweet = async (req, res, next) => {
 const createTweet = async (req, res, next) => {
   try {
     const createdTweet = await Tweet.create(req.body);
-    // const profile = await Profile.findOne({ profile: res.locals.data.profile })
-    // profile.tweets.addToSet(createdTweet)
-    // await profile.save()
+    const profile = await Profile.findOne({ profile: res.locals.data.profile })
+    profile.tweets.addToSet(createdTweet)
+    await profile.save()
     res.locals.data.tweet = createdTweet;
     next();
   } catch (error) {

@@ -1,42 +1,59 @@
-const User = require("../../models/user");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const User = require('../../models/user')
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+// const { Profiler } = require('react')
+const Profile = require("../../models/profile")
 
 const checkToken = (req, res) => {
-  console.log("req.user", req.user);
-  res.json(req.exp);
-};
+  console.log('req.user', req.user)
+  res.json(req.exp)
+}
 
 const dataController = {
-  async create(req, res, next) {
+  async create (req, res, next) {
     try {
-      const user = await User.create(req.body);
-      const token = createJWT(user);
-      res.locals.data.user = user;
-      res.locals.data.token = token;
-      console.log(token);
-
-      next();
+      const user = await User.create(req.body)
+      const token = createJWT(user)
+      res.locals.data.user = user
+      res.locals.data.token = token
+      console.log(token)
+      const createdProfile = await Profile.create({})
+      user.profile = createdProfile
+      user.save()
+      // user.create(() => {
+      //   async (error, createdProfile) =>{
+      //     if (error) {
+      //       res.status(400).send({
+      //         msg: error.message
+      //       })
+      //     } else {
+      //      createdProfile = await Profile.create({})
+      //      user.profile = createdProfile
+      //      user.save()
+      //     }
+      //   }
+      // })
+      next()
     } catch (err) {
-      console.log("Error!");
-      res.status(400).json(err);
+      console.log('Error!')
+      res.status(400).json(err)
     }
   },
 
-  async login(req, res, next) {
+  async login (req, res, next) {
     try {
-      const user = await User.findOne({ email: req.body.email });
-      if (!user) throw new Error();
-      const match = await bcrypt.compare(req.body.password, user.password);
-      if (!match) throw new Error();
-      res.locals.data.user = user;
-      res.locals.data.token = createJWT(user);
+      const user = await User.findOne({ email: req.body.email })
+      if (!user) throw new Error()
+      const match = await bcrypt.compare(req.body.password, user.password)
+      if (!match) throw new Error()
+      res.locals.data.user = user
+      res.locals.data.token = createJWT(user)
       // console.log(res.locals.data.token)
-      next();
+      next()
     } catch (error) {
-      res.status(400).json({ msg: error.message });
+      res.status(400).json({msg: error.message })
     }
-  },
+  }
 
   // async getUserTweets (req, res, next) {
   //   try {
@@ -48,26 +65,27 @@ const dataController = {
   //     res.status(400).json({msg: error.message})
   //   }
   // }
-};
+}
 
 const apiController = {
-  auth(req, res) {
-    res.json(res.locals.data.token);
+  auth (req, res) {
+    res.json(res.locals.data.token)
   },
-  tweets(req, res) {
-    res.json(res.locals.data.tweets);
-  },
-};
+  tweets (req, res) {
+    res.json(res.locals.data.tweets)
+  }
+}
 
 module.exports = {
   checkToken,
   dataController,
-  apiController,
-};
+  apiController
+}
 
-function createJWT(user) {
-  return jwt.sign({ user }, process.env.SECRET, {
-    expiresIn: "24h",
-    allowInsecureKeySizes: true,
-  });
+function createJWT (user) {
+  return jwt.sign(
+    { user },
+    process.env.SECRET,
+    { expiresIn: '24h' }
+  )
 }
