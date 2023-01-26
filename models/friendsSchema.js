@@ -5,7 +5,7 @@ const Schema = require('mongoose').Schema
 const friendsSchema = new Schema({
   username: { type: String, required: true },
   photo: { type: String },
-  post: [{ type: Schema.Types.ObjectId, ref: 'Friends' }],
+  tweets: [{ type: Schema.Types.ObjectId, ref: 'Tweets' }],
 })
 
 module.exports = friendsSchema
