@@ -1,5 +1,4 @@
 import "./TweetForm.css";
-import { useState } from "react";
 export default function TweetForm({
     user,
     createTweet,
