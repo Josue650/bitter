@@ -1,0 +1,41 @@
+/* .tweetForm-container {
+    max-width: 50% ;
+    margin: 0 auto; 
+    border-left: 1px solid #784A36;
+    border-right: 1px solid #784A36;
+    height: 100%;
+    min-height: 100%;
+}
+
+h1 {
+    font-size: large;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.form-container{
+    display: flex;
+    margin: 10px;
+}
+.flex{
+    display: flex;
+    flex-direction:row;
+}
+
+.img-container {
+    display: flex;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+}
+
+img{
+    height: auto;
+    max-width: 100%;
+}
+
+textarea{
+        width: 100%;
+        background: transparent;
+} */
