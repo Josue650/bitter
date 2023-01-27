@@ -3,7 +3,6 @@ import Sidebar from "../../components/sidebar/Sidebar"
 import SignUp from "../../components/SignUp/SignUp"
 import Login from "../../components/Login/Login"
 
-
 export default function Register() {
 
     const [user, setUser] = useState(null)
@@ -81,30 +80,43 @@ export default function Register() {
                     <Sidebar />
                     :
                     <>
-                    <button 
+                    <button
+                        className="signup-btn"
                         onClick={() => {
                         setShowSignUp(!showSignUp)
                     }}>
                     </button>
+
+                    <div className="register-container">
+                        <div className="coffee-hand"></div>
+                        <div className="coffee-plate"></div>
+
                         {
+
                             showSignUp
                                 ? <SignUp
                                     credentials={credentials}
                                     handleChangeAuth={handleChangeAuth}
-                                    signUp={signUp} 
+                                    signUp={signUp}
                                     setUser={setUser}/>
+
                                 : <Login
+                                    className="login-style"
                                     login={login}
                                     credentials={credentials}
                                     handleChangeAuth={handleChangeAuth}
                                     setUser={setUser}
                                 />
                         }
-                        {showSignUp ? 'Don/t have an account? Register Here' : 'Welcome Back. Login in as an exisiting user or Click Here To Sign Up With A New Account'}
+                        <div className="slogan">
+                        {showSignUp ? 'Don\'t have an account? Register Here' : 'Welcome Back!'}
+                        </div>
+                    </div>
+
                     </>
+
+
             }
         </>
     )
 }
-
-
