@@ -79,29 +79,48 @@ export default function Register({ setUser, setToken, token }) {
     <>
       {
         <>
-          <button
-            onClick={() => {
-              setShowSignUp(!showSignUp);
-            }}
-          ></button>
-          {showSignUp ? (
-            <SignUp
-              credentials={credentials}
-              handleChangeAuth={handleChangeAuth}
-              signUp={signUp}
-              setUser={setUser}
-            />
-          ) : (
-            <Login
-              login={login}
-              credentials={credentials}
-              handleChangeAuth={handleChangeAuth}
-              setUser={setUser}
-            />
-          )}
-          {showSignUp
-            ? "Don/t have an account? Register Here"
-            : "Welcome Back. Login in as an exisiting user or Click Here To Sign Up With A New Account"}
+            {
+                user ?
+                    <Sidebar />
+                    :
+                    <>
+                    <button
+                        className="signup-btn"
+                        onClick={() => {
+                        setShowSignUp(!showSignUp)
+                    }}>
+                    </button>
+
+                    <div className="register-container">
+                        <div className="coffee-hand"></div>
+                        <div className="coffee-plate"></div>
+
+                        {
+
+                            showSignUp
+                                ? <SignUp
+                                    credentials={credentials}
+                                    handleChangeAuth={handleChangeAuth}
+                                    signUp={signUp}
+                                    setUser={setUser}/>
+
+                                : <Login
+                                    className="login-style"
+                                    login={login}
+                                    credentials={credentials}
+                                    handleChangeAuth={handleChangeAuth}
+                                    setUser={setUser}
+                                />
+                        }
+                        <div className="slogan">
+                        {showSignUp ? 'Don\'t have an account? Register Here' : 'Welcome Back!'}
+                        </div>
+                    </div>
+
+                    </>
+
+
+            }
         </>
       }
     </>
