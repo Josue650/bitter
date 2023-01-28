@@ -1,5 +1,8 @@
 
 import TweetForm from "../../components/tweetForm/TweetForm";
+import Sidebar from "../../components/sidebar/Sidebar";
+import Feed from "../../components/Feed/Feed";
+import Widgets from "../../components/Widgets/Widgets";
 
 export default function Homepage({ user, createTweet, setTweets, tweet, getAllTweets, tweets, setTweet, deleteTweet }) {
     return (
@@ -7,6 +10,7 @@ export default function Homepage({ user, createTweet, setTweets, tweet, getAllTw
             {/* <Sidebar/>  */}
             <div className="tweetForm-container">
                 <h1>Home</h1>
+                <Sidebar />
                 <TweetForm
                     user={user}
                     createTweet={createTweet}
@@ -14,6 +18,8 @@ export default function Homepage({ user, createTweet, setTweets, tweet, getAllTw
                     tweet={tweet}
                     deleteTweet={deleteTweet}
                 />
+                <Feed />
+                <Widgets />
                 <ul>
                     {tweets.length ? tweets.map(item => (
                         <li key={item._id}>
