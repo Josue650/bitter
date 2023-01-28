@@ -1,5 +1,5 @@
 
-import TweetList from "../../components/tweetList/tweetList";
+import TweetList from "../../components/tweetList/TweetList";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Feed from "../../components/Feed/Feed";
 import Widgets from "../../components/Widgets/Widgets";
