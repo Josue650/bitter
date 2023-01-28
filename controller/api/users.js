@@ -1,6 +1,8 @@
 const User = require('../../models/user')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+// const { Profiler } = require('react')
+const Profile = require("../../models/profile")
 
 const checkToken = (req, res) => {
   console.log('req.user', req.user)
@@ -15,7 +17,22 @@ const dataController = {
       res.locals.data.user = user
       res.locals.data.token = token
       console.log(token)
-      
+      const createdProfile = await Profile.create({})
+      user.profile = createdProfile
+      user.save()
+      // user.create(() => {
+      //   async (error, createdProfile) =>{
+      //     if (error) {
+      //       res.status(400).send({
+      //         msg: error.message
+      //       })
+      //     } else {
+      //      createdProfile = await Profile.create({})
+      //      user.profile = createdProfile
+      //      user.save()
+      //     }
+      //   }
+      // })
       next()
     } catch (err) {
       console.log('Error!')
