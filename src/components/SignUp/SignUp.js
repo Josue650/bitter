@@ -1,6 +1,6 @@
 export default function SignUp({
     signUp,
-    credentials, 
+    credentials,
     handleChangeAuth
 }) {
     return (
@@ -9,9 +9,9 @@ export default function SignUp({
                 e.preventDefault()
                 signUp()
             }}>
-                <h1>Join Bitter Today.</h1>
-                <input type='email' value={credentials.email} name='email' onChange={handleChangeAuth} placeholder={'Email'}></input>
-                <input type='password' value={credentials.password} name='password' onChange={handleChangeAuth} placeholder={'Password'}></input>
+                <h1 className="join">Join Bitter Today.</h1>
+                <input className='email-input' type='email' value={credentials.email} name='email' onChange={handleChangeAuth} placeholder={'Email'}></input>
+                <input className='password' type='password' value={credentials.password} name='password' onChange={handleChangeAuth} placeholder={'Password'}></input>
                 <button type='submit'>Sign Up</button>
             </form>
         </div>

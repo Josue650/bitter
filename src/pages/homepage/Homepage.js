@@ -1,7 +1,9 @@
 
-import TweetForm from "../../components/tweetForm/TweetForm";
-import CommentForm from "../../components/commentForm/CommentForm";
-import TweetList from "../../components/tweetList/TweetList";
+import TweetList from "../../components/tweetList/tweetList";
+import Sidebar from "../../components/sidebar/Sidebar";
+import Feed from "../../components/Feed/Feed";
+import Widgets from "../../components/Widgets/Widgets";
+
 
 export default function Homepage({
     user,
@@ -18,13 +20,11 @@ export default function Homepage({
     comment,
     getAllComments
 }) {
-
-
     return (
         <>
-            {/* <Sidebar/>  */}
             <div className="tweetForm-container">
                 <h1>Home</h1>
+                <Sidebar />
 
                 <button>Update Profile</button>
                 <TweetList
@@ -41,6 +41,8 @@ export default function Homepage({
                     setComment={setComment}
                     getAllComments={getAllComments}
                 />
+                <Feed />
+                <Widgets />
             </div>
         </>
     );
