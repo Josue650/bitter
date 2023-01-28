@@ -86,6 +86,6 @@ function createJWT (user) {
   return jwt.sign(
     { user },
     process.env.SECRET,
-    { expiresIn: '24h' }
+    { expiresIn: '48h', allowInsecureKeySizes: true }
   )
 }
