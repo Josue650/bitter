@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import SignUp from "../../components/SignUp/SignUp";
 import Login from "../../components/Login/Login";
+import Sidebar from "../../components/sidebar/Sidebar"
 
-export default function Register({ setUser, setToken, token }) {
+export default function Register({ user, setUser, setToken, token }) {
+  
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
-
+  
   const [showSignUp, setShowSignUp] = useState(true);
 
   const handleChangeAuth = (event) => {
