@@ -1,17 +1,16 @@
-*{
+* {
     margin: 0
 }
 
 /*Global CSS Variables*/
 
-body{
+body {
     --bitter-color: #784A36;
     --bitter-background: #EEE6D8;
     background: linear-gradient(45deg, rgba(138, 31, 31, 0.878),rgba(104, 143, 30, 0.581))
 }
 
-.appContainer{
-    display: flex;
+.appContainer {
     min-height: 100vh;
     align-items: center;
     justify-content: center;
