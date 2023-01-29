@@ -13,6 +13,7 @@ const dataController = {
   async create (req, res, next) {
     try {
       const user = await User.create(req.body)
+      console.log(user)
       const token = createJWT(user)
       res.locals.data.user = user
       res.locals.data.token = token

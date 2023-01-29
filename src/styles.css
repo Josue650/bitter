@@ -24,7 +24,10 @@ body {
     font-size: xx-large
 }
 .email-input{
-    width: 250px;
+    width: 240px;
+}
+.password{
+    width: 240px;
 }
 .register-container{
     display: flex;
@@ -32,12 +35,13 @@ body {
     justify-content: center;
     position: relative;
     width: 250px;
-    height: 250px;
+    height: 280px;
     margin: 0 auto;
     background: radial-gradient(circle,rgb(153, 94, 71) 5%,rgb(153, 94, 71) 5%);
     border-radius: 0 0 150px 150px;
     top: 50%;
     text-align: center;
+
 }
 .register-container::before {
     content: '';
@@ -109,6 +113,16 @@ body {
    width: 20px;
    border: 5px solid rgb(115, 71, 23);
 
+}
+.error{
+   margin-top: -340px;
+   background-color: #86563C;
+   width: 200px;
+   height: 120px;
+   border-radius: 4px;
+   text-align: center;
+   padding: 20px;
+   clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
 }
 
 
