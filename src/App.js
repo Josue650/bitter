@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import "./styles.css";
 import Register from "./pages/register/Register";
 import Homepage from "./pages/homepage/Homepage";
+import Profile from "./pages/profile/Profile";
 
 export default function App() {
     const [user, setUser] = useState(null);
@@ -102,7 +103,9 @@ export default function App() {
                 />
             ) : (
                 <Register setUser={setUser} setToken={setToken} token={token} />
-            )}
+            ) :
+            <Profile />
+            }
         </main>
     );
 }
