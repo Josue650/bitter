@@ -43,20 +43,20 @@ const updateProfile = async (req, res, next) => {
 
 
 //CREATE
-const createProfile = async (req, res, next) => {
-    try {
-        const createdProfile = await Profile.create(req.body)
-        const user = await User.findOne({ email: res.locals.data.email })
-        console.log(user)
-        user.profile = createdProfile
-        console.log(user.profile)
-        await user.save()
-        res.locals.data.profile = createdProfile
-        next()
-    } catch (error) {
-        res.status(400).json({ msg: error.message })
-    }
-}
+// const createProfile = async (req, res, next) => {
+//     try {
+//         const createdProfile = await Profile.create(req.body)
+//         const user = await User.findOne({ email: res.locals.data.email })
+//         console.log(user)
+//         user.profile = createdProfile
+//         console.log(user.profile)
+//         await user.save()
+//         res.locals.data.profile = createdProfile
+//         next()
+//     } catch (error) {
+//         res.status(400).json({ msg: error.message })
+//     }
+// }
 
 const getUserTweets = async (req, res, next) => {
     try {
@@ -85,7 +85,7 @@ module.exports = {
     getProfile,
     // destroyProfile,
     updateProfile,
-    createProfile,
+    // createProfile,
     getUserTweets,
     respondWithProfile,
     respondWithTweets
