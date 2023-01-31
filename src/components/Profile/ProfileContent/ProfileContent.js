@@ -1,45 +1,46 @@
-import { createContext, useEffect, useState } from 'react'
-import { useStreamContext } from 'react-activity-feed'
-import { useParams } from 'react-router-dom'
+// import { createContext, useEffect, useState } from 'react'
+// import { useStreamContext } from 'react-activity-feed'
+// import { useParams } from 'react-router-dom'
 
-import ProfileHeader from './ProfileHeader'
-import LoadingIndicator from '../LoadingIndicator'
-import ProfileBio from './ProfileBio'
-import TabList from './TabList'
-import ProfileTweets from './ProfileTweets'
+// import ProfileHeader from '../ProfileHeader/ProfileHeader'
+// // import LoadingIndicator from '../LoadingIndicator'
+// import ProfileBio from '../ProfileBio/ProfileBio'
+// import TabList from '../TabList/TabList'
+// import ProfileTweets from '../ProfileTweets/ProfileTweets'
+// // import { Container } from 'react-bootstrap'
 
-export const ProfileContext = createContext()
+// export const ProfileContext = createContext()
 
-export default function ProfileContent() {
-  const { client } = useStreamContext()
+// export default function ProfileContent() {
+//   const { client } = useStreamContext()
 
-  const [user, setUser] = useState(null)
-  const { user_id } = useParams()
+//   const [user, setUser] = useState(null)
+//   const { user_id } = useParams()
 
-  useEffect(() => {
-    const getUser = async () => {
-      const user = await client.user(user_id).get({ with_follow_counts: true })
+//   useEffect(() => {
+//     const getUser = async () => {
+//       const user = await client.user(user_id).get({ with_follow_counts: true })
 
-      setUser(user.full)
-    }
+//       setUser(user.full)
+//     }
 
-    getUser()
-  }, [user_id])
+//     getUser()
+//   }, [user_id])
 
-  if (!client || !user) return <LoadingIndicator />
-}
+//   // if (!client || !user) return <LoadingIndicator />
 
-return (
-    <ProfileContext.Provider value={{ user }}>
-      <Container>
-        <ProfileHeader />
-        <main>
-          <ProfileBio />
-          <div className="tab-list">
-            <TabList />
-          </div>
-          <ProfileTweets />
-        </main>
-      </Container>
-    </ProfileContext.Provider>
-  )
+// return (
+//     <ProfileContext.Provider value={{ user }}>
+//       {/* <Container> */}
+//         <ProfileHeader />
+//         <main>
+//           <ProfileBio />
+//           <div className="tab-list">
+//             <TabList />
+//           </div>
+//           <ProfileTweets />
+//         </main>
+//       {/* </Container> */}
+//     </ProfileContext.Provider>
+//   )
+// }

@@ -156,7 +156,7 @@ export default function App() {
             setToken(JSON.parse(tokenData));
         }
         getAllTweets()
-        getAllComments()
+        // getAllComments()
         console.log(comments)
     }, [token, toggleComment])
 
@@ -170,6 +170,7 @@ export default function App() {
     return (
         <main className="appContainer">
             {user ? (
+                <>
                 <Homepage
                     user={user}
                     token={token}
@@ -186,10 +187,11 @@ export default function App() {
                     setComment={setComment}
                     getAllComments={getAllComments}
                 />
+                {/* <Profile /> */}
+                </>
             ) : (
                 <Register setUser={setUser} setToken={setToken} token={token} />
-            ) :
-            <Profile />
+            ) 
             }
         </main>
     );
