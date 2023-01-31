@@ -9,7 +9,8 @@ const profileSchema = new Schema({
   location: { type: String},
   interests: { type: String},
   photo: { type: String },
-  friends: [{type: Schema.Types.ObjectId, ref: "Friend"}],
+  followers: [{type: Schema.Types.ObjectId, ref:"Follower"}],
+  followings: [{type: Schema.Types.ObjectId, ref:"Following"}],
   tweets: [{type: Schema.Types.ObjectId, ref:"Tweet"}]
 }, {
   timestamps: true
