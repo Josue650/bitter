@@ -5,10 +5,7 @@ export default function SignUp({
 }) {
     return (
         <div className='signup-Container'>
-            <form onSubmit={(e) => {
-                e.preventDefault()
-                signUp()
-            }}>
+            <form onSubmit={signUp}>
                 <h1 className="join">Join Bitter Today.</h1>
                 <input className='username-input' type='text' value={credentials.username} name='username' onChange={handleChangeAuth} placeholder={'Username'}></input>
                 <input className='email-input' type='email' value={credentials.email} name='email' onChange={handleChangeAuth} placeholder={'Email'}></input>

@@ -5,6 +5,8 @@ import Sidebar from "../../components/sidebar/Sidebar"
 
 export default function Register({ user, setUser, setToken, token }) {
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const [credentials, setCredentials] = useState({
     username: '',
     email: "",
@@ -40,8 +42,15 @@ export default function Register({ user, setUser, setToken, token }) {
     }
   };
 
-  const signUp = async () => {
+  const signUp = async (event) => {
+    event.preventDefault()
     try {
+      // const emailCheckResponse = await fetch(`/api/users?email=${credentials.email}`);
+      // const emailcheckData = await emailCheckResponse.json()
+      // if(emailcheckData) {
+      //   setErrorMessage('Don\'t be bitter email already is taken');
+      //   return;
+      // }
       const response = await fetch("/api/users", {
         method: "POST",
         headers: {
@@ -50,12 +59,16 @@ export default function Register({ user, setUser, setToken, token }) {
         body: JSON.stringify({ ...credentials }),
       });
       const tokenResponse = await response.json();
+      if (tokenResponse.code === 11000) {
+        setErrorMessage('Don\'t be bitter email already is taken');
+        return;
+      }
       setToken(tokenResponse);
       localStorage.setItem("token", JSON.stringify(tokenResponse));
+      window.location.reload();
     } catch (error) {
       console.error(error);
     } finally {
-      window.location.reload();
     }
   };
 
@@ -124,9 +137,11 @@ export default function Register({ user, setUser, setToken, token }) {
               </>
 
 
+
           }
         </>
       }
+
     </>
   );
 }
