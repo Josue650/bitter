@@ -4,12 +4,13 @@ import Login from "../../components/Login/Login";
 import Sidebar from "../../components/sidebar/Sidebar"
 
 export default function Register({ user, setUser, setToken, token }) {
-  
+
   const [credentials, setCredentials] = useState({
+    username: '',
     email: "",
     password: "",
   });
-  
+
   const [showSignUp, setShowSignUp] = useState(true);
 
   const handleChangeAuth = (event) => {
@@ -24,6 +25,7 @@ export default function Register({ user, setUser, setToken, token }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          username: credentials.username,
           email: credentials.email,
           password: credentials.password,
         }), // turn object into data
@@ -81,48 +83,48 @@ export default function Register({ user, setUser, setToken, token }) {
     <>
       {
         <>
-            {
-                user ?
-                    <Sidebar />
-                    :
-                    <>
-                    <button
-                        className="signup-btn"
-                        onClick={() => {
-                        setShowSignUp(!showSignUp)
-                    }}>
-                    </button>
+          {
+            user ?
+              <Sidebar />
+              :
+              <>
+                <button
+                  className="signup-btn"
+                  onClick={() => {
+                    setShowSignUp(!showSignUp)
+                  }}>
+                </button>
 
-                    <div className="register-container">
-                        <div className="coffee-hand"></div>
-                        <div className="coffee-plate"></div>
+                <div className="register-container">
+                  <div className="coffee-hand"></div>
+                  <div className="coffee-plate"></div>
 
-                        {
+                  {
 
-                            showSignUp
-                                ? <SignUp
-                                    credentials={credentials}
-                                    handleChangeAuth={handleChangeAuth}
-                                    signUp={signUp}
-                                    setUser={setUser}/>
+                    showSignUp
+                      ? <SignUp
+                        credentials={credentials}
+                        handleChangeAuth={handleChangeAuth}
+                        signUp={signUp}
+                        setUser={setUser} />
 
-                                : <Login
-                                    className="login-style"
-                                    login={login}
-                                    credentials={credentials}
-                                    handleChangeAuth={handleChangeAuth}
-                                    setUser={setUser}
-                                />
-                        }
-                        <div className="slogan">
-                        {showSignUp ? 'Don\'t have an account? Register Here' : 'Welcome Back!'}
-                        </div>
-                    </div>
+                      : <Login
+                        className="login-style"
+                        login={login}
+                        credentials={credentials}
+                        handleChangeAuth={handleChangeAuth}
+                        setUser={setUser}
+                      />
+                  }
+                  <div className="slogan">
+                    {showSignUp ? 'Don\'t have an account? Register Here' : 'Welcome Back!'}
+                  </div>
+                </div>
 
-                    </>
+              </>
 
 
-            }
+          }
         </>
       }
     </>

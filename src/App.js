@@ -155,8 +155,7 @@ export default function App() {
             setToken(JSON.parse(tokenData));
         }
         getAllTweets()
-        getAllComments()
-        console.log(comments)
+
     }, [token, toggleComment])
 
     useEffect(() => {
