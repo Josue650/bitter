@@ -1,9 +1,0 @@
-.top {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    color: white;
-    width: 100%;
-    backdrop-filter: blur(2px);
-    background-color: rgba(0, 0, 0, 0.5);
-}

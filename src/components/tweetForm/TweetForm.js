@@ -38,5 +38,5 @@ export default function TweetForm({
                 </div>
             </div>
         </form>
-    );
+    )
 }
