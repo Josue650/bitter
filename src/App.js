@@ -188,8 +188,7 @@ export default function App() {
                 />
             ) : (
                 <Register setUser={setUser} setToken={setToken} token={token} />
-            ) :
-            <Profile />
+            ) 
             }
         </main>
     );
