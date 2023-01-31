@@ -6,7 +6,7 @@ export default function FollowBtn({ userId }) {
     const { isFollowing, toggleFollow } = useFollow({ userId })
   
     return (
-      <Container>
+      <container>
         <button
           className={classNames(isFollowing ? 'following' : 'not-following')}
           onClick={toggleFollow}
@@ -20,6 +20,6 @@ export default function FollowBtn({ userId }) {
             'Follow'
           )}
         </button>
-      </Container>
+      </container>
     )
   }
