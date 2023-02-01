@@ -10,9 +10,6 @@ export default function TweetForm({
         <form
             onSubmit={(e) => {
                 e.preventDefault();
-
-
-
                 createTweet();
             }}
             className="form-container"

@@ -10,9 +10,10 @@ const checkToken = (req, res) => {
 }
 
 const dataController = {
-  async create (req, res, next) {
+  async create(req, res, next) {
     try {
       const user = await User.create(req.body)
+      console.log(user)
       const token = createJWT(user)
       res.locals.data.user = user
       res.locals.data.token = token
@@ -40,7 +41,7 @@ const dataController = {
     }
   },
 
-  async login (req, res, next) {
+  async login(req, res, next) {
     try {
       const user = await User.findOne({ email: req.body.email })
       if (!user) throw new Error()
@@ -51,9 +52,9 @@ const dataController = {
       // console.log(res.locals.data.token)
       next()
     } catch (error) {
-      res.status(400).json({msg: error.message })
+      res.status(400).json({ msg: error.message })
     }
-  }
+  },
 
   // async getUserTweets (req, res, next) {
   //   try {
@@ -65,14 +66,37 @@ const dataController = {
   //     res.status(400).json({msg: error.message})
   //   }
   // }
+  async getUserProfile(req, res, next) {
+    try {
+      const user = await User.findOne({ email: res.locals.data.email }).populate("profile").exec()
+      const foundProfile = user.profile
+      res.locals.data.profile = foundProfile
+      next()
+    } catch (error) {
+      res.status(400).json({ msg: error.message })
+    }
+  }, 
+//   async updateProfile (req, res, next) {
+//     try {
+//       const user = await User.findOne({ email: res.locals.data.email }).populate("profile").exec()
+
+//         const updatedProfile = await Profile.findByIdAndUpdate(req.params.id, req.body, { new: true })
+//         // console.log(updatedProfile)
+//         res.locals.data.profile = updatedProfile
+//         console.log(res.locals.data.profile)
+//         next()
+//     } catch (error) {
+//         res.status(400).json({ msg: error.message })
+//     }
+// }
 }
 
 const apiController = {
-  auth (req, res) {
+  auth(req, res) {
     res.json(res.locals.data.token)
   },
-  tweets (req, res) {
-    res.json(res.locals.data.tweets)
+  respondWithProfile(req, res) {
+    res.json(res.locals.data.profile)
   }
 }
 
@@ -82,7 +106,7 @@ module.exports = {
   apiController
 }
 
-function createJWT (user) {
+function createJWT(user) {
   return jwt.sign(
     { user },
     process.env.SECRET,
