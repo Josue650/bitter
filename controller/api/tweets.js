@@ -7,6 +7,7 @@ const User = require("../../models/user");
 const getAllTweets = async (req, res, next) => {
   try {
     const foundTweets = await Tweet.find({}).populate("comments");
+    console.log("Found Tweets: ", foundTweets)
     res.locals.data.tweets = foundTweets;
     next();
   } catch (error) {
@@ -16,43 +17,49 @@ const getAllTweets = async (req, res, next) => {
 
 //DELETE
 const destroyTweet = async (req, res, next) => {
-  try {
-    const deletedTweet = await Tweet.findByIdAndDelete(req.params.id);
-    res.locals.data.tweet = deletedTweet;
-    next();
-  } catch (error) {
-    res.status(400).json({ msg: error.message });
+  const currentProfile = await Profile.findById(req.user.profile)
+  if(currentProfile.tweets.includes(req.params.id)){
+    try {
+      const deletedTweet = await Tweet.findByIdAndDelete(req.params.id);
+      res.locals.data.tweet = deletedTweet;
+      next();
+    } catch (error) {
+      res.status(400).json({ msg: error.message });
+    }
+  } else {
+    res.status(403).json("You can't delete another's bitterness")
   }
+  
 };
 
 //UPDATE
 const updateTweet = async (req, res, next) => {
-  try {
-    const updatedTweet = await Tweet.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-    res.locals.data.tweet = updatedTweet;
-    next();
-  } catch (error) {
-    res.status(400).json({ msg: error.message });
+  const currentProfile = await Profile.findById(req.user.profile)
+  if(currentProfile.tweets.includes(req.params.id)){
+    try {
+      const updatedTweet = await Tweet.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true }
+      );
+      // res.locals.data.profile = currentProfile.updatedTweet
+      res.locals.data.tweet = updatedTweet;
+      next();
+    } catch (error) {
+      res.status(400).json({ msg: error.message });
+    }
+  } else {
+    res.status(403).json("You can't edit another's bitterness")
   }
 };
 
 //CREATE
 const createTweet = async (req, res, next) => {
   try {
-    // const newUser = await User.findById(req.user._id)
-    // console.log("new User", newUser)
-    // console.log("User: ", req.user)
-    // console.log("Locals:", res.locals.data)
     const createdTweet = await Tweet.create(req.body);
     
     try {
       await Profile.findByIdAndUpdate(req.user.profile, { $push: {tweets: createdTweet._id} })
-      // profile.tweets.addToSet(createdTweet)
-      // await profile.save()
     } catch (error) {
       res.status(400).json({ msg: error.message });
     }
@@ -63,24 +70,7 @@ const createTweet = async (req, res, next) => {
   }
 };
 
-// const createTweet = async (req, res, next) => {
-//   try {
-//     const createdTweet = await Tweet.create(req.body);
-//     res.locals.data.tweet = createdTweet
-//     try{
-//       const profile = await Profile.findByIdAndUpdate(req.params.profileId, { $push: {tweets: createdTweet._id} })
-//     // profile.tweets.addToSet(createdTweet)
-//     // await profile.save()
 
-//     res.locals.data.profile = profile
-//     } catch(error){
-//       res.status(400).json({ msg: error.message });
-//     }
-//     next();
-//   } catch (error) {
-//     res.status(400).json({ msg: error.message });
-//   }
-// };
 
 //RESPOND
 const respondWithTweets = (req, res) => {
