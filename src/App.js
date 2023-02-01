@@ -11,10 +11,18 @@ export default function App() {
     const [tweet, setTweet] = useState({
         text: "",
     });
+    const [userTweets, setUserTweets] = useState([])
     const [tweets, setTweets] = useState([]);
     const [comments, setComments] = useState([])
     const [comment, setComment] = useState({
         text: ''
+    })
+    const [profile, setProfile] = useState({
+        dob: undefined,
+        name: undefined,
+        location: undefined,
+        interests: undefined,
+        photo: undefined,
     })
 
     const [toggleComment, setToggleComment] = useState(false)
@@ -76,6 +84,25 @@ export default function App() {
         }
     }
 
+    const editTweet = async (id, updatedTweet) => {
+        try {
+            const response = await fetch(`/api/tweets/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                },
+                body: JSON.stringify({ ...tweet, text: updatedTweet })
+            })
+            const data = await response.json()
+            console.log(data)
+            setTweet(data)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+
     const createComment = async (tweetId) => {
         try {
             const response = await fetch(`/api/comments/${tweetId}`, {
@@ -100,9 +127,9 @@ export default function App() {
         }
     };
 
-    const getAllComments = async (id) => {
+    const getAllComments = async (tweetId) => {
         try {
-            const response = await fetch(`/api/comments/${id}`, {
+            const response = await fetch(`/api/comments/${tweetId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -115,40 +142,95 @@ export default function App() {
             console.error(error)
         }
     }
-    const deleteComment = async (id) => {
+
+    const deleteComment = async (tweetId, commentId) => {
         try {
-            const response = await fetch(`/api/comments/${tweet._id}/${id}`, {
+            const response = await fetch(`/api/comments/${tweetId}/${commentId}`, {
                 method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
                 }
             })
             const data = await response.json()
-            setComment(data)
-
+            const commentsCopy = [...comments]// need to make a copy before you can manutiplate the array 
+            const index = commentsCopy.findIndex(comment => commentId === comment._id) //find the id to delete from the list
+            commentsCopy.splice(index, 1)
+            setComments(commentsCopy)
         } catch (err) {
             console.error(err)
         }
     }
-    const updateComment = async (id, updatedComment) => {
-        try {
 
-            const response = await fetch(`/api/comments/${tweet._id}/${id}`, {
+    const editComment = async (tweetId, id, updatedComment) => {
+        try {
+            const response = await fetch(`/api/comments/${tweetId}/${id}`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
                 },
                 body: JSON.stringify({ ...comment, text: updatedComment })
             })
             const data = await response.json()
             console.log(data)
             setComment(data)
-
         } catch (err) {
             console.error(err)
         }
     }
 
+    const getUserProfile = async () => {
+        try {
+            const response = await fetch('/api/users/profile', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
+            })
+            const data = await response.json()
+            console.log(data)
+            setProfile(data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const updateUserProfile = async (id, updatedProfile) => {
+        try {
+            const response = await fetch(`/api/profile/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                },
+                body: JSON.stringify(updatedProfile)
+            })
+            const data = response.json()
+            console.log(data)
+            setProfile(data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const getAUserTweets = async () => {
+        try {
+            const response = await fetch('/api/profile/tweets', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
+            })
+            const data = await response.json()
+            console.log(data)
+            setUserTweets(data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     useEffect(() => {
         const tokenData = localStorage.getItem("token");
@@ -156,7 +238,7 @@ export default function App() {
             setToken(JSON.parse(tokenData));
         }
         getAllTweets()
-
+        getUserProfile()
     }, [token, toggleComment])
 
     useEffect(() => {
@@ -173,20 +255,30 @@ export default function App() {
                     <Homepage
                         user={user}
                         token={token}
-                        createTweet={createTweet}
-                        setTweet={setTweet}
                         tweet={tweet}
-                        getAllTweets={getAllTweets}
+                        setTweet={setTweet}
+                        userTweets={userTweets}
+                        setUserTweets={setUserTweets}
                         tweets={tweets}
                         setTweets={setTweets}
-                        deleteTweet={deleteTweet}
-                        comment={comment}
                         comments={comments}
-                        createComment={createComment}
+                        setComments={setComments}
+                        comment={comment}
                         setComment={setComment}
+                        profile={profile}
+                        setProfile={setProfile}
+                        createTweet={createTweet}
+                        getAllTweets={getAllTweets}
+                        deleteTweet={deleteTweet}
+                        editTweet={editTweet}
+                        createComment={createComment}
                         getAllComments={getAllComments}
+                        deleteComment={deleteComment}
+                        editComment={editComment}
+                        getUserProfile={getUserProfile}
+                        updateUserProfile={updateUserProfile}
+                        getAUserTweets={getAUserTweets}
                     />
-                    {/* <Profile /> */}
                 </>
             ) : (
                 <Register setUser={setUser} setToken={setToken} token={token} />
@@ -195,4 +287,3 @@ export default function App() {
         </main>
     );
 }
-//delete me

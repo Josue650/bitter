@@ -7,18 +7,30 @@ import Widgets from "../../components/Widgets/Widgets";
 
 export default function Homepage({
     user,
-    createTweet,
-    setTweets,
+    token,
     tweet,
-    getAllTweets,
-    tweets,
     setTweet,
-    deleteTweet,
-    createComment,
+    userTweets,
+    setUserTweets,
+    tweets,
+    setTweets,
     comments,
-    setComment,
+    setComments,
     comment,
-    getAllComments
+    setComment,
+    profile,
+    setProfile,
+    createTweet,
+    getAllTweets,
+    deleteTweet,
+    editTweet,
+    createComment,
+    getAllComments,
+    deleteComment,
+    editComment,
+    getUserProfile,
+    updateUserProfile,
+    getAUserTweets
 }) {
     return (
         <>
@@ -29,17 +41,30 @@ export default function Homepage({
                 <button>Update Profile</button>
                 <TweetList
                     user={user}
-                    createTweet={createTweet}
-                    setTweet={setTweet}
+                    token={token}
                     tweet={tweet}
-                    deleteTweet={deleteTweet}
-                    getAllTweet={getAllTweets}
+                    setTweet={setTweet}
+                    userTweets={userTweets}
+                    setUserTweets={setUserTweets}
                     tweets={tweets}
-                    comment={comment}
+                    setTweets={setTweets}
                     comments={comments}
-                    createComment={createComment}
+                    setComments={setComments}
+                    comment={comment}
                     setComment={setComment}
+                    profile={profile}
+                    setProfile={setProfile}
+                    createTweet={createTweet}
+                    getAllTweets={getAllTweets}
+                    deleteTweet={deleteTweet}
+                    editTweet={editTweet}
+                    createComment={createComment}
                     getAllComments={getAllComments}
+                    deleteComment={deleteComment}
+                    editComment={editComment}
+                    getUserProfile={getUserProfile}
+                    updateUserProfile={updateUserProfile}
+                    getAUserTweets={getAUserTweets}
                 />
                 <Feed />
                 <Widgets />
