@@ -13,14 +13,19 @@ const dataController = {
   async create(req, res, next) {
     try {
       const user = await User.create(req.body)
-      console.log(user)
+      
+      
+      const createdProfile = await Profile.create({})
+      user.profile = createdProfile._id
+      console.log("User: ", user)
       const token = createJWT(user)
       res.locals.data.user = user
       res.locals.data.token = token
       console.log(token)
-      const createdProfile = await Profile.create({})
-      user.profile = createdProfile
+
+      
       user.save()
+      
       // user.create(() => {
       //   async (error, createdProfile) =>{
       //     if (error) {
@@ -34,6 +39,7 @@ const dataController = {
       //     }
       //   }
       // })
+      console.log(user)
       next()
     } catch (err) {
       console.log('Error!')
@@ -68,7 +74,7 @@ const dataController = {
   // }
   async getUserProfile(req, res, next) {
     try {
-      const user = await User.findOne({ email: res.locals.data.email }).populate("profile").exec()
+      const user = await User.findOne({ email: req.user.email }).populate("profile").exec()
       const foundProfile = user.profile
       res.locals.data.profile = foundProfile
       next()
