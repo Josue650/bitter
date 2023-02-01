@@ -85,6 +85,7 @@ const updateProfile = async (req, res, next) => {
 
 
 const getUserTweets = async (req, res, next) => {
+    console.log(res.locals.data.profile)
     try {
 
         const profile = await Profile.findOne({ profile: res.locals.data.profile }).populate('tweets').sort('tweets.createdAt').exec()

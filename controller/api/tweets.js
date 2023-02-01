@@ -1,6 +1,8 @@
 require("dotenv").config();
 const Tweet = require("../../models/tweet");
 const Profile = require("../../models/profile");
+const User = require("../../models/user");
+
 
 const getAllTweets = async (req, res, next) => {
   try {
@@ -41,16 +43,44 @@ const updateTweet = async (req, res, next) => {
 //CREATE
 const createTweet = async (req, res, next) => {
   try {
+    // const newUser = await User.findById(req.user._id)
+    // console.log("new User", newUser)
+    // console.log("User: ", req.user)
+    // console.log("Locals:", res.locals.data)
     const createdTweet = await Tweet.create(req.body);
-    const profile = await Profile.findOne({ profile: res.locals.data.profile })
-    profile.tweets.addToSet(createdTweet)
-    await profile.save()
-    res.locals.data.tweet = createdTweet;
+    
+    try {
+      await Profile.findByIdAndUpdate(req.user.profile, { $push: {tweets: createdTweet._id} })
+      // profile.tweets.addToSet(createdTweet)
+      // await profile.save()
+    } catch (error) {
+      res.status(400).json({ msg: error.message });
+    }
+    res.locals.data.tweet = createdTweet
     next();
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
 };
+
+// const createTweet = async (req, res, next) => {
+//   try {
+//     const createdTweet = await Tweet.create(req.body);
+//     res.locals.data.tweet = createdTweet
+//     try{
+//       const profile = await Profile.findByIdAndUpdate(req.params.profileId, { $push: {tweets: createdTweet._id} })
+//     // profile.tweets.addToSet(createdTweet)
+//     // await profile.save()
+
+//     res.locals.data.profile = profile
+//     } catch(error){
+//       res.status(400).json({ msg: error.message });
+//     }
+//     next();
+//   } catch (error) {
+//     res.status(400).json({ msg: error.message });
+//   }
+// };
 
 //RESPOND
 const respondWithTweets = (req, res) => {
