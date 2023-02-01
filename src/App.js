@@ -251,6 +251,7 @@ export default function App() {
     return (
         <main className="appContainer">
             {user ? (
+<<<<<<< HEAD
                 <>
                     <Homepage
                         user={user}
@@ -280,10 +281,27 @@ export default function App() {
                         getAUserTweets={getAUserTweets}
                     />
                 </>
+=======
+                <Homepage
+                    user={user}
+                    token={token}
+                    createTweet={createTweet}
+                    setTweet={setTweet}
+                    tweet={tweet}
+                    getAllTweets={getAllTweets}
+                    tweets={tweets}
+                    setTweets={setTweets}
+                    deleteTweet={deleteTweet}
+                    comment={comment}
+                    comments={comments}
+                    createComment={createComment}
+                    setComment={setComment}
+                    getAllComments={getAllComments}
+                />
+>>>>>>> dev
             ) : (
                 <Register setUser={setUser} setToken={setToken} token={token} />
-            )
-            }
+            )}
         </main>
-    );
+    )
 }
