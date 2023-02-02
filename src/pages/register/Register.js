@@ -42,12 +42,6 @@ export default function Register({ user, setUser, setToken, token }) {
   const signUp = async (event) => {
     event.preventDefault()
     try {
-      // const emailCheckResponse = await fetch(`/api/users?email=${credentials.email}`);
-      // const emailcheckData = await emailCheckResponse.json()
-      // if(emailcheckData) {
-      //   setErrorMessage('Don\'t be bitter email already is taken');
-      //   return;
-      // }
       const response = await fetch("/api/users", {
         method: "POST",
         headers: {
