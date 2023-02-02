@@ -1,4 +1,6 @@
-# "Bitter your not so friendly twitter clone"
+<div style='font-size:30px; text-align:center'>
+ "Bitter your not so friendly twitter clone"
+</div>
 
 <div style="display:flex;justify-content:center;">
 <img src="images/signup.png" height='45%' width='45%'/>
