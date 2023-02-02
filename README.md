@@ -1,6 +1,6 @@
 # "Bitter your not so friendly twitter clone"
 
-![alt text](images/signup.png)
+![alt text](images/signup.png | width=100)
 
 ## Getting Started with the code (Bitter)
 - Once you navigate to the App it will bring you to the Signup Page.
