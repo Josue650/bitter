@@ -11,7 +11,19 @@ const getAllComments = async (req, res, next) => {
         const tweet = await Tweet.findById(req.params.tweetId).populate("comments")
         res.locals.data.comments = tweet.comments
         next()
-    } catch(error){
+    } catch (error) {
+        res.status(400).json({ msg: error.message })
+    }
+}
+
+//Destory Comment
+const getOneComment = async (req, res, next) => {
+
+    try {
+        const foundComment = await Comment.findById(req.params.id)
+        res.locals.data.comment = foundComment
+        next()
+    } catch (error) {
         res.status(400).json({ msg: error.message })
     }
 }
@@ -19,7 +31,7 @@ const getAllComments = async (req, res, next) => {
 //Destory Comment
 const destroyComment = async (req, res, next) => {
     const currentComment = await Comment.findById(req.params.id)
-    if (currentComment.userId === req.user._id){
+    if (currentComment.userId === req.user._id) {
         try {
             const deletedComment = await Comment.findByIdAndDelete(req.params.id)
             res.locals.data.comment = deletedComment
@@ -36,7 +48,7 @@ const destroyComment = async (req, res, next) => {
 const updateComment = async (req, res, next) => {
     const currentComment = await Comment.findById(req.params.id)
 
-    if (currentComment.userId === req.user._id){
+    if (currentComment.userId === req.user._id) {
         try {
             const updatedComment = await Comment.findByIdAndUpdate(req.params.id, req.body, { new: true })
             res.locals.data.comment = updatedComment
@@ -47,7 +59,7 @@ const updateComment = async (req, res, next) => {
     } else {
         res.status(500).json("You can't edit someone else tea")
     }
-    
+
 }
 
 //Create new comment on tweet
@@ -55,15 +67,31 @@ const createComment = async (req, res, next) => {
     try {
         const createdComment = await Comment.create(req.body)
         res.locals.data.comment = createdComment
-        try{
-            const tweet = await Tweet.findByIdAndUpdate(req.params.tweetId, { $push: { comments: createdComment._id}})
+        try {
+            const tweet = await Tweet.findByIdAndUpdate(req.params.tweetId, { $push: { comments: createdComment._id } })
             res.locals.data.tweet = tweet
-        } catch(error) {
+        } catch (error) {
             res.status(400).json({ msg: error.message })
         }
         next()
     } catch (error) {
         res.status(400).json({ msg: error.message })
+    }
+}
+
+//like / dislike a comment
+const updateLikes = async (req, res, next) => {
+    try {
+        const currentComment = await Comment.findById(req.params.id)
+        if (!currentComment.likes.includes(req.user._id)) {
+            await currentComment.updateOne({ $push: { likes: req.user._id } });
+            res.status(200).json("The comment has been liked");
+        } else {
+            await currentComment.updateOne({ $pull: { likes: req.user._id } });
+            res.status(200).json("The comment has been disliked");
+        }
+    } catch (error) {
+        res.status(400).json({ msg: error.message });
     }
 }
 
@@ -78,9 +106,11 @@ const respondWithComments = (req, res) => {
 
 module.exports = {
     getAllComments,
+    getOneComment,
     destroyComment,
     updateComment,
     createComment,
+    updateLikes,
     respondWithComment,
-    respondWithComments 
+    respondWithComments
 }
