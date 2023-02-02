@@ -8,8 +8,7 @@ const commentSchema = new Schema({
     required: true,
   },
   text: { type: String, required: true },
-  like: { type: Boolean, default: false },
-  likes: { type: Number, default: 0 },
+  likes: { type: Array, default: [] },
 })
 
 module.exports = commentSchema
