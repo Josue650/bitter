@@ -1,9 +1,8 @@
 # "Bitter your not so friendly twitter clone"
 
-<div style="width: 10%; height: 10%">
-
-![alt text](images/signup.png)
-<div/>
+<div style="display:flex;justify-content:center;">
+<img src="images/signup.png" height='50%' width='50%'/>
+</div>
 
 ## Getting Started with the code (Bitter)
 - Once you navigate to the App it will bring you to the Signup Page.
