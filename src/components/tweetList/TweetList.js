@@ -41,7 +41,7 @@ export default function TweetList({
                         <h1>{item.text}</h1>
                         <button onClick={() => deleteTweet(item._id)}>Delete</button>
                         <button onClick={() => editTweet(item._id)}>Edit</button>
-                        <CommentList
+                        {/* <CommentList
                             tweet={item}
                             comment={comment}
                             createComment={createComment}
@@ -50,7 +50,7 @@ export default function TweetList({
                             id={item._id}
                             deleteComment={deleteComment}
                             editComment={editComment}
-                        />
+                        /> */}
                     </li>
                 )) : <> No Tweet Added</>}
             </ul>
