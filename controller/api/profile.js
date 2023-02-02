@@ -43,7 +43,7 @@ const followProfile = async (req, res, next) => {
     }
 }
 
-//Follow profile
+//Unfollow profile
 const unfollowProfile = async (req, res, next) => {
     const user = await User.findOne({ email: res.locals.data.email }).populate("profile").exec()
     const currentProfile = user.profile
@@ -67,6 +67,16 @@ const unfollowProfile = async (req, res, next) => {
     }
 }
 
+const getFollowersProfile = async (req, res, next) => {
+    try {
+        const foundProfile = await Profile.findById(req.params.followerId).populate("tweets").exec()
+        res.locals.data.profile = foundProfile
+        next()
+    } catch(error){
+        res.status(400).json({ msg: error.message })
+    }
+}
+
 
 //UPDATE
 const updateProfile = async (req, res, next) => {
@@ -85,12 +95,15 @@ const updateProfile = async (req, res, next) => {
 
 
 const getUserTweets = async (req, res, next) => {
+    console.log(res.locals.data.profile)
     try {
 
-        const profile = await Profile.findOne({ profile: res.locals.data.profile }).populate('tweets').sort('tweets.createdAt').exec()
-
+        const profile = await Profile.findById(req.user.profile).populate('tweets').sort('tweets.createdAt').exec()
+        console.log("User profile: ", profile)
         const tweets = profile.tweets
+        // console.log("User tweets: ", tweets)
         res.locals.data.tweets = tweets
+        
         next()
     } catch (error) {
         res.status(400).json({ msg: error.message })
@@ -113,6 +126,7 @@ module.exports = {
     updateProfile,
     // createProfile,
     getUserTweets,
+    getFollowersProfile,
     followProfile,
     unfollowProfile,
     respondWithProfile,
