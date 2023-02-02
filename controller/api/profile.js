@@ -5,6 +5,7 @@ require('dotenv').config()
 const Profile = require('../../models/profile')
 const User = require("../../models/user")
 
+//Get current users profile
 const getProfile = async (req, res, next) => {
     try {
         const user = await User.findOne({ email: res.locals.data.email }).populate("profile").exec()
@@ -18,7 +19,7 @@ const getProfile = async (req, res, next) => {
     }
 }
 
-//Follow profile
+//Follow another user's profile
 const followProfile = async (req, res, next) => {
     const user = await User.findOne({ email: res.locals.data.email }).populate("profile").exec()
     const currentProfile = user.profile
@@ -43,7 +44,7 @@ const followProfile = async (req, res, next) => {
     }
 }
 
-//Unfollow profile
+//Follow another user's profile
 const unfollowProfile = async (req, res, next) => {
     const user = await User.findOne({ email: res.locals.data.email }).populate("profile").exec()
     const currentProfile = user.profile
@@ -67,9 +68,38 @@ const unfollowProfile = async (req, res, next) => {
     }
 }
 
-const getFollowersProfile = async (req, res, next) => {
+
+const getFollowers = async (req, res, next) => {
+   
     try {
-        const foundProfile = await Profile.findById(req.params.followerId).populate("tweets").exec()
+        const profile = await Profile.findById(req.user.profile)
+        const followers = profile.followers.populate("profile").exec()
+        res.locals.data.profiles = followers
+        next()
+    } catch(error){
+        res.status(500).json("You dont have any followers")
+    }
+}
+
+// const getFollowings = async (req, res, next) => {
+//     const profile = await Profile.findById(req.user.profile).populate("followings").exec()
+//     try {
+//         const profile = await Profile.findById(req.user.profile).populate("followings").exec()
+//         console.log("Profile followings")
+//         const followings = profile.followings
+//         console.log(followings)
+//         res.locals.data.followings = followings
+//         next()
+//     } catch(error){
+//         console.log(profile)
+//         res.status(500).json("You don't follow anyone")
+//     }
+// }
+
+//get profile of a randon user 
+const getRandomProfile = async (req, res, next) => {
+    try {
+        const foundProfile = await Profile.findById(req.params.randomId).populate("tweets").exec()
         res.locals.data.profile = foundProfile
         next()
     } catch(error){
@@ -99,7 +129,7 @@ const getUserTweets = async (req, res, next) => {
     try {
 
         const profile = await Profile.findById(req.user.profile).populate('tweets').sort('tweets.createdAt').exec()
-        console.log("User profile: ", profile)
+        // console.log("User profile: ", profile)
         const tweets = profile.tweets
         // console.log("User tweets: ", tweets)
         res.locals.data.tweets = tweets
@@ -120,15 +150,27 @@ const respondWithTweets = (req, res) => {
     res.json(res.locals.data.tweets)
 }
 
+const respondWithFollowers = (req, res) => {
+    res.json(res.locals.data.followers)
+}
+
+const respondWithFollowings = (req, res) => {
+    res.json(res.locals.data.followings)
+}
+
 module.exports = {
     getProfile,
     // destroyProfile,
     updateProfile,
     // createProfile,
+    getFollowers,
+    // getFollowings,
     getUserTweets,
-    getFollowersProfile,
+    getRandomProfile,
     followProfile,
     unfollowProfile,
     respondWithProfile,
-    respondWithTweets
+    respondWithTweets,
+    respondWithFollowers,
+    respondWithFollowings
 }

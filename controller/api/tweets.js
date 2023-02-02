@@ -70,6 +70,17 @@ const createTweet = async (req, res, next) => {
   }
 };
 
+const getOneTweet = async (req, res, next) => {
+  try {
+    const foundTweet = await Tweet.findById(req.params.id).populate("comments");
+    console.log("Found Tweets: ", foundTweet)
+    res.locals.data.tweet = foundTweet;
+    next();
+  } catch (error) {
+    res.status(400).json({ msg: error.message });
+  }
+};
+
 
 
 //RESPOND
@@ -85,6 +96,7 @@ module.exports = {
   destroyTweet,
   updateTweet,
   createTweet,
+  getOneTweet,
   respondWithTweets,
   respondWithTweet,
 };
