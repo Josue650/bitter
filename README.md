@@ -1,18 +1,21 @@
-# Users Routes
+<div style='font-size:30px; text-align:center'>
+ "Bitter your not so friendly twitter clone"
+</div>
 
-| Action | URL | HTTP Verb | Mongoose Method|
-|--------|-----|-----------|--------------|----------------|
-| Create  | / | POST | User.create() & Profile.create()|
-| Login | /login | POST  | none |
-| getUserProfile | /profile| GET  | User.findone()|
+<div style="display:flex;justify-content:center;">
+<img src="images/signup.png" height='45%' width='45%'/>
+<img src="images/Login.png"
+height='50%' width='50%'/>
+</div>
 
------
+## Getting Started with the code (Bitter)
+- Once you navigate to the App it will bring you to the Signup Page.
+- You will be required to enter your credentials(username, email and password has to be atleast 4 characters)
 
-#
-
-| Action | URL | HTTP Verb | Mongoose Method|
-|--------|-----|-----------|--------------|----------------|
-| getAllTweets  | / | GET | User.create() & Profile.create()|
-| delete | /:id | DELETE  | none |
-| updateTweet | /:id| PUT  | User.findone()|
-|  
+## Technologies
+-HTML
+-React
+-CSS
+-Mongodb
+-Material UI
+-React flip move library -animation when posting tweets

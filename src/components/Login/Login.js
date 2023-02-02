@@ -13,6 +13,7 @@ export default function Login({
                 <input className='username-input' type='text' value={credentials.username} name='username' onChange={handleChangeAuth} placeholder={'Username'}></input>
                 <input type='text' value={credentials.email} name='email' onChange={handleChangeAuth} placeholder={'Email Here'}></input>
                 <input type='password' value={credentials.password} name='password' onChange={handleChangeAuth} placeholder={'Password'}></input>
+                <br/>
                 <input type='submit' value="Log in"></input>
             </form>
         </div>
