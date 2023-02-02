@@ -10,6 +10,8 @@ router.delete('/:id', tweets.destroyTweet, tweets.respondWithTweet)
 router.put('/:id', tweets.updateTweet, tweets.respondWithTweet)
 //localhost:3001/api/tweets/
 router.post('/', tweets.createTweet, tweets.respondWithTweet)
+//localhost:3001/api/tweets/:id
+router.get('/:id', tweets.getOneTweet, tweets.respondWithTweet)
 
 
 module.exports = router

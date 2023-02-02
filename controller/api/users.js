@@ -74,6 +74,21 @@ const dataController = {
 
   },
 
+  async getUser(req, res, next) {
+    console.log("req user: ", req.user)
+    
+    try {
+      const foundUser = await User.findById(req.user)
+      
+      res.locals.data.user = foundUser
+
+      next();
+    } catch (error) {
+      res.status(400).json({ msg: error.message });
+    }
+
+  },
+
   async getUserProfile(req, res, next) {
     try {
       const user = await User.findOne({ email: req.user.email }).populate("profile").exec()
@@ -92,6 +107,9 @@ const apiController = {
   },
   respondWithProfile(req, res) {
     res.json(res.locals.data.profile)
+  },
+  respondWithUser(req, res) {
+    res.json(res.locals.data.user)
   }
 }
 

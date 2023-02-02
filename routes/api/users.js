@@ -9,6 +9,8 @@ const ensureLoggedIn = require("../../config/ensureLoggedIn");
 
 //localhost:3001/api/users
 router.post("/", dataController.create, apiController.auth);
+//localhost:3001/api/users
+router.get("/", dataController.getUser, apiController.respondWithUser);
 //localhost:3001/api/users/login
 router.post("/login", dataController.login, apiController.auth);
 //localhost:3001/api/users/profile
