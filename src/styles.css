@@ -27,7 +27,7 @@ body {
     width: 240px;
 }
 .password{
-    width: 240px;
+    width: 200px;
 }
 .register-container{
     display: flex;
@@ -40,7 +40,7 @@ body {
     background: radial-gradient(circle,rgb(153, 94, 71) 5%,rgb(153, 94, 71) 5%);
     border-radius: 0 0 150px 150px;
     top: 50%;
-    text-align: center;
+    text-align: center;margin-top: 150px;
 
 }
 .register-container::before {
