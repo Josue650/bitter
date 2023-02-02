@@ -23,4 +23,6 @@ height='50%' width='50%'/>
 <div style='font-size:20px'>
 Trello Board
 </div>
-<a href='https://trello.com/b/1tSPTNy5/bitter-development'>
+ https://trello.com/b/1tSPTNy5/bitter-development
+ <img src='images/trello.png'
+ height='45%' width='45%'/>
