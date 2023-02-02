@@ -1,9 +1,9 @@
 import './sidebarOptions.css'
 
-export default function SidebarOptions({ active, Icon, text}){
-    return(
+export default function SidebarOptions({ active, Icon, text }) {
+    return (
         <div className={`sidebarOptions ${active && 'sidebarOptions--active'}`} >
-            <Icon/>
+            <Icon />
             <h2>{text}</h2>
         </div>
     )
