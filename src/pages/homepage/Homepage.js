@@ -3,7 +3,7 @@ import TweetList from "../../components/tweetList/TweetList";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Feed from "../../components/Feed/Feed";
 import Widgets from "../../components/Widgets/Widgets";
-
+import Profile from "../profile/Profile";
 
 export default function Homepage({
     user,
@@ -22,7 +22,8 @@ export default function Homepage({
 }) {
     return (
         <>
-            <div className="tweetForm-container">
+        <Profile />
+            {/* <div className="tweetForm-container">
                 <h1>Home</h1>
                 <Sidebar />
 
@@ -43,7 +44,7 @@ export default function Homepage({
                 />
                 <Feed />
                 <Widgets />
-            </div>
+            </div> */}
         </>
     );
 }
