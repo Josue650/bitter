@@ -24,12 +24,9 @@ function Feed({
 
     return (
         <div className="feed">
-            {/* Header */}
             <div className="feed__header">
                 <h2>Home</h2>
             </div>
-
-            {/* TweetBox*/}
             <TweetForm
                 createTweet={createTweet}
                 setTweet={setTweet}
@@ -52,35 +49,12 @@ function Feed({
                                 getAllComments={getAllComments}
                                 deleteComment={deleteComment}
                                 editComment={editComment}
+                                tweets={tweets}
                             />
-                            {/* <button onClick={() => deleteTweet(item._id)}>Delete</button>
-                        <button onClick={() => editTweet(item._id)}>Edit</button> */}
-                            {/* <CommentList
-                            tweet={item}
-                            comment={comment}
-                            createComment={createComment}
-                            setComment={setComment}
-                            getAllComments={getAllComments}
-                            id={item._id}
-                            deleteComment={deleteComment}
-                            editComment={editComment}
-                        /> */}
                         </li>
                     )) : <> No Tweet Added</>}
                 </ul>
             </div>
-
-
-            {/* <Post
-                profile={profile}
-                user={user} />
-            <Post />
-            <Post /> */}
-            {/* Post */}
-            {/* Post */}
-            {/* Post */}
-            {/* Post */}
-            {/* Post */}
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './Post.css';
 import { Avatar } from "@mui/material";
-import { Verified } from "@mui/icons-material";
+import { Comment, Verified } from "@mui/icons-material";
 import { ChatBubbleOutline } from "@mui/icons-material";
 import { Repeat } from "@mui/icons-material";
 import { FavoriteBorder } from "@mui/icons-material";
@@ -9,12 +9,12 @@ import { Publish } from "@mui/icons-material";
 import { Delete } from "@mui/icons-material";
 import CommentList from "../commentList/CommentList";
 import CommentForm from "../commentForm/CommentForm";
+import TweetList from "../tweetList/TweetList";
 
 function Post({
     displayName,
     username,
     verified,
-    // text
     image,
     avatar,
     profile,
@@ -29,7 +29,8 @@ function Post({
     getAllComments,
     deleteComment,
     editComment,
-    comments
+    comments,
+    tweets
 }) {
 
     const [toggle, setToggle] = useState(false)
@@ -58,7 +59,7 @@ function Post({
                 </div>
 
                 {toggle === true ?
-                    <CommentList
+                    <CommentForm
                         comment={comment}
                         tweet={tweet}
                         setComment={setComment}

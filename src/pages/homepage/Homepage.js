@@ -5,6 +5,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Feed from "../../components/Feed/Feed";
 import Widgets from "../../components/Widgets/Widgets";
 import Register from '../register/Register'
+import { create } from "@mui/material/styles/createTransitions";
 
 
 
@@ -263,35 +264,6 @@ export default function Homepage() {
                     <div className="tweetForm-container">
                         <h1>Home</h1>
                         <Sidebar />
-
-                        <button>Update Profile</button>
-                        {/* <TweetList
-                            user={user}
-                            token={token}
-                            tweet={tweet}
-                            setTweet={setTweet}
-                            userTweets={userTweets}
-                            setUserTweets={setUserTweets}
-                            tweets={tweets}
-                            setTweets={setTweets}
-                            comments={comments}
-                            setComments={setComments}
-                            comment={comment}
-                            setComment={setComment}
-                            profile={profile}
-                            setProfile={setProfile}
-                            createTweet={createTweet}
-                            getAllTweets={getAllTweets}
-                            deleteTweet={deleteTweet}
-                            editTweet={editTweet}
-                            createComment={createComment}
-                            getAllComments={getAllComments}
-                            deleteComment={deleteComment}
-                            editComment={editComment}
-                            getUserProfile={getUserProfile}
-                            updateUserProfile={updateUserProfile}
-                            getAUserTweets={getAUserTweets}
-                        /> */}
                         <Feed
                             profile={profile}
                             user={user}
@@ -301,7 +273,8 @@ export default function Homepage() {
                             setTweet={setTweet}
                             deleteTweet={deleteTweet}
                             comment={comment}
-                            setComment={setComment} />
+                            setComment={setComment}
+                            createComment={createComment} />
                         <Widgets />
                     </div>
                 </>
