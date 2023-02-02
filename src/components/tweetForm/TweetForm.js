@@ -1,8 +1,6 @@
 import "./TweetForm.css";
 export default function TweetForm({
-    user,
     createTweet,
-    token,
     setTweet,
     tweet,
 }) {
@@ -35,5 +33,5 @@ export default function TweetForm({
                 </div>
             </div>
         </form>
-    );
+    )
 }

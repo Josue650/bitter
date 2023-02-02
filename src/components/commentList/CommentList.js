@@ -7,7 +7,9 @@ export default function CommentList({
     setComment,
     getAllComments,
     id,
-    tweet
+    tweet,
+    deleteComment,
+    editComment
 }) {
     return (
         <>
@@ -23,7 +25,8 @@ export default function CommentList({
                 {tweet.comments.length ? tweet.comments.map((item) => (
                     <li key={item._id}>
                         <h1>{item.text}</h1>
-                        {/* <button onClick={() => deleteComment(item._id)}>Delete</button> */}
+                        <button onClick={() => deleteComment(id, item._id)}>Delete</button>
+                        <button onClick={() => editComment(id, item._id)}>Edit</button>
                     </li>
                 )) : <> Be the first to comment</>}
             </ul>
