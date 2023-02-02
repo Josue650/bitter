@@ -1,6 +1,6 @@
 # "Bitter your not so friendly twitter clone"
 
-<div style="width: 60%; height: 60%">
+<div style="width: 30%; height: 30%">
 
 ![alt text](images/signup.png)
 <div/>
