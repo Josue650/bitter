@@ -13,9 +13,14 @@ height='50%' width='50%'/>
 - You will be required to enter your credentials(username, email and password has to be atleast 4 characters)
 
 ## Technologies
--HTML
--React
--CSS
--Mongodb
--Material UI
--React flip move library -animation when posting tweets
+- HTML
+- React
+- CSS
+- Mongodb
+- Material UI
+- React flip move library -animation when posting tweets
+
+<div style='font-size:20px'>
+Trello Board
+</div>
+<a href='https://trello.com/b/1tSPTNy5/bitter-development'>
