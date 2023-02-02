@@ -1,7 +1,9 @@
 # "Bitter your not so friendly twitter clone"
 
 <div style="display:flex;justify-content:center;">
-<img src="images/signup.png" height='50%' width='50%'/>
+<img src="images/signup.png" height='45%' width='45%'/>
+<img src="images/Login.png"
+height='50%' width='50%'/>
 </div>
 
 ## Getting Started with the code (Bitter)
