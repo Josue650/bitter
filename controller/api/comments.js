@@ -18,20 +18,24 @@ const getAllComments = async (req, res, next) => {
 
 //Destory Comment
 const destroyComment = async (req, res, next) => {
-    try {
-        const deletedComment = await Comment.findByIdAndDelete(req.params.id)
-        res.locals.data.comment = deletedComment
-        next()
-    } catch (error) {
-        res.status(400).json({ msg: error.message })
+    const currentComment = await Comment.findById(req.params.id)
+    if (currentComment.userId === req.user._id){
+        try {
+            const deletedComment = await Comment.findByIdAndDelete(req.params.id)
+            res.locals.data.comment = deletedComment
+            next()
+        } catch (error) {
+            res.status(400).json({ msg: error.message })
+        }
+    } else {
+        res.status(500).json("You can't delete someone else tea")
     }
 }
 
 //Update comment
 const updateComment = async (req, res, next) => {
-    console.log("req user: ", req.user._id)
     const currentComment = await Comment.findById(req.params.id)
-    console.log("current comment",currentComment.userId)
+
     if (currentComment.userId === req.user._id){
         try {
             const updatedComment = await Comment.findByIdAndUpdate(req.params.id, req.body, { new: true })
