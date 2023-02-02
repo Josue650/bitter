@@ -1,9 +1,10 @@
 require('dotenv').config()
 const Comment = require("../../models/comment")
+const Profile = require("../../models/profile")
 const User = require("../../models/user")
 const Tweet = require("../../models/tweet")
 
-//INDEX
+//Get All Comments
 const getAllComments = async (req, res, next) => {
     try {
         // const foundComments = await Comment.find({})
@@ -15,7 +16,7 @@ const getAllComments = async (req, res, next) => {
     }
 }
 
-//DELETE
+//Destory Comment
 const destroyComment = async (req, res, next) => {
     try {
         const deletedComment = await Comment.findByIdAndDelete(req.params.id)
@@ -26,7 +27,7 @@ const destroyComment = async (req, res, next) => {
     }
 }
 
-//UPDATE
+//Update comment
 const updateComment = async (req, res, next) => {
     try {
         const updatedComment = await Comment.findByIdAndUpdate(req.params.id, req.body, { new: true })
@@ -37,13 +38,10 @@ const updateComment = async (req, res, next) => {
     }
 }
 
-//CREATE
+//Create new comment on tweet
 const createComment = async (req, res, next) => {
     try {
         const createdComment = await Comment.create(req.body)
-        // const user = await User.findOne({ email: res.locals.data.email })
-        // user.comments.addToSet(createdComment)
-        // await user.save()
         res.locals.data.comment = createdComment
         try{
             const tweet = await Tweet.findByIdAndUpdate(req.params.tweetId, { $push: { comments: createdComment._id}})
