@@ -3,9 +3,9 @@
 </div>
 
 <div style="display:flex;justify-content:center;">
-<img src="images/signup.png" height='45%' width='45%'/>
+<img src="images/signup.png" height='35%' width='35%'/>
 <img src="images/Login.png"
-height='50%' width='50%'/>
+height='39%' width='39%'/>
 </div>
 
 ## Getting Started with the code (Bitter)
@@ -25,4 +25,4 @@ Trello Board
 </div>
  https://trello.com/b/1tSPTNy5/bitter-development
  <img src='images/trello.png'
- height='45%' width='45%'/>
+ height='50%' width='50%'/>
