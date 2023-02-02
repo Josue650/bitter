@@ -1,6 +1,9 @@
 .post {
     display: flex;
     align-items: flex-start;
+    /* Added */
+    border-bottom: 1px solid var(--bitter-background);
+    padding-bottom: 10px;
 }
 
 .post__body {
@@ -36,7 +39,11 @@
 .post__footer {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
-    border-bottom: 1px solid var(--bitter-background);
-    padding-bottom: 10px;
+    margin-top: 20px; /* Change from 10 to 20px */
+    /* border-bottom: 1px solid var(--bitter-background);
+    padding-bottom: 10px; */
 }
+
+.post__avatar {
+    padding: 20px;
+  }

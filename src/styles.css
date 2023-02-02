@@ -7,16 +7,25 @@
 body {
     --bitter-color: #784A36;
     --bitter-background: #EEE6D8;
-    background: linear-gradient(45deg, rgba(138, 31, 31, 0.878),rgba(104, 143, 30, 0.581))
+    /* background: linear-gradient(45deg, rgba(138, 31, 31, 0.878),rgba(104, 143, 30, 0.581)) */
 }
 
-.appContainer {
+/* .appContainer {
     min-height: 100vh;
     align-items: center;
     justify-content: center;
     display: flex;
 
-}
+} */
+
+.appContainer {
+    display: flex;
+    height: 100vh;
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 10px;
+  }
 
 .join{
     align-content: center;
