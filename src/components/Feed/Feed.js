@@ -2,10 +2,8 @@ import React from "react";
 import Post from "../Post/Post";
 import './Feed.css';
 import TweetForm from "../tweetForm/TweetForm";
-import { Add } from "@mui/icons-material";
 
 function Feed({
-    profile,
     tweet,
     tweets,
     createTweet,
@@ -14,13 +12,16 @@ function Feed({
     comment,
     setComment,
     createComment,
-    getAllComments,
     deleteComment,
     editComment,
-    comments,
     editTweet,
     user,
-    currentUser }) {
+    followProfile,
+    setFollowersProfile,
+    followersProfile,
+    likes,
+    setLikes
+}) {
 
     return (
         <div className="feed">
@@ -50,6 +51,9 @@ function Feed({
                                 editComment={editComment}
                                 deleteComment={deleteComment}
                                 username={user.username}
+                                followProfile={followProfile}
+                                setFollowersProfile={setFollowersProfile}
+                                followersProfile={followersProfile}
                             />
                         </li>
                     )) : <> No Tweet Added</>}

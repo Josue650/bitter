@@ -1,37 +1,13 @@
-import React, { useState, useEffect } from "react";
-import './Post.css';
+import React, { useState } from "react";
 import { Avatar } from "@mui/material";
 import { Add, Comment, CommentOutlined, CommentRounded, DeleteOutline, Edit, EditOutlined, EditTwoTone, Verified } from "@mui/icons-material";
 import { ChatBubbleOutline } from "@mui/icons-material";
 import { Repeat } from "@mui/icons-material";
 import { FavoriteBorder } from "@mui/icons-material";
-import CommentList from "../../components/commentList/CommentList"
-import CommentForm from "../commentForm/CommentForm";
-import { useNavigate } from "react-router-dom";
+import CommentForm from "../components/commentForm/CommentForm";
+import CommentList from "../components/commentList/CommentList";
 
-
-function Post({
-    // displayName,
-    // username,
-    verified,
-    // image,
-    // avatar,
-    // profile,
-    // user,
-    // text,
-    // deleteTweet,
-    // id,
-    // comment,
-    // tweet,
-    // setComment,
-    // createComment,
-    // getAllComments,
-    // deleteComment,
-    // editComment,
-    // comments,
-    // tweets,
-    // editTweet,
-    // currentUser
+function UserPost({
     tweet,
     tweetId,
     user,
@@ -43,64 +19,34 @@ function Post({
     editComment,
     deleteComment,
     followProfile,
+    username
 }) {
 
+    const [count, setCount] = useState([]);
 
-    const [like, setLike] = useState(null);
-    const [isLiked, setIsLiked] = useState(false);
-    const [tweets, setTweets] = useState([])
     const [toggle, setToggle] = useState(false)
-    const [oneTweet, setOneTweet] = useState(null)
 
 
-    const likeHandler = (tweetId) => {
-        updateLikes(tweetId)
-        setLike(isLiked ? like - 1 : like + 1);
-    };
-
-
-
-    const updateLikes = async (tweetId, updateLike) => {
+    const getLikes = async (tweetId) => {
         try {
             const response = await fetch(`/api/tweets/${tweetId}/like`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-                },
-                body: JSON.stringify(updateLike)
+                }
             })
             const data = await response.json()
-            setLike(data)
-            setIsLiked(!isLiked)
+            setCount(data)
         } catch (error) {
             console.error(error)
         }
     }
 
-    const getOneTweet = async (tweetId) => {
-        try {
-            const response = await fetch(`/api/tweets/${tweetId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-                }
-            })
-            const data = await response.json()
-            setOneTweet(data)
-        } catch (error) {
-            console.log(error)
-        }
+    const handleClick = (tweetId) => {
+        getLikes(tweetId)
+        console.log(tweetId)
     }
-
-
-
-
-    useEffect(() => {
-        console.log('working')
-    }, [isLiked]);
-
 
 
     return (
@@ -113,14 +59,12 @@ function Post({
                     <div className="post__header">
                         <div className="post__headerText">
                             <h3>
-                                {tweet.username}
+                                {username}
                                 <span className="post__headerSpecial">
                                     <Verified className="post__badge"></Verified>
                                 </span>
                             </h3>
                         </div>
-                        {user.username !== tweet.username ?
-                            (<button>Follow</button>) : ''}
                         <div className="post__headerDescripton">
                             <p>{tweet.text}</p>
                         </div>
@@ -135,15 +79,15 @@ function Post({
                 <CommentOutlined fontSize='small' onClick={() => setToggle(!toggle)} />
                 <EditOutlined fontSize="small" onClick={() => editTweet(tweetId)} />
                 <Repeat fontSize="small" />
-                <FavoriteBorder fontSize="small" onClick={() => likeHandler(tweetId)} />
-                <h6>{tweet.likes.length}</h6>
+                <FavoriteBorder fontSize="small" onClick={() => handleClick(tweetId)} />
+                <div><h2>{count}</h2></div>
                 <DeleteOutline fontSize="small" onClick={() => deleteTweet(tweetId)} />
             </div>
             <div>
                 {toggle === true ?
                     <CommentList
                         tweet={tweet}
-                        username={user.username} />
+                        username={username} />
                     :
                     ''}
 
@@ -164,4 +108,4 @@ function Post({
     )
 }
 
-export default Post
+export default UserPost

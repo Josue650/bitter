@@ -2,7 +2,9 @@ export default function EditProfile({
     userProfile,
     updateProfile,
     handleChange,
-    updatedProfile
+    updatedProfile,
+    toggle,
+    setToggle
 }) {
     return (
         <>
@@ -10,6 +12,7 @@ export default function EditProfile({
                 onSubmit={(e) => {
                     e.preventDefault()
                     updateProfile(userProfile._id, updatedProfile)
+                    setToggle(!toggle)
                 }}>
                 <h1>Edit Profile Here</h1>
                 <input className='user-dob' type='text' defaultValue={userProfile.dob} name='dob' onChange={handleChange} placeholder={'Date of Birth mm/dd'}></input>

@@ -7,6 +7,7 @@ const User = require("../../models/user")
 
 //Get current users profile
 const getProfile = async (req, res, next) => {
+    console.log(req.query.userId)
     try {
         const user = await User.findOne({ email: res.locals.data.email }).populate("profile").exec()
         console.log('user', user)
@@ -31,7 +32,8 @@ const followProfile = async (req, res, next) => {
             if (!profile.followers.includes(currentProfile._id)) {
                 await profile.updateOne({ $push: { followers: currentProfile._id } })
                 await currentProfile.updateOne({ $push: { followings: req.params.followerId } })
-                res.status(200).json("user has been followed");
+                res.locals.data.profile = currentProfile
+                // res.status(200).json("user has been followed");
                 next()
             } else {
                 res.status(403).json("You already follow this user's profile")
@@ -55,13 +57,14 @@ const unfollowProfile = async (req, res, next) => {
             if (profile.followers.includes(currentProfile._id)) {
                 await profile.updateOne({ $pull: { followers: currentProfile._id } })
                 await currentProfile.updateOne({ $pull: { followings: req.params.followerId } })
-                res.status(200).json("user has been unfollowed");
+                // res.status(200).json("user has been unfollowed");
+                res.locals.data.profile = currentProfile
                 next()
             } else {
                 res.status(403).json("You don't follow this user")
             }
         } catch (error) {
-            console.log(req.body)
+            // console.log(req.body)
             res.status(500).json({ msg: error.messgae })
         }
     } else {
@@ -74,8 +77,8 @@ const getFollowers = async (req, res, next) => {
 
     try {
         const profile = await Profile.findById(req.user.profile)
-        const followers = profile.followers.populate("profile").exec()
-        res.locals.data.profiles = followers
+        const followers = profile.followers
+        res.locals.data.followers = followers
         next()
     } catch (error) {
         res.status(500).json("You dont have any followers")

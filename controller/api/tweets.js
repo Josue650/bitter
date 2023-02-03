@@ -18,6 +18,7 @@ const getAllTweets = async (req, res, next) => {
 //DELETE
 const destroyTweet = async (req, res, next) => {
   const currentProfile = await Profile.findById(req.user.profile)
+  console.log(currentProfile)
   if (currentProfile.tweets.includes(req.params.id)) {
     try {
       const deletedTweet = await Tweet.findByIdAndDelete(req.params.id);
@@ -31,6 +32,8 @@ const destroyTweet = async (req, res, next) => {
   }
 
 };
+
+
 
 //UPDATE
 const updateTweet = async (req, res, next) => {
@@ -81,6 +84,26 @@ const getOneTweet = async (req, res, next) => {
   }
 };
 
+//like / dislike a tweet
+const updateLikes = async (req, res, next) => {
+  try {
+    const currentTweet = await Tweet.findById(req.params.id)
+    if (!currentTweet.likes.includes(req.user._id)) {
+      await currentTweet.updateOne({ $push: { likes: req.user._id } });
+      res.locals.data.tweet = currentTweet
+      next()
+    } else {
+      await currentTweet.updateOne({ $pull: { likes: req.user._id } });
+      res.locals.data.tweet = currentTweet
+      next()
+    }
+  } catch (error) {
+    res.status(400).json({ msg: error.message });
+  }
+}
+
+
+
 
 
 //RESPOND
@@ -97,6 +120,7 @@ module.exports = {
   updateTweet,
   createTweet,
   getOneTweet,
+  updateLikes,
   respondWithTweets,
   respondWithTweet,
 };

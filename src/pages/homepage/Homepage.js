@@ -11,8 +11,6 @@ import Register from '../register/Register'
 export default function Homepage() {
     const [user, setUser] = useState(null);
 
-    console.log("user", user)
-
     const [currentUser, setCurrentUser] = useState(null)
 
     const [token, setToken] = useState("");
@@ -24,8 +22,6 @@ export default function Homepage() {
     });
 
 
-    const [userTweet, setUserTweet] = useState([])
-
     const [tweets, setTweets] = useState([]);
 
     const [comments, setComments] = useState([])
@@ -36,17 +32,17 @@ export default function Homepage() {
     })
 
 
-    const [userProfile, setUserProfile] = useState(null)
-
     const [randomProfile, setRandomProfile] = useState(null)
 
     const [unfollowProfile, setUnfollowProfile] = useState([])
 
-    const [followersProfile, setfollowersProfile] = useState([])
+    const [followersProfile, setFollowersProfile] = useState([])
 
 
 
     const [toggleComment, setToggleComment] = useState(false)
+
+
 
     const createTweet = async (userId, username) => {
         try {
@@ -126,21 +122,21 @@ export default function Homepage() {
         }
     }
 
-    const getOneTweet = async (tweetId) => {
-        try {
-            const response = await fetch(`/api/tweets/${tweetId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-                }
-            })
-            const data = await response.json()
-            setUserTweet(data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    // const getOneTweet = async (tweetId) => {
+    //     try {
+    //         const response = await fetch(`/api/tweets/${tweetId}`, {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+    //             }
+    //         })
+    //         const data = await response.json()
+    //         setUserTweet(data)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
     const createComment = async (tweetId, userId, username) => {
         try {
@@ -240,22 +236,22 @@ export default function Homepage() {
         }
     }
 
-    // const followProfile = async (followId, followProfiles) => {
-    //     try {
-    //         const response = await fetch(`/api/profile/${followId}/follow`, {
-    //             method: 'PUT',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-    //             },
-    //             body: JSON.stringify()
-    //         })
-    //         const data = response.json()
-    //         setFollowProfile(data)
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // }
+    const followProfile = async (followerId) => {
+        try {
+            const response = await fetch(`/api/profile/${followerId}/follow`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                },
+                body: JSON.stringify()
+            })
+            const data = await response.json()
+            setFollowersProfile(data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     const getRandomProfile = async (randomId) => {
         try {
@@ -288,6 +284,22 @@ export default function Homepage() {
             console.log(err)
         }
     }
+
+    // const getLikes = async (tweetId) => {
+    //     try {
+    //         const response = await fetch(`/api/tweets/${tweetId}/like`, {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+    //             }
+    //         })
+    //         const data = await response.json()
+    //         setLikes(data)
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // }
 
     useEffect(() => {
         const tokenData = localStorage.getItem("token");
@@ -325,7 +337,12 @@ export default function Homepage() {
                             comment={comment}
                             setComment={setComment}
                             createComment={createComment}
-                            currentUser={currentUser} />
+                            currentUser={currentUser}
+                            followProfile={followProfile}
+                            setFollowersProfile={setFollowersProfile}
+                            followersProfile={followersProfile}
+                            getAllTweets={getAllTweets}
+                        />
                         <Widgets />
                     </div>
                 </>
