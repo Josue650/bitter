@@ -41,7 +41,6 @@ function Post({
     comment,
     editComment,
     deleteComment,
-    username
 }) {
 
     const [toggle, setToggle] = useState(false)
@@ -81,16 +80,21 @@ function Post({
             </div>
             <div>
                 {toggle === true ?
+                    <CommentList
+                        tweet={tweet}
+                        username={user.username} />
+                    :
+                    ''}
+
+                {toggle === true ?
                     (<CommentForm
                         createComment={createComment}
                         setComment={setComment}
                         comment={comment}
                         tweetId={tweetId}
                         userId={user._id}
+                        username={user.username}
                     />) : ''}
-                {/* <CommentList
-                    tweet={tweet} /> */}
-
             </div>
             <div>
 

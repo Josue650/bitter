@@ -9,14 +9,16 @@ export default function CommentList({
     id,
     tweet,
     deleteComment,
-    editComment
+    editComment,
+    username
 }) {
     return (
         <>
             <ul>
                 {tweet.comments.length ? tweet.comments.map((item) => (
                     <li key={item._id}>
-                        <h1>{item.text}</h1>
+                        <h3>{item.username}</h3>
+                        <h4>{item.text}</h4>
                         {/* <button onClick={() => deleteComment(id, item._id)}>Delete</button>
                         <button onClick={() => editComment(id, item._id)}>Edit</button> */}
                     </li>
