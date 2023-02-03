@@ -4,8 +4,8 @@ const Schema = require("mongoose").Schema;
 
 const tweetSchema = new Schema(
   {
-    // username: { type: String, required: true },
-    // userId: { type: String, required: true },
+    username: { type: String, required: true },
+    userId: { type: String, required: true },
     text: { type: String, required: true },
     likes: { type: Number, default: 0 },
     comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],

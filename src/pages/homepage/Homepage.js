@@ -19,6 +19,7 @@ export default function Homepage() {
 
     const [tweet, setTweet] = useState({
         userId: '',
+        username: '',
         text: "",
     });
 
@@ -47,7 +48,7 @@ export default function Homepage() {
 
     const [toggleComment, setToggleComment] = useState(false)
 
-    const createTweet = async () => {
+    const createTweet = async (userId, username) => {
         try {
             const response = await fetch("/api/tweets", {
                 method: "POST",
@@ -63,7 +64,8 @@ export default function Homepage() {
             console.error(error);
         } finally {
             setTweet({
-                userId: user._id,
+                userId: userId,
+                username: username,
                 text: " ",
             });
         }
@@ -140,7 +142,7 @@ export default function Homepage() {
         }
     }
 
-    const createComment = async (tweetId) => {
+    const createComment = async (tweetId, userId, username) => {
         try {
             const response = await fetch(`/api/comments/${tweetId}`, {
                 method: "POST",
@@ -157,6 +159,8 @@ export default function Homepage() {
             console.error(error);
         } finally {
             setComment({
+                userId: userId,
+                username: username,
                 text: " ",
             });
         }

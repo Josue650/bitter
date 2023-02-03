@@ -31,6 +31,8 @@ function Feed({
                 createTweet={createTweet}
                 setTweet={setTweet}
                 tweet={tweet}
+                userId={user._id}
+                username={user.username}
             />
             <div>
                 <ul className="tweetsContainer">
@@ -47,6 +49,7 @@ function Feed({
                                 comment={comment}
                                 editComment={editComment}
                                 deleteComment={deleteComment}
+                                username={user.username}
                             />
                         </li>
                     )) : <> No Tweet Added</>}

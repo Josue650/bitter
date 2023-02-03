@@ -10,7 +10,7 @@ export default function CommentForm(
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    createComment(tweetId)
+                    createComment(tweetId, userId)
                 }}>
                 <div>
                     <textarea

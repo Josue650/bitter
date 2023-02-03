@@ -41,6 +41,7 @@ function Post({
     comment,
     editComment,
     deleteComment,
+    username
 }) {
 
     const [toggle, setToggle] = useState(false)
@@ -55,7 +56,7 @@ function Post({
                     <div className="post__header">
                         <div className="post__headerText">
                             <h3>
-                                {user.username}
+                                {tweet.username}
                                 <span className="post__headerSpecial">
                                     <Verified className="post__badge"></Verified>
                                 </span>
@@ -87,8 +88,8 @@ function Post({
                         tweetId={tweetId}
                         userId={user._id}
                     />) : ''}
-                <CommentList
-                    tweet={tweet} />
+                {/* <CommentList
+                    tweet={tweet} /> */}
 
             </div>
             <div>
