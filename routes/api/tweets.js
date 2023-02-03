@@ -13,7 +13,7 @@ router.post('/', tweets.createTweet, tweets.respondWithTweet)
 //localhost:3001/api/tweets/:id
 router.get('/:id', tweets.getOneTweet, tweets.respondWithTweet)
 //localhost:3001/api/tweets/:id/like
-router.get('/:id/like', tweets.updateLikes)
+router.get('/:id/like', tweets.updateLikes, tweets.respondWithTweet)
 
 
 module.exports = router

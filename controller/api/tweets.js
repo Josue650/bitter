@@ -88,10 +88,12 @@ const updateLikes = async (req, res, next) => {
     const currentTweet = await Tweet.findById(req.params.id)
     if(!currentTweet.likes.includes(req.user._id)){
       await currentTweet.updateOne({ $push: { likes: req.user._id } });
-      res.status(200).json("The post has been liked");
+      res.locals.data.tweet = currentTweet
+      next()
     } else {
       await currentTweet.updateOne({ $pull: { likes: req.user._id } });
-      res.status(200).json("The post has been disliked");
+      res.locals.data.tweet = currentTweet
+      next()
     }
   } catch(error){
     res.status(400).json({ msg: error.message });
