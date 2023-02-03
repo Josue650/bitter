@@ -61,6 +61,8 @@ function Post({
                                 </span>
                             </h3>
                         </div>
+                        {user.username !== tweet.username ?
+                            (<button>Follow</button>) : ''}
                         <div className="post__headerDescripton">
                             <p>{tweet.text}</p>
                         </div>
