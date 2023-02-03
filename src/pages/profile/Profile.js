@@ -1,17 +1,40 @@
 import React from 'react'
 import Sidebar from '../../components/sidebar/Sidebar'
+import './Profile.css'
+import ProfileHeader from "../../components/ProfileHeader/ProfileHeader";
+import Follows from '../../components/Follows/follows';
+import EditButton from '../../components/EditButton/EditButton';
+import Sidebar from "../../components/sidebar/Sidebar";
+import Feed from "../../components/Feed/Feed";
+import Widgets from "../../components/Widgets/Widgets";
+import TweetForm from '../../components/tweetForm/TweetForm';
 
 
-export default function Profile() {
+
+export default function Profile({
+    user,
+    createTweet,
+    token,
+    setTweet,
+    tweet,
+}) {
+
+
     return (
-        <div className='primary'>
+        <>
+            <ProfileHeader />
+            <Follows />
+            <EditButton />
             <Sidebar />
-            <h1>Profile</h1>
-            <div className="profile"></div>
-            <div className="profile-info"></div>
-            <div className="profile-head"></div>
-            <div className='profile-img'></div>
-            <div className='followers'></div>
-        </div>
+            <TweetForm
+                user={user}
+                createTweet={createTweet}
+                token={token}
+                setTweet={setTweet}
+                tweet={tweet}
+            />
+            <Feed />
+            <Widgets />
+        </>
     )
 }
