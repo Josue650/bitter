@@ -1,10 +1,13 @@
 require("dotenv").config();
 const Tweet = require("../../models/tweet");
 const Profile = require("../../models/profile");
+const User = require("../../models/user");
+
 
 const getAllTweets = async (req, res, next) => {
   try {
     const foundTweets = await Tweet.find({}).populate("comments");
+    console.log("Found Tweets: ", foundTweets)
     res.locals.data.tweets = foundTweets;
     next();
   } catch (error) {
@@ -14,27 +17,39 @@ const getAllTweets = async (req, res, next) => {
 
 //DELETE
 const destroyTweet = async (req, res, next) => {
-  try {
-    const deletedTweet = await Tweet.findByIdAndDelete(req.params.id);
-    res.locals.data.tweet = deletedTweet;
-    next();
-  } catch (error) {
-    res.status(400).json({ msg: error.message });
+  const currentProfile = await Profile.findById(req.user.profile)
+  if(currentProfile.tweets.includes(req.params.id)){
+    try {
+      const deletedTweet = await Tweet.findByIdAndDelete(req.params.id);
+      res.locals.data.tweet = deletedTweet;
+      next();
+    } catch (error) {
+      res.status(400).json({ msg: error.message });
+    }
+  } else {
+    res.status(403).json("You can't delete another's bitterness")
   }
+  
 };
 
 //UPDATE
 const updateTweet = async (req, res, next) => {
-  try {
-    const updatedTweet = await Tweet.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-    res.locals.data.tweet = updatedTweet;
-    next();
-  } catch (error) {
-    res.status(400).json({ msg: error.message });
+  const currentProfile = await Profile.findById(req.user.profile)
+  if(currentProfile.tweets.includes(req.params.id)){
+    try {
+      const updatedTweet = await Tweet.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true }
+      );
+      // res.locals.data.profile = currentProfile.updatedTweet
+      res.locals.data.tweet = updatedTweet;
+      next();
+    } catch (error) {
+      res.status(400).json({ msg: error.message });
+    }
+  } else {
+    res.status(403).json("You can't edit another's bitterness")
   }
 };
 
@@ -42,15 +57,31 @@ const updateTweet = async (req, res, next) => {
 const createTweet = async (req, res, next) => {
   try {
     const createdTweet = await Tweet.create(req.body);
-    const profile = await Profile.findOne({ profile: res.locals.data.profile })
-    profile.tweets.addToSet(createdTweet)
-    await profile.save()
-    res.locals.data.tweet = createdTweet;
+    
+    try {
+      await Profile.findByIdAndUpdate(req.user.profile, { $push: {tweets: createdTweet._id} })
+    } catch (error) {
+      res.status(400).json({ msg: error.message });
+    }
+    res.locals.data.tweet = createdTweet
     next();
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
 };
+
+const getOneTweet = async (req, res, next) => {
+  try {
+    const foundTweet = await Tweet.findById(req.params.id).populate("comments");
+    console.log("Found Tweets: ", foundTweet)
+    res.locals.data.tweet = foundTweet;
+    next();
+  } catch (error) {
+    res.status(400).json({ msg: error.message });
+  }
+};
+
+
 
 //RESPOND
 const respondWithTweets = (req, res) => {
@@ -65,6 +96,7 @@ module.exports = {
   destroyTweet,
   updateTweet,
   createTweet,
+  getOneTweet,
   respondWithTweets,
   respondWithTweet,
 };

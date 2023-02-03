@@ -1,4 +1,5 @@
 import React from 'react'
+import Sidebar from '../../components/sidebar/Sidebar'
 import './Profile.css'
 import ProfileHeader from "../../components/ProfileHeader/ProfileHeader";
 import Follows from '../../components/Follows/follows';

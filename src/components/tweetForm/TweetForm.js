@@ -1,8 +1,6 @@
 import "./TweetForm.css";
 export default function TweetForm({
-    user,
     createTweet,
-    token,
     setTweet,
     tweet,
 }) {

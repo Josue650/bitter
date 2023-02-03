@@ -13,14 +13,19 @@ const dataController = {
   async create(req, res, next) {
     try {
       const user = await User.create(req.body)
-      console.log(user)
+
+
+      const createdProfile = await Profile.create({})
+      user.profile = createdProfile._id
+      console.log("User: ", user)
       const token = createJWT(user)
       res.locals.data.user = user
       res.locals.data.token = token
       console.log(token)
-      const createdProfile = await Profile.create({})
-      user.profile = createdProfile
+
+
       user.save()
+
       // user.create(() => {
       //   async (error, createdProfile) =>{
       //     if (error) {
@@ -34,6 +39,7 @@ const dataController = {
       //     }
       //   }
       // })
+      console.log(user)
       next()
     } catch (err) {
       console.log('Error!')
@@ -56,39 +62,43 @@ const dataController = {
     }
   },
 
-  // async getUserTweets (req, res, next) {
-  //   try {
-  //     const user = await User.findOne({ email: res.locals.data.email }).populate("tweets").sort("tweets.createdAt").exec()
-  //     const tweets = user.tweets
-  //     res.locals.data.tweets = tweets
-  //     next()
-  //   } catch(error) {
-  //     res.status(400).json({msg: error.message})
-  //   }
-  // }
+  async destroy(req, res, next) {
+    try {
+      const deletedUser = await User.findOneAndDelete({ email: req.body.email })
+      res.locals.data.user = deletedUser
+
+      next();
+    } catch (error) {
+      res.status(400).json({ msg: error.message });
+    }
+
+  },
+
+  async getUser(req, res, next) {
+    console.log("req user: ", req.user)
+    
+    try {
+      const foundUser = await User.findById(req.user)
+      
+      res.locals.data.user = foundUser
+
+      next();
+    } catch (error) {
+      res.status(400).json({ msg: error.message });
+    }
+
+  },
+
   async getUserProfile(req, res, next) {
     try {
-      const user = await User.findOne({ email: res.locals.data.email }).populate("profile").exec()
+      const user = await User.findOne({ email: req.user.email }).populate("profile").exec()
       const foundProfile = user.profile
       res.locals.data.profile = foundProfile
       next()
     } catch (error) {
       res.status(400).json({ msg: error.message })
     }
-  }, 
-//   async updateProfile (req, res, next) {
-//     try {
-//       const user = await User.findOne({ email: res.locals.data.email }).populate("profile").exec()
-
-//         const updatedProfile = await Profile.findByIdAndUpdate(req.params.id, req.body, { new: true })
-//         // console.log(updatedProfile)
-//         res.locals.data.profile = updatedProfile
-//         console.log(res.locals.data.profile)
-//         next()
-//     } catch (error) {
-//         res.status(400).json({ msg: error.message })
-//     }
-// }
+  }
 }
 
 const apiController = {
@@ -97,6 +107,9 @@ const apiController = {
   },
   respondWithProfile(req, res) {
     res.json(res.locals.data.profile)
+  },
+  respondWithUser(req, res) {
+    res.json(res.locals.data.user)
   }
 }
 

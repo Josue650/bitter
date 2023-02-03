@@ -10,23 +10,28 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import PersonIcon from '@mui/icons-material/Person';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Button } from "@mui/material";
+import { Link } from 'react-router-dom'
 
 
 
 
 
-export default function Sidebar(){
-    return(
+export default function Sidebar() {
+    return (
         <div className='sidebar'>
-            <EmojiFoodBeverageIcon className="sidebar_bitterIcon"/>
-            <SidebarOptions active Icon={HomeIcon} text='Home'/>
-            <SidebarOptions Icon={SearchIcon} text='Search'/>
-            <SidebarOptions Icon={NotificationsIcon} text='Notifications'/>
-            <SidebarOptions Icon={MailOutlineIcon} text='Message'/>
-            <SidebarOptions Icon={BookmarkBorderIcon} text='Bookmarks'/>
-            <SidebarOptions Icon={ListIcon} text='Lists'/>
-            <SidebarOptions Icon={PersonIcon} text='Profile'/>
-            <SidebarOptions Icon={MoreHorizIcon} text='More'/>
+            <EmojiFoodBeverageIcon className="sidebar_bitterIcon" />
+            <Link to='/' style={{ color: 'black', textDecoration: "none" }}>
+                <SidebarOptions active Icon={HomeIcon} text='Home' />
+            </Link>
+            <SidebarOptions Icon={SearchIcon} text='Search' />
+            <SidebarOptions Icon={NotificationsIcon} text='Notifications' />
+            <SidebarOptions Icon={MailOutlineIcon} text='Message' />
+            <SidebarOptions Icon={BookmarkBorderIcon} text='Bookmarks' />
+            <SidebarOptions Icon={ListIcon} text='Lists' />
+            <Link to='/profile' style={{ color: 'black', textDecoration: "none" }}>
+                <SidebarOptions Icon={PersonIcon} text='Profile' />
+            </Link>
+            <SidebarOptions Icon={MoreHorizIcon} text='More' />
 
             <Button variant="outlined" className='sidebar_bleepBtn' fullWidth>Bleep</Button>
         </div>
