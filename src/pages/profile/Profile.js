@@ -294,7 +294,8 @@ export default function Profile() {
 
     return (
         <>
-            <ProfileHeader />
+            <ProfileHeader
+                userProfile={userProfile} />
             <Follows />
             <EditButton
                 userProfile={userProfile}
