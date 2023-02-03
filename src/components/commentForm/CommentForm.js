@@ -3,18 +3,19 @@ export default function CommentForm(
         tweet,
         setComment,
         createComment,
-        id }) {
+        tweetId,
+        userId }) {
     return (
         <div>
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    createComment(id)
+                    createComment(tweetId)
                 }}>
                 <div>
                     <textarea
                         value={comment.text}
-                        onChange={(e) => setComment({ ...comment, text: e.target.value })}
+                        onChange={(e) => setComment({ ...comment, userId: userId, text: e.target.value })}
                         placeholder={"Comment"}
                     />
                     <button>Bleep</button>
@@ -23,4 +24,3 @@ export default function CommentForm(
         </div>
     )
 }
-

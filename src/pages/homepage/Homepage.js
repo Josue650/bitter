@@ -1,40 +1,52 @@
 
 import { useState, useEffect } from "react";
-import TweetList from "../../components/tweetList/TweetList";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Feed from "../../components/Feed/Feed";
 import Widgets from "../../components/Widgets/Widgets";
 import Register from '../register/Register'
-import { create } from "@mui/material/styles/createTransitions";
+// import { getUser } from '../../utilities/user-service'
 
 
 
 export default function Homepage() {
     const [user, setUser] = useState(null);
 
-    console.log(user)
+    console.log("user", user)
+
+    const [currentUser, setCurrentUser] = useState(null)
 
     const [token, setToken] = useState("");
+
     const [tweet, setTweet] = useState({
+        userId: '',
         text: "",
     });
-    const [userTweets, setUserTweets] = useState([])
+
+
+    const [userTweet, setUserTweet] = useState([])
+
     const [tweets, setTweets] = useState([]);
+
     const [comments, setComments] = useState([])
+
     const [comment, setComment] = useState({
+        userId: '',
         text: ''
     })
-    const [profile, setProfile] = useState({
-        dob: undefined,
-        name: undefined,
-        location: undefined,
-        interests: undefined,
-        photo: undefined,
-    })
 
-    console.log(profile)
+
+    const [userProfile, setUserProfile] = useState(null)
+
+    const [randomProfile, setRandomProfile] = useState(null)
+
+    const [unfollowProfile, setUnfollowProfile] = useState([])
+
+    const [followersProfile, setfollowersProfile] = useState([])
+
+
 
     const [toggleComment, setToggleComment] = useState(false)
+
     const createTweet = async () => {
         try {
             const response = await fetch("/api/tweets", {
@@ -45,14 +57,13 @@ export default function Homepage() {
                 },
                 body: JSON.stringify({ ...tweet }),
             });
-            console.log(response);
             const data = await response.json();
-            console.log(data);
             setTweets([data, ...tweets]);
         } catch (error) {
             console.error(error);
         } finally {
             setTweet({
+                userId: user._id,
                 text: " ",
             });
         }
@@ -93,21 +104,39 @@ export default function Homepage() {
         }
     }
 
-    const editTweet = async (id, updatedTweet) => {
+    const editTweet = async (tweetId, updatedTweet) => {
         try {
-            const response = await fetch(`/api/tweets/${id}`, {
+            const response = await fetch(`/api/tweets/${tweetId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
                 },
-                body: JSON.stringify({ ...tweet, text: updatedTweet })
+                body: JSON.stringify(updatedTweet)
             })
             const data = await response.json()
-            console.log(data)
+            const tweetsCopy = [...tweets]
+            const index = tweetsCopy.findIndex(tweet => tweetId === tweet._id)
+            tweetsCopy[index] = { ...tweetsCopy[index], ...updatedTweet }
             setTweet(data)
         } catch (err) {
             console.error(err)
+        }
+    }
+
+    const getOneTweet = async (tweetId) => {
+        try {
+            const response = await fetch(`/api/tweets/${tweetId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
+            })
+            const data = await response.json()
+            setUserTweet(data)
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -121,9 +150,7 @@ export default function Homepage() {
                 },
                 body: JSON.stringify({ ...comment }),
             });
-            console.log(response);
             const data = await response.json();
-            console.log(data);
             setComments([data, ...comments]);
             setToggleComment(!toggleComment)
         } catch (error) {
@@ -135,9 +162,9 @@ export default function Homepage() {
         }
     };
 
-    const getAllComments = async (tweetId) => {
+    const getAllComments = async (tweetId, commentId) => {
         try {
-            const response = await fetch(`/api/comments/${tweetId}`, {
+            const response = await fetch(`/api/comments/${tweetId}/${commentId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -179,19 +206,22 @@ export default function Homepage() {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
                 },
-                body: JSON.stringify({ ...comment, text: updatedComment })
+                body: JSON.stringify({
+                    ...comment,
+                    userId: user._id,
+                    text: updatedComment
+                })
             })
             const data = await response.json()
-            console.log(data)
             setComment(data)
         } catch (err) {
             console.error(err)
         }
     }
 
-    const getUserProfile = async () => {
+    const getUser = async () => {
         try {
-            const response = await fetch('/api/users/profile', {
+            const response = await fetch('/api/users', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -200,42 +230,56 @@ export default function Homepage() {
             })
             const data = await response.json()
             console.log(data)
-            setProfile(data)
+            setUser(data)
         } catch (error) {
             console.error(error)
         }
     }
 
-    const updateUserProfile = async (id, updatedProfile) => {
-        try {
-            const response = await fetch(`/api/profile/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-                },
-                body: JSON.stringify(updatedProfile)
-            })
-            const data = response.json()
-            console.log(data)
-            setProfile(data)
-        } catch (err) {
-            console.log(err)
-        }
-    }
+    // const followProfile = async (followId, followProfiles) => {
+    //     try {
+    //         const response = await fetch(`/api/profile/${followId}/follow`, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+    //             },
+    //             body: JSON.stringify()
+    //         })
+    //         const data = response.json()
+    //         setFollowProfile(data)
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // }
 
-    const getAUserTweets = async () => {
+    const getRandomProfile = async (randomId) => {
         try {
-            const response = await fetch('/api/profile/tweets', {
+            const response = await fetch(`/api/profile/random/${randomId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
                 }
             })
-            const data = await response.json()
-            console.log(data)
-            setUserTweets(data)
+            const data = response.json()
+            setRandomProfile()
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const getUnfollowProfile = async (followId) => {
+        try {
+            const response = await fetch(`/api/profile/${followId}/unfollow`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
+            })
+            const data = response.json()
+            setUnfollowProfile()
         } catch (err) {
             console.log(err)
         }
@@ -246,16 +290,18 @@ export default function Homepage() {
         if (tokenData && tokenData !== "null" && tokenData !== "undefined") {
             setToken(JSON.parse(tokenData));
         }
+        getUser()
         getAllTweets()
-        getUserProfile()
     }, [token, toggleComment])
 
+
     useEffect(() => {
-        const tokenData = localStorage.getItem("token");
-        if (tokenData && tokenData !== "null" && tokenData !== "undefined") {
-            setToken(JSON.parse(tokenData));
+        const tokenData = localStorage.getItem('token')
+        if (tokenData && tokenData !== 'null' && tokenData !== 'undefined') {
+            setToken(JSON.parse(tokenData))
         }
-    }, []);
+    }, [])
+
 
     return (
         <div>
@@ -265,21 +311,22 @@ export default function Homepage() {
                         <h1>Home</h1>
                         <Sidebar />
                         <Feed
-                            profile={profile}
                             user={user}
                             tweet={tweet}
                             tweets={tweets}
                             createTweet={createTweet}
                             setTweet={setTweet}
                             deleteTweet={deleteTweet}
+                            editTweet={editTweet}
                             comment={comment}
                             setComment={setComment}
-                            createComment={createComment} />
+                            createComment={createComment}
+                            currentUser={currentUser} />
                         <Widgets />
                     </div>
                 </>
             ) : (
-                <Register setUser={setUser} setToken={setToken} token={token} />
+                <Register user={user} setUser={setUser} setToken={setToken} token={token} />
             )}
         </div>
     )
@@ -288,70 +335,3 @@ export default function Homepage() {
 
 
 
-// export default function Homepage({
-//     user,
-//     token,
-//     tweet,
-//     setTweet,
-//     userTweets,
-//     setUserTweets,
-//     tweets,
-//     setTweets,
-//     comments,
-//     setComments,
-//     comment,
-//     setComment,
-//     profile,
-//     setProfile,
-//     createTweet,
-//     getAllTweets,
-//     deleteTweet,
-//     editTweet,
-//     createComment,
-//     getAllComments,
-//     deleteComment,
-//     editComment,
-//     getUserProfile,
-//     updateUserProfile,
-//     getAUserTweets
-// }) {
-//     return (
-//         <>
-//             <div className="tweetForm-container">
-//                 <h1>Home</h1>
-//                 <Sidebar />
-
-//                 <button>Update Profile</button>
-//                 <TweetList
-//                     user={user}
-//                     token={token}
-//                     tweet={tweet}
-//                     setTweet={setTweet}
-//                     userTweets={userTweets}
-//                     setUserTweets={setUserTweets}
-//                     tweets={tweets}
-//                     setTweets={setTweets}
-//                     comments={comments}
-//                     setComments={setComments}
-//                     comment={comment}
-//                     setComment={setComment}
-//                     profile={profile}
-//                     setProfile={setProfile}
-//                     createTweet={createTweet}
-//                     getAllTweets={getAllTweets}
-//                     deleteTweet={deleteTweet}
-//                     editTweet={editTweet}
-//                     createComment={createComment}
-//                     getAllComments={getAllComments}
-//                     deleteComment={deleteComment}
-//                     editComment={editComment}
-//                     getUserProfile={getUserProfile}
-//                     updateUserProfile={updateUserProfile}
-//                     getAUserTweets={getAUserTweets}
-//                 />
-//                 <Feed />
-//                 <Widgets />
-//             </div>
-//         </>
-//     );
-// }

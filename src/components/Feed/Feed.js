@@ -1,12 +1,11 @@
 import React from "react";
 import Post from "../Post/Post";
 import './Feed.css';
-import TweetList from "../tweetList/TweetList";
 import TweetForm from "../tweetForm/TweetForm";
+import { Add } from "@mui/icons-material";
 
 function Feed({
     profile,
-    user,
     tweet,
     tweets,
     createTweet,
@@ -18,9 +17,10 @@ function Feed({
     getAllComments,
     deleteComment,
     editComment,
-    comments }) {
-
-    console.log(tweets)
+    comments,
+    editTweet,
+    user,
+    currentUser }) {
 
     return (
         <div className="feed">
@@ -34,22 +34,19 @@ function Feed({
             />
             <div>
                 <ul className="tweetsContainer">
-                    {tweets.length ? tweets.map((item) => (
-                        <li key={item._id}>
+                    {tweets.length ? tweets.map((tweet) => (
+                        <li key={tweet._id}>
                             <Post
-                                text={item.text}
                                 user={user}
-                                deleteTweet={deleteTweet}
-                                id={item._id}
-                                comment={comment}
                                 tweet={tweet}
-                                setComment={setComment}
+                                tweetId={tweet._id}
+                                editTweet={editTweet}
+                                deleteTweet={deleteTweet}
                                 createComment={createComment}
-                                comments={comments}
-                                getAllComments={getAllComments}
-                                deleteComment={deleteComment}
+                                setComment={setComment}
+                                comment={comment}
                                 editComment={editComment}
-                                tweets={tweets}
+                                deleteComment={deleteComment}
                             />
                         </li>
                     )) : <> No Tweet Added</>}

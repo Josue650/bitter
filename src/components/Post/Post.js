@@ -1,36 +1,46 @@
 import React, { useState } from "react";
 import './Post.css';
 import { Avatar } from "@mui/material";
-import { Comment, Verified } from "@mui/icons-material";
+import { Add, Comment, CommentOutlined, CommentRounded, DeleteOutline, Edit, EditOutlined, EditTwoTone, Verified } from "@mui/icons-material";
 import { ChatBubbleOutline } from "@mui/icons-material";
 import { Repeat } from "@mui/icons-material";
 import { FavoriteBorder } from "@mui/icons-material";
-import { Publish } from "@mui/icons-material";
-import { Delete } from "@mui/icons-material";
-import CommentList from "../commentList/CommentList";
+import CommentList from "../../components/commentList/CommentList"
 import CommentForm from "../commentForm/CommentForm";
-import TweetList from "../tweetList/TweetList";
+
 
 function Post({
-    displayName,
-    username,
-    verified,
-    image,
-    avatar,
-    profile,
-    user,
-    text,
-    deleteTweet,
-    id,
-    comment,
+    // displayName,
+    // username,
+    // verified,
+    // image,
+    // avatar,
+    // profile,
+    // user,
+    // text,
+    // deleteTweet,
+    // id,
+    // comment,
+    // tweet,
+    // setComment,
+    // createComment,
+    // getAllComments,
+    // deleteComment,
+    // editComment,
+    // comments,
+    // tweets,
+    // editTweet,
+    // currentUser
     tweet,
-    setComment,
+    tweetId,
+    user,
+    editTweet,
+    deleteTweet,
     createComment,
-    getAllComments,
-    deleteComment,
+    setComment,
+    comment,
     editComment,
-    comments,
-    tweets
+    deleteComment,
 }) {
 
     const [toggle, setToggle] = useState(false)
@@ -52,32 +62,37 @@ function Post({
                             </h3>
                         </div>
                         <div className="post__headerDescripton">
-                            <p>{text}</p>
+                            <p>{tweet.text}</p>
                         </div>
                     </div>
                     {/* <img src="https://media.tenor.com/TC9xkKYp6wIAAAAd/goat.gif" alt="goat"></img> */}
                 </div>
+                <div>
+                </div>
 
-                {toggle === true ?
-                    <CommentForm
-                        comment={comment}
-                        tweet={tweet}
-                        setComment={setComment}
-                        createComment={createComment}
-                        id={id}
-                        user={user}
-                        deleteTweet={deleteTweet}
-                        comments={comments}
-                        getAllComments={getAllComments}
-                        deleteComment={deleteComment}
-                        editComment={editComment}
-                    /> : ''}
             </div>
             <div className="post__footer">
-                <ChatBubbleOutline fontSize="small" onClick={() => setToggle(!toggle)} />
+                <CommentOutlined fontSize='small' onClick={() => setToggle(!toggle)} />
+                <EditOutlined fontSize="small" onClick={() => editTweet(tweetId)} />
                 <Repeat fontSize="small" />
                 <FavoriteBorder fontSize="small" />
-                <Delete fontSize="small" onClick={() => deleteTweet(id)} />
+                <DeleteOutline fontSize="small" onClick={() => deleteTweet(tweetId)} />
+            </div>
+            <div>
+                {toggle === true ?
+                    (<CommentForm
+                        createComment={createComment}
+                        setComment={setComment}
+                        comment={comment}
+                        tweetId={tweetId}
+                        userId={user._id}
+                    />) : ''}
+                <CommentList
+                    tweet={tweet} />
+
+            </div>
+            <div>
+
             </div>
         </>
     )
