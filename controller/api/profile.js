@@ -20,6 +20,20 @@ const getProfile = async (req, res, next) => {
     }
 }
 
+//Get all profiles
+const getAllProfiles = async (req, res, next) => {
+    // console.log(req.query.userId)
+    try {
+        const profiles = await Profile.find({}).populate("tweets").exec()
+        console.log(profiles)
+        res.locals.data.profiles = profiles
+        // console.log(res.locals.data.profiles)
+        next()
+    } catch (error) {
+        res.status(400).json({ msg: error.message })
+    }
+}
+
 //Follow another user's profile
 const followProfile = async (req, res, next) => {
     const user = await User.findOne({ email: res.locals.data.email }).populate("profile").exec()
@@ -149,6 +163,10 @@ const respondWithProfile = (req, res) => {
     res.json(res.locals.data.profile)
 }
 
+const respondWithProfiles = (req, res) => {
+    res.json(res.locals.data.profiles)
+}
+
 const respondWithTweets = (req, res) => {
     res.json(res.locals.data.tweets)
 }
@@ -163,6 +181,7 @@ const respondWithFollowings = (req, res) => {
 
 module.exports = {
     getProfile,
+    getAllProfiles,
     // destroyProfile,
     updateProfile,
     // createProfile,
@@ -173,6 +192,7 @@ module.exports = {
     followProfile,
     unfollowProfile,
     respondWithProfile,
+    respondWithProfiles,
     respondWithTweets,
     respondWithFollowers,
     respondWithFollowings
