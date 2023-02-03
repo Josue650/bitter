@@ -85,10 +85,12 @@ const updateLikes = async (req, res, next) => {
         const currentComment = await Comment.findById(req.params.id)
         if (!currentComment.likes.includes(req.user._id)) {
             await currentComment.updateOne({ $push: { likes: req.user._id } });
-            res.status(200).json("The comment has been liked");
+            res.locals.data.comment = currentComment
+            next()
         } else {
             await currentComment.updateOne({ $pull: { likes: req.user._id } });
-            res.status(200).json("The comment has been disliked");
+            res.locals.data.comment = currentComment
+            next()
         }
     } catch (error) {
         res.status(400).json({ msg: error.message });

@@ -13,7 +13,7 @@ router.get('/:tweetId/:id', commentCon.getOneComment, commentCon.respondWithComm
 //localhost:3001/comments/:tweetId
 router.post('/:tweetId/', commentCon.createComment, commentCon.respondWithComment)
 //localhost:3001/api/comments/:tweetId/:id/like
-router.get('/:tweetId/:id/like', commentCon.updateLikes)
+router.get('/:tweetId/:id/like', commentCon.updateLikes, commentCon.respondWithComment)
 
 
 module.exports = router
