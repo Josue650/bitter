@@ -1,4 +1,4 @@
-<div style='font-size:40px; text-align:center align-items:center'>
+<div style='font-size:40px; text-align:center; align-items:center;'>
 
  Bitter your not so friendly twitter clone
 </div>
