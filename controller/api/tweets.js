@@ -18,6 +18,7 @@ const getAllTweets = async (req, res, next) => {
 //DELETE
 const destroyTweet = async (req, res, next) => {
   const currentProfile = await Profile.findById(req.user.profile)
+  console.log(currentProfile)
   if (currentProfile.tweets.includes(req.params.id)) {
     try {
       const deletedTweet = await Tweet.findByIdAndDelete(req.params.id);

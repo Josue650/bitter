@@ -87,17 +87,6 @@ const dataController = {
       res.status(400).json({ msg: error.message });
     }
 
-  },
-
-  async getUserProfile(req, res, next) {
-    try {
-      const user = await User.findOne({ email: req.user.email }).populate("profile").exec()
-      const foundProfile = user.profile
-      res.locals.data.profile = foundProfile
-      next()
-    } catch (error) {
-      res.status(400).json({ msg: error.message })
-    }
   }
 }
 
