@@ -1,0 +1,4 @@
+.user-follows {
+    display: flex;
+    gap: 10px;
+}
