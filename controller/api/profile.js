@@ -24,7 +24,7 @@ const getProfile = async (req, res, next) => {
 const getAllProfiles = async (req, res, next) => {
     // console.log(req.query.userId)
     try {
-        const profiles = await Profile.find({}).populate("tweets").exec()
+        const profiles = await Profile.find({})
         console.log(profiles)
         res.locals.data.profiles = profiles
         // console.log(res.locals.data.profiles)
