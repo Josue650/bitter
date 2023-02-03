@@ -122,21 +122,21 @@ export default function Homepage() {
         }
     }
 
-    // const getOneTweet = async (tweetId) => {
-    //     try {
-    //         const response = await fetch(`/api/tweets/${tweetId}`, {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-    //             }
-    //         })
-    //         const data = await response.json()
-    //         setUserTweet(data)
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+    const getOneTweet = async (tweetId) => {
+        try {
+            const response = await fetch(`/api/tweets/${tweetId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
+            })
+            const data = await response.json()
+            setUserTweet(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const createComment = async (tweetId, userId, username) => {
         try {
