@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Follows() {
     return (
-            <><div className="user-follows">
+        <><div className="user-follows">
             <span className="user-follows-following">
                 {/* <b>{user.following-count || 0}</b> Following */}
                 <p>0 Following</p>

@@ -4,6 +4,8 @@ export default function TweetForm({
     createTweet,
     setTweet,
     tweet,
+    userId,
+    username
 }) {
     return (
         // <form
@@ -39,7 +41,7 @@ export default function TweetForm({
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    createTweet();
+                    createTweet(userId, username);
                 }}
             >
 
@@ -50,7 +52,7 @@ export default function TweetForm({
                     />
                     <input
                         value={tweet.text}
-                        onChange={(e) => setTweet({ ...tweet, text: e.target.value })}
+                        onChange={(e) => setTweet({ ...tweet, username: username, text: e.target.value })}
                         placeholder={"What's happening?"}
                     />
                 </div>
