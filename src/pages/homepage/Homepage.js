@@ -1,10 +1,13 @@
-
 import { useState, useEffect } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
+import "../../components/sidebar/sidebar.css";
 import Feed from "../../components/Feed/Feed";
+import "../../components/Feed/Feed.css";
 import Widgets from "../../components/Widgets/Widgets";
-import Register from '../register/Register'
-// import { getUser } from '../../utilities/user-service'
+import "../../components/Widgets/Widgets.css";
+import Register from '../register/Register';
+
+
 
 
 
@@ -59,6 +62,7 @@ export default function Homepage() {
                 body: JSON.stringify({ ...tweet, userId }),
             });
             const data = await response.json();
+            console.log('data', data)
             setTweets([data, ...tweets]);
         } catch (error) {
             console.error(error);
@@ -328,7 +332,7 @@ export default function Homepage() {
             {user ? (
                 <>
                     <div className="tweetForm-container">
-                        <h1>Home</h1>
+
                         <Sidebar />
                         <Feed
                             user={user}

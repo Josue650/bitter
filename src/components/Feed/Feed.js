@@ -37,7 +37,7 @@ function Feed({
                 userId={user._id}
                 username={user.username}
             />
-            <div>
+            <div className="tC">
                 <ul className="tweetsContainer">
                     {tweets.length ? tweets.map((tweet) => (
                         <li key={tweet._id}>
