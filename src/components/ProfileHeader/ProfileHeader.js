@@ -9,9 +9,9 @@ export default function ProfileHeader({ user, userProfile, updateProfile, handle
         <>
             <div className="profile-container">
                 <div className="header">
-                    <img src="https://i.imgur.com/i8FBGNE.jpg" class="header" alt="" />
+                    <img src="https://i.imgur.com/i8FBGNE.jpg" className="header" alt="" />
                     <div className="avatar">
-                        <img src={userProfile?.photo ? userProfile.photo : 'need to edit'} class="avatar" alt="" />
+                        <img src={userProfile?.photo ? userProfile.photo : 'need to edit'} className="avatar" alt="" />
                     </div></div>
 
 
