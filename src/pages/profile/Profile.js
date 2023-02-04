@@ -283,7 +283,7 @@ export default function Profile() {
         getUser()
         getFollowers()
         getAUserTweets()
-    }, [])
+    }, [token])
 
     useEffect(() => {
         const tokenData = localStorage.getItem('token')
@@ -296,7 +296,13 @@ export default function Profile() {
 
     return (
         <>
-            <ProfileHeader
+            <Sidebar
+                userProfile={userProfile}
+                setUserProfile={setUserProfile}
+                user={user}
+                setUser={setUser} 
+                />
+                <ProfileHeader
                 user={user}
                 userProfile={userProfile}
                 updateProfile={updateProfile}
@@ -309,9 +315,7 @@ export default function Profile() {
                 handleChange={handleChange}
                 updatedProfile={updatedProfile}
             />
-            <Sidebar
-                userProfile={userProfile}
-                setUserProfile={setUserProfile} />
+            
             <UserFeed
                 userTweets={userTweets}
                 user={user}
