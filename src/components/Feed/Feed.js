@@ -20,7 +20,9 @@ function Feed({
     setFollowersProfile,
     followersProfile,
     likes,
-    setLikes
+    setLikes,
+    setIsLiked,
+    isLiked
 }) {
 
     return (
@@ -54,6 +56,8 @@ function Feed({
                                 followProfile={followProfile}
                                 setFollowersProfile={setFollowersProfile}
                                 followersProfile={followersProfile}
+                                setIsLiked={setIsLiked}
+                                isLiked={isLiked}
                             />
                         </li>
                     )) : <> No Tweet Added</>}

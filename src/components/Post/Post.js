@@ -28,11 +28,12 @@ function Post({
     editComment,
     deleteComment,
     followProfile,
+    setIsLiked,
+    isLiked
 }) {
 
 
     const [like, setLike] = useState(null);
-    const [isLiked, setIsLiked] = useState(false);
     const [tweets, setTweets] = useState([])
     const [toggle, setToggle] = useState(false)
     const [oneTweet, setOneTweet] = useState(null)
@@ -80,11 +81,6 @@ function Post({
     }
 
 
-
-
-    useEffect(() => {
-        console.log('working')
-    }, [isLiked]);
 
 
 

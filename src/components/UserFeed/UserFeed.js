@@ -13,6 +13,8 @@ export default function UserFeed({
     deleteComment,
     editComment,
     comments,
+    isLiked,
+    setIsLiked
 }) {
     return (
         <div className="feed">
@@ -30,6 +32,8 @@ export default function UserFeed({
                             comment={tweet.comments}
                             setComment={setComment}
                             createComment={createComment}
+                            isLiked={isLiked}
+                            setIsLiked={setIsLiked}
                         />
                     </li>
                 )) : <> No Tweet Added</>}

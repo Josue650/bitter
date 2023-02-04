@@ -13,6 +13,8 @@ import UserFeed from '../../components/UserFeed/UserFeed';
 
 export default function Profile() {
 
+
+    const [isLiked, setIsLiked] = useState(false);
     const [toggleComment, setToggleComment] = useState(false)
     const [user, setUser] = useState(null);
     const [userProfile, setUserProfile] = useState(null)
@@ -288,14 +290,18 @@ export default function Profile() {
         if (tokenData && tokenData !== 'null' && tokenData !== 'undefined') {
             setToken(JSON.parse(tokenData))
         }
-    }, [])
+    }, [toggleComment, isLiked])
 
-    console.log('userTweets', userTweets)
+    console.log("userProfile", userProfile)
 
     return (
         <>
             <ProfileHeader
-                userProfile={userProfile} />
+                user={user}
+                userProfile={userProfile}
+                updateProfile={updateProfile}
+                handleChange={handleChange}
+                updatedProfile={updatedProfile} />
             <Follows />
             <EditButton
                 userProfile={userProfile}
@@ -315,6 +321,8 @@ export default function Profile() {
                 createComment={createComment}
                 deleteComment={deleteComment}
                 editComment={editComment}
+                isLiked={isLiked}
+                setIsLiked={setIsLiked}
             />
             <Widgets />
         </>

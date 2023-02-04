@@ -13,7 +13,11 @@ export default function Homepage() {
 
     const [currentUser, setCurrentUser] = useState(null)
 
+    const [userTweet, setUserTweet] = useState(null)
+
     const [token, setToken] = useState("");
+
+    const [isLiked, setIsLiked] = useState(false);
 
     const [tweet, setTweet] = useState({
         userId: '',
@@ -52,7 +56,7 @@ export default function Homepage() {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify({ ...tweet }),
+                body: JSON.stringify({ ...tweet, userId }),
             });
             const data = await response.json();
             setTweets([data, ...tweets]);
@@ -146,7 +150,7 @@ export default function Homepage() {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify({ ...comment }),
+                body: JSON.stringify({ ...comment, userId }),
             });
             const data = await response.json();
             setComments([data, ...comments]);
@@ -308,7 +312,7 @@ export default function Homepage() {
         }
         getUser()
         getAllTweets()
-    }, [token, toggleComment])
+    }, [token, toggleComment, isLiked])
 
 
     useEffect(() => {
@@ -342,6 +346,8 @@ export default function Homepage() {
                             setFollowersProfile={setFollowersProfile}
                             followersProfile={followersProfile}
                             getAllTweets={getAllTweets}
+                            setIsLiked={setIsLiked}
+                            isLiked={isLiked}
                         />
                         <Widgets />
                     </div>
