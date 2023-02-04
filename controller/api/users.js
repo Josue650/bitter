@@ -17,8 +17,9 @@ const dataController = {
 
       const createdProfile = await Profile.create({})
       user.profile = createdProfile._id
-      console.log("User: ", user)
+      // console.log("User: ", user)
       const token = createJWT(user)
+      console.log(token)
       res.locals.data.user = user
       res.locals.data.token = token
       console.log(token)
@@ -42,8 +43,7 @@ const dataController = {
       console.log(user)
       next()
     } catch (err) {
-      console.log('Error!')
-      res.status(400).json(err)
+      res.status(400).json({ msg: err.message})
     }
   },
 
@@ -75,11 +75,11 @@ const dataController = {
   },
 
   async getUser(req, res, next) {
-    console.log("req user: ", req.user)
-    
+    // console.log("req user: ", req.user)
+
     try {
       const foundUser = await User.findById(req.user)
-      
+
       res.locals.data.user = foundUser
 
       next();
@@ -109,6 +109,7 @@ module.exports = {
 }
 
 function createJWT(user) {
+  console.log('jwt', user)
   return jwt.sign(
     { user },
     process.env.SECRET,
