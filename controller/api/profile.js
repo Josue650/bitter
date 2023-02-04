@@ -2,6 +2,7 @@
 
 
 require('dotenv').config()
+const { PowerOffOutlined } = require('@mui/icons-material')
 const Profile = require('../../models/profile')
 const User = require("../../models/user")
 
@@ -20,6 +21,20 @@ const getProfile = async (req, res, next) => {
     }
 }
 
+//Get all profiles
+const getAllProfiles = async (req, res, next) => {
+    // console.log(req.query.userId)
+    try {
+        const profiles = await Profile.find({})
+        console.log(profiles)
+        res.locals.data.profiles = profiles
+        // console.log(res.locals.data.profiles)
+        next()
+    } catch (error) {
+        res.status(400).json({ msg: error.message })
+    }
+}
+
 //Follow another user's profile
 const followProfile = async (req, res, next) => {
     const user = await User.findOne({ email: res.locals.data.email }).populate("profile").exec()
@@ -30,7 +45,7 @@ const followProfile = async (req, res, next) => {
             const profile = await Profile.findById(req.params.followerId)
             if(!profile.followers.includes(currentProfile._id)){
                 await profile.updateOne({$push: {followers: currentProfile._id}})
-                await currentProfile.updateOne({$push: {followings: req.params.followerId}})
+                await currentProfile.updateOne({$push: {followings: profile._id}})
                 res.locals.data.profile = currentProfile
                 // res.status(200).json("user has been followed");
                 next()
@@ -55,7 +70,7 @@ const unfollowProfile = async (req, res, next) => {
             const profile = await Profile.findById(req.params.followerId)
             if(profile.followers.includes(currentProfile._id)){
                 await profile.updateOne({$pull: {followers: currentProfile._id}})
-                await currentProfile.updateOne({$pull: {followings: req.params.followerId}})
+                await currentProfile.updateOne({$pull: {followings: profile._id}})
                 // res.status(200).json("user has been unfollowed");
                 res.locals.data.profile = currentProfile
                 next()
@@ -77,6 +92,7 @@ const getFollowers = async (req, res, next) => {
     try {
         const profile = await Profile.findById(req.user.profile)
         const followers= profile.followers
+        console.log(followers)
         res.locals.data.followers = followers
         next()
     } catch(error){
@@ -84,20 +100,17 @@ const getFollowers = async (req, res, next) => {
     }
 }
 
-// const getFollowings = async (req, res, next) => {
-//     const profile = await Profile.findById(req.user.profile).populate("followings").exec()
-//     try {
-//         const profile = await Profile.findById(req.user.profile).populate("followings").exec()
-//         console.log("Profile followings")
-//         const followings = profile.followings
-//         console.log(followings)
-//         res.locals.data.followings = followings
-//         next()
-//     } catch(error){
-//         console.log(profile)
-//         res.status(500).json("You don't follow anyone")
-//     }
-// }
+const getFollowings = async (req, res, next) => {
+    
+    try {
+        const profile = await Profile.findById(req.user.profile)
+        const followings = profile.followings
+        res.locals.data.followings = followings
+        next()
+    } catch(error){
+        res.status(500).json("You don't follow anyone")
+    }
+}
 
 //get profile of a randon user 
 const getRandomProfile = async (req, res, next) => {
@@ -149,6 +162,10 @@ const respondWithProfile = (req, res) => {
     res.json(res.locals.data.profile)
 }
 
+const respondWithProfiles = (req, res) => {
+    res.json(res.locals.data.profiles)
+}
+
 const respondWithTweets = (req, res) => {
     res.json(res.locals.data.tweets)
 }
@@ -163,6 +180,7 @@ const respondWithFollowings = (req, res) => {
 
 module.exports = {
     getProfile,
+    getAllProfiles,
     // destroyProfile,
     updateProfile,
     // createProfile,
@@ -173,6 +191,7 @@ module.exports = {
     followProfile,
     unfollowProfile,
     respondWithProfile,
+    respondWithProfiles,
     respondWithTweets,
     respondWithFollowers,
     respondWithFollowings
