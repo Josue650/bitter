@@ -292,7 +292,8 @@ export default function Profile() {
         }
     }, [toggleComment, isLiked])
 
-    console.log("userProfile", userProfile)
+
+    console.log('user', user)
 
     return (
         <>
@@ -309,7 +310,9 @@ export default function Profile() {
                 handleChange={handleChange}
                 updatedProfile={updatedProfile}
             />
-            <Sidebar />
+            <Sidebar
+                user={user}
+                setUser={setUser} />
             <UserFeed
                 userTweets={userTweets}
                 user={user}
