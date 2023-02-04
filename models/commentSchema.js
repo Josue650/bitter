@@ -3,6 +3,7 @@ const comment = require('./comment')
 const Schema = require('mongoose').Schema
 
 const commentSchema = new Schema({
+  username: { type: String, required: true },
   userId: {
     type: String,
     required: true,

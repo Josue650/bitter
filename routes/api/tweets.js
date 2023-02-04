@@ -3,7 +3,7 @@ const router = express.Router()
 const tweets = require('../../controller/api/tweets')
 
 //localhost:3001/api/tweets
-router.get('/', tweets.getAllTweets, tweets.respondWithTweets )
+router.get('/', tweets.getAllTweets, tweets.respondWithTweets)
 //localhost:3001/api/tweets/:id
 router.delete('/:id', tweets.destroyTweet, tweets.respondWithTweet)
 //localhost:3001/api/tweets/:id

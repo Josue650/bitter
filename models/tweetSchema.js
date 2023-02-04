@@ -4,6 +4,7 @@ const Schema = require("mongoose").Schema;
 
 const tweetSchema = new Schema(
   {
+    username: { type: String, required: true },
     userId: {
       type: String,
       required: true,

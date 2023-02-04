@@ -33,6 +33,8 @@ const destroyTweet = async (req, res, next) => {
 
 };
 
+
+
 //UPDATE
 const updateTweet = async (req, res, next) => {
   const currentProfile = await Profile.findById(req.user.profile)
@@ -86,7 +88,7 @@ const getOneTweet = async (req, res, next) => {
 const updateLikes = async (req, res, next) => {
   try {
     const currentTweet = await Tweet.findById(req.params.id)
-    if(!currentTweet.likes.includes(req.user._id)){
+    if (!currentTweet.likes.includes(req.user._id)) {
       await currentTweet.updateOne({ $push: { likes: req.user._id } });
       res.locals.data.tweet = currentTweet
       next()
@@ -95,10 +97,12 @@ const updateLikes = async (req, res, next) => {
       res.locals.data.tweet = currentTweet
       next()
     }
-  } catch(error){
+  } catch (error) {
     res.status(400).json({ msg: error.message });
   }
 }
+
+
 
 
 

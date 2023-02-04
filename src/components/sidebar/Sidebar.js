@@ -11,12 +11,12 @@ import PersonIcon from '@mui/icons-material/Person';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Button } from "@mui/material";
 import { Link } from 'react-router-dom'
+import Logout from '../../components/Logout/Logout'
 
 
 
 
-
-export default function Sidebar() {
+export default function Sidebar({ user, setUser }) {
     return (
         <div className='sidebar'>
             <EmojiFoodBeverageIcon className="sidebar_bitterIcon" />
@@ -32,8 +32,11 @@ export default function Sidebar() {
                 <SidebarOptions Icon={PersonIcon} text='Profile' />
             </Link>
             <SidebarOptions Icon={MoreHorizIcon} text='More' />
-
+            <Logout
+                user={user}
+                setUser={setUser} />
             <Button variant="outlined" className='sidebar_bleepBtn' fullWidth>Bleep</Button>
+
         </div>
     )
 }
