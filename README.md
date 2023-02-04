@@ -10,6 +10,7 @@ height='39%' width='39%'/>
 </div>
 
 ## Getting Started with the code (Bitter)
+- Navigate to the app using the link : https://bitter.herokuapp.com/
 - Once you navigate to the App it will bring you to the Signup Page.
 - You will be required to enter your credentials(username, email and password has to be atleast 4 characters)
 
