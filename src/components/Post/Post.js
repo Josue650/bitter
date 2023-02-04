@@ -38,7 +38,7 @@ function Post({
         <>
             <div className="post">
                 <div className="post__avatar">
-                    <Avatar src="https://mystickermania.com/cdn/stickers/90-512x512.png" />
+                    <Avatar src="https://wompampsupport.azureedge.net/fetchimage?siteId=7575&v=2&jpgQuality=100&width=700&url=https%3A%2F%2Fi.kym-cdn.com%2Fentries%2Ficons%2Fmedium%2F000%2F022%2F138%2Fhighresrollsafe.jpg" />
                 </div>
                 <div className="post__body">
                     <div className="post__header">
@@ -46,7 +46,7 @@ function Post({
                             <h3>
                                 {user.username}
                                 <span className="post__headerSpecial">
-                                    <Verified className="post__badge"></Verified>
+                                    <Verified className="post__badge"></Verified> @ TeamBitter
                                 </span>
                             </h3>
                         </div>

@@ -1,7 +1,6 @@
 import React from "react";
 import Post from "../Post/Post";
 import './Feed.css';
-import TweetList from "../tweetList/TweetList";
 import TweetForm from "../tweetForm/TweetForm";
 
 function Feed({
@@ -29,13 +28,12 @@ function Feed({
                 <h2>Home</h2>
             </div>
 
-            {/* TweetBox*/}
             <TweetForm
                 createTweet={createTweet}
                 setTweet={setTweet}
                 tweet={tweet}
             />
-            <div>
+            <div className="tC">
                 <ul className="tweetsContainer">
                     {tweets.length ? tweets.map((item) => (
                         <li key={item._id}>
@@ -69,18 +67,6 @@ function Feed({
                     )) : <> No Tweet Added</>}
                 </ul>
             </div>
-
-
-            {/* <Post
-                profile={profile}
-                user={user} />
-            <Post />
-            <Post /> */}
-            {/* Post */}
-            {/* Post */}
-            {/* Post */}
-            {/* Post */}
-            {/* Post */}
         </div>
     )
 }

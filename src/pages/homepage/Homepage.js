@@ -1,15 +1,14 @@
-
 import { useState, useEffect } from "react";
-import TweetList from "../../components/tweetList/TweetList";
 import Sidebar from "../../components/sidebar/Sidebar";
+import "../../components/sidebar/sidebar.css";
 import Feed from "../../components/Feed/Feed";
+import "../../components/Feed/Feed.css";
 import Widgets from "../../components/Widgets/Widgets";
-<<<<<<< HEAD
-import Profile from "../profile/Profile";
-=======
-import Register from '../register/Register'
+import "../../components/Widgets/Widgets.css";
+import Register from '../register/Register';
 
->>>>>>> dev
+
+
 
 
 export default function Homepage() {
@@ -261,42 +260,14 @@ export default function Homepage() {
     }, []);
 
     return (
-<<<<<<< HEAD
-        <>
-        <Profile />
-            {/* <div className="tweetForm-container">
-                <h1>Home</h1>
-                <Sidebar />
-
-                <button>Update Profile</button>
-                <TweetList
-                    user={user}
-                    createTweet={createTweet}
-                    setTweet={setTweet}
-                    tweet={tweet}
-                    deleteTweet={deleteTweet}
-                    getAllTweet={getAllTweets}
-                    tweets={tweets}
-                    comment={comment}
-                    comments={comments}
-                    createComment={createComment}
-                    setComment={setComment}
-                    getAllComments={getAllComments}
-                />
-                <Feed />
-                <Widgets />
-            </div> */}
-        </>
-    );
-=======
         <div>
             {user ? (
                 <>
                     <div className="tweetForm-container">
-                        <h1>Home</h1>
+                        
                         <Sidebar />
 
-                        <button>Update Profile</button>
+                        
                         {/* <TweetList
                             user={user}
                             token={token}
@@ -342,7 +313,6 @@ export default function Homepage() {
             )}
         </div>
     )
->>>>>>> dev
 }
 
 
