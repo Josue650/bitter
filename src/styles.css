@@ -1,10 +1,14 @@
 * {
-    margin: 0
+    margin: 0;
+    height: auto;
+    /* width: auto; */
 }
 
 /*Global CSS Variables*/
 
 body {
+    display: inline-flex;
+    justify-content: center;
     --bitter-color: #784A36;
     --bitter-background: #EEE6D8;
     background: linear-gradient(45deg, rgba(138, 31, 31, 0.878),rgba(104, 143, 30, 0.581))
