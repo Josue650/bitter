@@ -372,12 +372,6 @@ Trello Board
  https://trello.com/b/1tSPTNy5/bitter-development
  <img src='images/trello.png'
  height='50%' width='50%'/>
--HTML
--React
--CSS
--Mongodb
--Material UI
--React flip move library -animation when posting tweets
 
 
 ## localhost:3001/api/users
