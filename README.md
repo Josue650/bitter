@@ -14,11 +14,11 @@ height='39%' width='39%'/>
 - You will be required to enter your credentials(username, email and password has to be atleast 4 characters)
 
 ## Contributing Developers
-- Zali Cross
-- Devon Aimes
-- Ashley Du
-- Mayerlin Duluc
-- Josue Cuellar
+- Zali Cross https://www.linkedin.com/in/zali-cross/
+- Devon Aimes https://www.linkedin.com/in/devon-aimes111/
+- Ashley Du https://www.linkedin.com/in/ashleynickens/
+- Mayerlin Duluc https://www.linkedin.com/in/mayerlin-duluc/
+- Josue Cuellar https://www.linkedin.com/in/josue-cuellar-dominguez/
 
 ## Favorite code block
 ```js
