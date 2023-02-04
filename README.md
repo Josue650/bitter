@@ -1,70 +1,419 @@
-# Getting Started with Create React App
+<!-- <div style='font-size:40px;text-align:center;align-items:center;'> -->
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ # Bitter your not so friendly twitter clone
+<!-- </div> -->
 
-## Available Scripts
+<div style="display:flex;justify-content:center;">
+<img src="images/signup.png" height='35%' width='35%'/>
+<img src="images/Login.png"
+height='39%' width='39%'/>
+</div>
 
-In the project directory, you can run:
+## Getting Started with the code (Bitter)
+- Once you navigate to the App it will bring you to the Signup Page.
+- You will be required to enter your credentials(username, email and password has to be atleast 4 characters)
 
-### `npm start`
+## Contributing Developers
+- Zali Cross https://www.linkedin.com/in/zali-cross/
+- Devon Aimes https://www.linkedin.com/in/devon-aimes111/
+- Ashley Nickens https://www.linkedin.com/in/ashleynickens/
+- Mayerlin Duluc https://www.linkedin.com/in/mayerlin-duluc/
+- Josue Cuellar https://www.linkedin.com/in/josue-cuellar-dominguez/
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Favorite code block
+```js
+import { useEffect, useState } from 'react'
+import Sidebar from '../../components/sidebar/Sidebar'
+import EditProfile from '../../components/EditProfile/EditProfile'
+import ProfileHeader from "../../components/ProfileHeader/ProfileHeader";
+import Follows from '../../components/Follows/follows';
+import EditButton from '../../components/EditButton/EditButton';
+import Feed from "../../components/Feed/Feed";
+import Widgets from "../../components/Widgets/Widgets";
+import TweetForm from '../../components/tweetForm/TweetForm';
+import UserFeed from '../../components/UserFeed/UserFeed';
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+export default function Profile() {
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    const [isLiked, setIsLiked] = useState(false);
+    const [toggleComment, setToggleComment] = useState(false)
+    const [user, setUser] = useState(null);
+    const [userProfile, setUserProfile] = useState(null)
+    const [followers, setFollowers] = useState([])
+    const [userTweets, setUserTweets] = useState([])
+    const [foundProfile, setFoundProfile] = useState(null)
+    const [updatedProfile, setUpdatedProfile] = useState({
+        dob: '',
+        name: '',
+        location: '',
+        interests: '',
+        photo: '',
+    })
+    const [tweet, setTweet] = useState({
+        userId: '',
+        username: '',
+        text: "",
+    });
+    const [token, setToken] = useState("")
+    const [tweets, setTweets] = useState([]);
+    const [comments, setComments] = useState([])
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    const [comment, setComment] = useState({
+        userId: '',
+        text: ''
+    })
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    const handleChange = (e) => {
+        e.preventDefault()
+        setUpdatedProfile({ ...updatedProfile, [e.target.name]: e.target.value })
+    }
 
-### `npm run eject`
+    const getAUserTweets = async () => {
+        try {
+            const response = await fetch('/api/profile/tweets', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
+            })
+            const data = await response.json()
+            console.log('users tweets', data)
+            setUserTweets(data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    const getProfile = async () => {
+        try {
+            const response = await fetch('/api/profile', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
+            })
+            const data = await response.json()
+            console.log('profile data', data)
+            setUserProfile(data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    const getFollowers = async () => {
+        try {
+            const response = await fetch('/api/profile/followers', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
+            })
+            const data = await response.json()
+            setFollowers()
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+    const updateProfile = async (profileId, updatedProfile) => {
+        try {
+            const response = await fetch(`/api/profile/${profileId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                },
+                body: JSON.stringify(updatedProfile)
+            })
+            const data = await response.json()
+            console.log('updatedProfile', data)
+            setUserProfile(data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    const createTweet = async () => {
+        try {
+            const response = await fetch("/api/tweets", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ ...tweet }),
+            });
+            console.log(response);
+            const data = await response.json();
+            console.log(data);
+            setTweets([data, ...tweets]);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setTweet({
+                text: " ",
+            });
+        }
+    };
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    const getUser = async () => {
+        try {
+            const response = await fetch('/api/users', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
+            })
+            const data = await response.json()
+            console.log(data)
+            setUser(data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    const deleteTweet = async (id) => {
+        try {
+            const response = await fetch(`/api/tweets/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const data = await response.json()
+            const tweetsCopy = [...tweets]// need to make a copy before you can manutiplate the array
+            const index = tweetsCopy.findIndex(tweet => id === tweet._id) //find the id to delete from the list
+            tweetsCopy.splice(index, 1)
+            setTweets(tweetsCopy)
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
-### Analyzing the Bundle Size
+    const editTweet = async (tweetId, updatedTweet) => {
+        try {
+            const response = await fetch(`/api/tweets/${tweetId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                },
+                body: JSON.stringify(updatedTweet)
+            })
+            const data = await response.json()
+            const tweetsCopy = [...tweets]
+            const index = tweetsCopy.findIndex(tweet => tweetId === tweet._id)
+            tweetsCopy[index] = { ...tweetsCopy[index], ...updatedTweet }
+            setTweet(data)
+        } catch (err) {
+            console.error(err)
+        }
+    }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+    const createComment = async (tweetId, userId, username) => {
+        try {
+            const response = await fetch(`/api/comments/${tweetId}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ ...comment }),
+            });
+            const data = await response.json();
+            setComments([data, ...comments]);
+            setToggleComment(!toggleComment)
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setComment({
+                userId: userId,
+                username: username,
+                text: " ",
+            });
+        }
+    };
 
-### Making a Progressive Web App
+    const getAllComments = async (tweetId, commentId) => {
+        try {
+            const response = await fetch(`/api/comments/${tweetId}/${commentId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
+            })
+            const data = await response.json()
+            setTweets(data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+    const deleteComment = async (tweetId, commentId) => {
+        try {
+            const response = await fetch(`/api/comments/${tweetId}/${commentId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
+            })
+            const data = await response.json()
+            const commentsCopy = [...comments]// need to make a copy before you can manutiplate the array
+            const index = commentsCopy.findIndex(comment => commentId === comment._id) //find the id to delete from the list
+            commentsCopy.splice(index, 1)
+            setComments(commentsCopy)
+            setToggleComment(!toggleComment)
+        } catch (err) {
+            console.error(err)
+        }
+    }
 
-### Advanced Configuration
+    const editComment = async (tweetId, id, updatedComment) => {
+        try {
+            const response = await fetch(`/api/comments/${tweetId}/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                },
+                body: JSON.stringify({
+                    ...comment,
+                    userId: user._id,
+                    text: updatedComment
+                })
+            })
+            const data = await response.json()
+            setComment(data)
+        } catch (err) {
+            console.error(err)
+        }
+    }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+    useEffect(() => {
+        getProfile()
+        getUser()
+        getFollowers()
+        getAUserTweets()
+    }, [])
 
-### Deployment
+    useEffect(() => {
+        const tokenData = localStorage.getItem('token')
+        if (tokenData && tokenData !== 'null' && tokenData !== 'undefined') {
+            setToken(JSON.parse(tokenData))
+        }
+    }, [toggleComment, isLiked])
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+    console.log('user', user)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    return (
+        <>
+            <ProfileHeader
+                user={user}
+                userProfile={userProfile}
+                updateProfile={updateProfile}
+                handleChange={handleChange}
+                updatedProfile={updatedProfile} />
+            <Follows />
+            <EditButton
+                userProfile={userProfile}
+                updateProfile={updateProfile}
+                handleChange={handleChange}
+                updatedProfile={updatedProfile}
+            />
+            <Sidebar
+                user={user}
+                setUser={setUser} />
+            <UserFeed
+                userTweets={userTweets}
+                user={user}
+                createTweet={createTweet}
+                editTweet={editTweet}
+                deleteTweet={deleteTweet}
+                comment={comment}
+                setComment={setComment}
+                createComment={createComment}
+                deleteComment={deleteComment}
+                editComment={editComment}
+                isLiked={isLiked}
+                setIsLiked={setIsLiked}
+            />
+            <Widgets />
+        </>
+    )
+}
+
+```
+
+## Technologies
+- HTML
+- React
+- CSS
+- Mongodb
+- Material UI
+- React flip move library -animation when posting tweets
+
+<div style='font-size:20px'>
+Trello Board
+</div>
+ https://trello.com/b/1tSPTNy5/bitter-development
+ <img src='images/trello.png'
+ height='50%' width='50%'/>
+
+
+## localhost:3001/api/users
+| Action | URL | HTTP Verb | Mongoose Method|
+|---|---|---|---|
+| create  | / | POST | User.create()&Profile.create() |
+| getUser | / | GET | User.findById() |
+| login | /login | POST | User.findOne() |
+
+------
+
+## localhost:3001/api/tweets
+| Action | URL | HTTP Verb | Mongoose Method|
+|---|---|---|---|
+| getAllTweets  | / | GET | Tweet.find() |
+| destroyTweet | /:id | DELETE | Tweet.findByIdAndDelete() |
+| updateTweet | /:id | PUT | Tweet.findByIdAndUpdate() |
+| createTweet | / | POST | Tweet.create() |
+| getOneTweet | /:id | GET | Tweet.findById() |
+| updateLikes | /:id/likes | GET | currentTweet.updateOne() |
+
+-----
+
+## localhost:3001/api/profile
+| Action | URL | HTTP Verb | Mongoose Method|
+|---|---|---|---|
+| updateProfile  | /:id | PUT | Tweet.find() |
+| followProfile | /:followerId/follow | PUT | profile.updateOne() |
+| unfollowProfile | /:followerId/unfollow | PUT | profile.updateOne() |
+| getRandomProfile | /random/:randomId | GET | Profile.findById() |
+| getUserTweets | /tweets | GET | Profile.findById(), profile.tweets |
+| getFollowers | /followers | GET | profile.findById() |
+| getProfile | / | GET | User.findOne(), user.profile |
+
+-----
+
+## localhost:3001/api/comments
+| Action | URL | HTTP Verb | Mongoose Method|
+|---|---|---|---|
+| getAllComments  | /:tweetId | GET | Tweet.findById() |
+| destroyComment| /:tweetId/:id | DELETE | Comment.findByIdAndDelete() |
+| updateComment | /:tweetId/:id | PUT | Comment.findByIdAndUpdate() |
+| getOneComment | /:tweetId/:id  | GET | Comment.findById() |
+| createComment | /:tweetId | POST | Comment.create() |
+| updateLikes | /:tweetId/:id/likes | GET | currentComment.updateOne() |
