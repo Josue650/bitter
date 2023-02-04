@@ -17,6 +17,7 @@ import Logout from '../../components/Logout/Logout'
 
 
 export default function Sidebar({ user, setUser, userProfile, setUserProfile }) {
+    console.log("sidebar: ", user)
     return (
         <div className='sidebar'>
             <EmojiFoodBeverageIcon className="sidebar_bitterIcon" />
