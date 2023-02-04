@@ -333,7 +333,9 @@ export default function Homepage() {
                 <>
                     <div className="tweetForm-container">
 
-                        <Sidebar />
+                        <Sidebar
+                            user={user}
+                            setUser={setUser} />
                         <Feed
                             user={user}
                             tweet={tweet}
