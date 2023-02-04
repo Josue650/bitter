@@ -29,6 +29,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     padding: 0 10px;
+
   }
 
 .join{
@@ -44,7 +45,7 @@ body {
 }
 .register-container{
     display: flex;
-    flex-direction: column;
+    flex-direction:column;
     justify-content: center;
     position: relative;
     width: 250px;
@@ -53,8 +54,10 @@ body {
     background: radial-gradient(circle,rgb(153, 94, 71) 5%,rgb(153, 94, 71) 5%);
     border-radius: 0 0 150px 150px;
     top: 50%;
-    text-align: center;margin-top: 150px;
-
+    text-align: center;
+    margin-top: 150px;
+    align-items: center;
+    margin-left: 200%;
 }
 .register-container::before {
     content: '';
