@@ -1,7 +1,7 @@
 * {
     margin: 0;
     height: auto;
-    /* width: auto; */
+    width: auto;
 }
 
 /*Global CSS Variables*/
@@ -11,7 +11,7 @@ body {
     justify-content: center;
     --bitter-color: #784A36;
     --bitter-background: #EEE6D8;
-    background: linear-gradient(45deg, rgba(138, 31, 31, 0.878),rgba(104, 143, 30, 0.581))
+    background: linear-gradient(45deg, rgba(138, 31, 31, 0.878), rgba(104, 143, 30, 0.581))
 }
 
 /* .appContainer {
@@ -30,28 +30,31 @@ body {
     margin-right: auto;
     padding: 0 10px;
 
-  }
+}
 
-.join{
+.join {
     align-content: center;
     text-align: center;
     font-size: xx-large
 }
-.email-input{
+
+.email-input {
     width: 240px;
 }
-.password{
+
+.password {
     width: 200px;
 }
-.register-container{
+
+.register-container {
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     justify-content: center;
     position: relative;
     width: 250px;
     height: 280px;
     margin: 0 auto;
-    background: radial-gradient(circle,rgb(153, 94, 71) 5%,rgb(153, 94, 71) 5%);
+    background: radial-gradient(circle, rgb(153, 94, 71) 5%, rgb(153, 94, 71) 5%);
     border-radius: 0 0 150px 150px;
     top: 50%;
     text-align: center;
@@ -59,6 +62,7 @@ body {
     align-items: center;
     margin-left: 200%;
 }
+
 .register-container::before {
     content: '';
     display: block;
@@ -66,13 +70,13 @@ body {
     width: 235px;
     position: absolute;
     border-radius: 50%;
-    background: radial-gradient(circle,rgba(132, 102, 76, 1) 5%,rgba(86, 44, 8, 1) 96%);
+    background: radial-gradient(circle, rgba(132, 102, 76, 1) 5%, rgba(86, 44, 8, 1) 96%);
     top: -17px;
     left: 10px;
     z-index: 9;
 }
 
-.register-container::after{
+.register-container::after {
     content: '';
     display: block;
     height: 45px;
@@ -84,11 +88,12 @@ body {
     left: -1px;
     border: 5px solid #e6e6e6;
 }
-.coffee-hand{
+
+.coffee-hand {
     width: 85px;
     height: 70px;
     position: absolute;
-    background: linear-gradient(45deg, rgba(138, 31, 31, 0.878),rgba(104, 143, 30, 0.581));
+    background: linear-gradient(45deg, rgba(138, 31, 31, 0.878), rgba(104, 143, 30, 0.581));
     border-radius: 32px;
     transform: rotate(-36deg);
     z-index: -1;
@@ -97,12 +102,12 @@ body {
     left: 85%;
 }
 
-.coffee-plate{
+.coffee-plate {
     width: 400px;
     top: 68%;
     left: -30%;
     height: 139px;
-    background: radial-gradient(circle,rgb(202, 164, 131) 5%,rgb(202, 164, 131) 5%,rgb(202, 164, 131) 5%);
+    background: radial-gradient(circle, rgb(202, 164, 131) 5%, rgb(202, 164, 131) 5%, rgb(202, 164, 131) 5%);
     border-radius: 50%;
     position: absolute;
     z-index: -1;
@@ -110,7 +115,7 @@ body {
     box-shadow: 1px 3px 0px 1px #323232;
 }
 
-.coffee-plate::after{
+.coffee-plate::after {
     content: '';
     display: block;
     width: 405px;
@@ -120,25 +125,28 @@ body {
     background: transparent;
     box-shadow: 2px 5px 8px 3px #bababa;
 }
-.slogan{
+
+.slogan {
     font-size: large;
 
 }
-.signup-btn{
-   height: 20px;
-   width: 20px;
-   border: 5px solid rgb(115, 71, 23);
+
+.signup-btn {
+    height: 20px;
+    width: 20px;
+    border: 5px solid rgb(115, 71, 23);
 
 }
-.error{
-   margin-top: -340px;
-   background-color: #86563C;
-   width: 200px;
-   height: 120px;
-   border-radius: 4px;
-   text-align: center;
-   padding: 20px;
-   clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
+
+.error {
+    margin-top: -340px;
+    background-color: #86563C;
+    width: 200px;
+    height: 120px;
+    border-radius: 4px;
+    text-align: center;
+    padding: 20px;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
 }
 
 

@@ -311,8 +311,8 @@ export default function Profile() {
                 updatedProfile={updatedProfile}
             />
             <Sidebar
-                user={user}
-                setUser={setUser} />
+                userProfile={userProfile}
+                setUserProfile={setUserProfile} />
             <UserFeed
                 userTweets={userTweets}
                 user={user}

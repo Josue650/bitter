@@ -1,6 +1,9 @@
 // import styles from './UserLogOut.module.scss'
+import { useNavigate } from "react-router-dom";
 
 export default function Logout({ user, setUser }) {
+
+    const navigate = useNavigate()
 
     function logOut() {
         window.localStorage.removeItem('token')
@@ -9,6 +12,7 @@ export default function Logout({ user, setUser }) {
     function handleLogOut() {
         logOut();
         setUser(null);
+        navigate('/')
     }
 
     return (
