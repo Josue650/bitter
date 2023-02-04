@@ -23,7 +23,7 @@ height='50%' width='50%'/>
 
 ## localhost:3001/api/users
 | Action | URL | HTTP Verb | Mongoose Method|
-|--------|-----|-----------|--------------|----------------|
+|---|---|---|---|
 | create  | / | POST | User.create()&Profile.create() |
 | getUser | / | GET | User.findById() |
 | login | /login | POST | User.findOne() |
@@ -32,7 +32,7 @@ height='50%' width='50%'/>
 
 ## localhost:3001/api/tweets
 | Action | URL | HTTP Verb | Mongoose Method|
-|--------|-----|-----------|--------------|----------------|
+|---|---|---|---|
 | getAllTweets  | / | GET | Tweet.find() |
 | destroyTweet | /:id | DELETE | Tweet.findByIdAndDelete() |
 | updateTweet | /:id | PUT | Tweet.findByIdAndUpdate() |
@@ -44,7 +44,7 @@ height='50%' width='50%'/>
 
 ## localhost:3001/api/profile
 | Action | URL | HTTP Verb | Mongoose Method|
-|--------|-----|-----------|--------------|----------------|
+|---|---|---|---|
 | updateProfile  | /:id | PUT | Tweet.find() |
 | followProfile | /:followerId/follow | PUT | profile.updateOne() |
 | unfollowProfile | /:followerId/unfollow | PUT | profile.updateOne() |
@@ -57,7 +57,7 @@ height='50%' width='50%'/>
 
 ## localhost:3001/api/comments
 | Action | URL | HTTP Verb | Mongoose Method|
-|--------|-----|-----------|--------------|----------------|
+|---|---|---|---|
 | getAllComments  | /:tweetId | GET | Tweet.findById() |
 | destroyComment| /:tweetId/:id | DELETE | Comment.findByIdAndDelete() |
 | updateComment | /:tweetId/:id | PUT | Comment.findByIdAndUpdate() |
