@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 const Profile = require("../../models/profile")
 
 const checkToken = (req, res) => {
-  console.log('req.user', req.user)
+  // console.log('req.user', req.user)
   res.json(req.exp)
 }
 

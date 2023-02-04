@@ -95,16 +95,12 @@ export default function Register({ user, setUser, setToken, token }) {
               <Sidebar />
               :
               <>
-                <button
-                  className="signup-btn"
-                  onClick={() => {
-                    setShowSignUp(!showSignUp)
-                  }}>
-                </button>
+
 
                 <div className="register-container">
                   <div className="coffee-hand"></div>
                   <div className="coffee-plate"></div>
+
 
                   {
 
@@ -126,11 +122,15 @@ export default function Register({ user, setUser, setToken, token }) {
                   <div className="slogan">
                     {showSignUp ? 'Don\'t have an account? Register Here' : 'Welcome Back!'}
                   </div>
+                  <button
+                  className="signup-btn"
+                  onClick={() => {
+                    setShowSignUp(!showSignUp)
+                  }}>Already a member of bitter?
+                </button>
                 </div>
 
               </>
-
-
 
           }
         </>

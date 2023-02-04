@@ -7,7 +7,7 @@ const User = require("../../models/user");
 const getAllTweets = async (req, res, next) => {
   try {
     const foundTweets = await Tweet.find({}).populate("comments").exec();
-    console.log("Found Tweets: ", foundTweets)
+    // console.log("Found Tweets: ", foundTweets)
     res.locals.data.tweets = foundTweets;
     next();
   } catch (error) {

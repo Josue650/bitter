@@ -57,7 +57,7 @@ export default function Profile() {
                 }
             })
             const data = await response.json()
-            console.log('users tweets', data)
+            // console.log('users tweets', data)
             setUserTweets(data)
         } catch (err) {
             console.log(err)
@@ -292,8 +292,7 @@ export default function Profile() {
         }
     }, [toggleComment, isLiked])
 
-
-    console.log('user', user)
+    // console.log("userProfile", userProfile)
 
     return (
         <>
