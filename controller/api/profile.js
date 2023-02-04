@@ -185,7 +185,7 @@ module.exports = {
     updateProfile,
     // createProfile,
     getFollowers,
-    // getFollowings,
+    getFollowings,
     getUserTweets,
     getRandomProfile,
     followProfile,
