@@ -1,7 +1,7 @@
-<div style='font-size:40px;text-align:center;align-items:center;'>
+<!-- <div style='font-size:40px;text-align:center;align-items:center;'> -->
 
- Bitter your not so friendly twitter clone
-</div>
+ # Bitter your not so friendly twitter clone
+<!-- </div> -->
 
 <div style="display:flex;justify-content:center;">
 <img src="images/signup.png" height='35%' width='35%'/>
@@ -14,11 +14,11 @@ height='39%' width='39%'/>
 - You will be required to enter your credentials(username, email and password has to be atleast 4 characters)
 
 ## Contributing Developers
-- Zali Cross
-- Devon Aimes
-- Ashley Du
-- Mayerlin Duluc
-- Josue Cuellar
+- Zali Cross https://www.linkedin.com/in/zali-cross/
+- Devon Aimes https://www.linkedin.com/in/devon-aimes111/
+- Ashley Nickens https://www.linkedin.com/in/ashleynickens/
+- Mayerlin Duluc https://www.linkedin.com/in/mayerlin-duluc/
+- Josue Cuellar https://www.linkedin.com/in/josue-cuellar-dominguez/
 
 ## Favorite code block
 ```js
@@ -372,12 +372,6 @@ Trello Board
  https://trello.com/b/1tSPTNy5/bitter-development
  <img src='images/trello.png'
  height='50%' width='50%'/>
--HTML
--React
--CSS
--Mongodb
--Material UI
--React flip move library -animation when posting tweets
 
 
 ## localhost:3001/api/users
