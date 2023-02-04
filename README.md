@@ -13,6 +13,13 @@ height='39%' width='39%'/>
 - Once you navigate to the App it will bring you to the Signup Page.
 - You will be required to enter your credentials(username, email and password has to be atleast 4 characters)
 
+## Contributing Developers
+- Zali Cross
+- Devon Aimes
+- Ashley Du
+- Mayerlin Duluc
+- Josue Cuellar
+
 ## Technologies
 - HTML
 - React
