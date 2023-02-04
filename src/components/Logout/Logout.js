@@ -12,7 +12,7 @@ export default function Logout({ user, setUser, userProfile }) {
     function handleLogOut() {
         logOut();
         setUser(null);
-       navigate("/")
+        navigate('/')
     }
 
     return (

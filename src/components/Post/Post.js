@@ -94,9 +94,9 @@ function Post({
                     <div className="post__header">
                         <div className="post__headerText">
                             <h3>
-                                {tweet.username}
+                                @{tweet.username}
                                 <span className="post__headerSpecial">
-                                    <Verified className="post__badge"></Verified> @ TeamBitter
+                                    <Verified className="post__badge"></Verified>
                                 </span>
                             </h3>
                         </div>

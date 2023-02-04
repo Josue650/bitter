@@ -296,12 +296,7 @@ export default function Profile() {
 
     return (
         <>
-            <Sidebar 
-             user={user}
-             setUser={setUser} 
-             userProfile={userProfile}
-             />
-             <ProfileHeader
+            <ProfileHeader
                 user={user}
                 userProfile={userProfile}
                 updateProfile={updateProfile}
@@ -314,7 +309,9 @@ export default function Profile() {
                 handleChange={handleChange}
                 updatedProfile={updatedProfile}
             />
-            
+            <Sidebar
+                userProfile={userProfile}
+                setUserProfile={setUserProfile} />
             <UserFeed
                 userTweets={userTweets}
                 user={user}

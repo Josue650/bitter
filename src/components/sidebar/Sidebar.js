@@ -16,8 +16,7 @@ import Logout from '../../components/Logout/Logout'
 
 
 
-export default function Sidebar({ user, setUser }) {
-    console.log("sidebar: ", user)
+export default function Sidebar({ user, setUser, userProfile, setUserProfile }) {
     return (
         <div className='sidebar'>
             <EmojiFoodBeverageIcon className="sidebar_bitterIcon" />
@@ -33,9 +32,11 @@ export default function Sidebar({ user, setUser }) {
                 <SidebarOptions Icon={PersonIcon} text='Profile' />
             </Link>
             <SidebarOptions Icon={MoreHorizIcon} text='More' />
-            <Logout
-                user={user}
-                setUser={setUser} />
+            {user ?
+                <Logout
+                    user={user}
+                    setUser={setUser}
+                /> : ''}
             <Button variant="outlined" className='sidebar_bleepBtn' fullWidth>Bleep</Button>
 
         </div>
