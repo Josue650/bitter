@@ -3,17 +3,31 @@ import CommentList from "../commentList/CommentList";
 
 export default function TweetList({
     user,
-    createTweet,
-    setTweet,
+    token,
     tweet,
-    deleteTweet,
-    getAllTweet,
+    setTweet,
+    userTweets,
+    setUserTweets,
     tweets,
-    comment,
+    setTweets,
     comments,
-    createComment,
+    setComments,
+    comment,
     setComment,
-    getAllComments }) {
+    profile,
+    setProfile,
+    createTweet,
+    getAllTweets,
+    deleteTweet,
+    editTweet,
+    createComment,
+    getAllComments,
+    deleteComment,
+    editComment,
+    getUserProfile,
+    updateUserProfile,
+    getAUserTweets
+}) {
     return (
         <>
             <TweetForm
@@ -26,14 +40,17 @@ export default function TweetList({
                     <li key={item._id}>
                         <h1>{item.text}</h1>
                         <button onClick={() => deleteTweet(item._id)}>Delete</button>
-                        <CommentList
+                        <button onClick={() => editTweet(item._id)}>Edit</button>
+                        {/* <CommentList
                             tweet={item}
                             comment={comment}
-                            // comments={comments}
                             createComment={createComment}
                             setComment={setComment}
                             getAllComments={getAllComments}
-                            id={item._id} />
+                            id={item._id}
+                            deleteComment={deleteComment}
+                            editComment={editComment}
+                        /> */}
                     </li>
                 )) : <> No Tweet Added</>}
             </ul>

@@ -4,9 +4,11 @@ import Login from "../../components/Login/Login";
 import Sidebar from "../../components/sidebar/Sidebar"
 
 export default function Register({ user, setUser, setToken, token }) {
+
   const [errorMessage, setErrorMessage] = useState('');
 
   const [credentials, setCredentials] = useState({
+    username: '',
     email: "",
     password: "",
   });
@@ -25,6 +27,7 @@ export default function Register({ user, setUser, setToken, token }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          username: credentials.username,
           email: credentials.email,
           password: credentials.password,
         }), // turn object into data
@@ -42,12 +45,6 @@ export default function Register({ user, setUser, setToken, token }) {
   const signUp = async (event) => {
     event.preventDefault()
     try {
-      // const emailCheckResponse = await fetch(`/api/users?email=${credentials.email}`);
-      // const emailcheckData = await emailCheckResponse.json()
-      // if(emailcheckData) {
-      //   setErrorMessage('Don\'t be bitter email already is taken');
-      //   return;
-      // }
       const response = await fetch("/api/users", {
         method: "POST",
         headers: {
@@ -56,7 +53,7 @@ export default function Register({ user, setUser, setToken, token }) {
         body: JSON.stringify({ ...credentials }),
       });
       const tokenResponse = await response.json();
-      if(tokenResponse.code===11000){
+      if (tokenResponse.code === 11000) {
         setErrorMessage('Don\'t be bitter email already is taken');
         return;
       }
@@ -93,57 +90,49 @@ export default function Register({ user, setUser, setToken, token }) {
     <>
       {
         <>
-            {
-                user ?
-                    <Sidebar />
-                    :
-                    <>
-                    {
-                      errorMessage ?
-                      <div className="error">
-                      {errorMessage}
-                    </div> : ""
-                    }
+          {
+            user ?
+              <Sidebar />
+              :
+              <>
+                <button
+                  className="signup-btn"
+                  onClick={() => {
+                    setShowSignUp(!showSignUp)
+                  }}>
+                </button>
 
-                    <div className="register-container">
-                        <div className="coffee-hand"></div>
-                        <div className="coffee-plate"></div>
+                <div className="register-container">
+                  <div className="coffee-hand"></div>
+                  <div className="coffee-plate"></div>
 
-                        {
+                  {
 
-                            showSignUp
-                                ? <SignUp
-                                    credentials={credentials}
-                                    handleChangeAuth={handleChangeAuth}
-                                    signUp={signUp}
-                                    setUser={setUser}/>
+                    showSignUp
+                      ? <SignUp
+                        credentials={credentials}
+                        handleChangeAuth={handleChangeAuth}
+                        signUp={signUp}
+                        setUser={setUser} />
 
-                                : <Login
-                                    className="login-style"
-                                    login={login}
-                                    credentials={credentials}
-                                    handleChangeAuth={handleChangeAuth}
-                                    setUser={setUser}
-                                />
-                        }
-                        <div className="slogan">
-                        {showSignUp ? 'Don\'t have an account? Register Here' : 'Welcome Back!'}
-                        </div>
-                        <button
-                        className="signup-btn"
-                        onClick={() => {
-                        setShowSignUp(!showSignUp)
-                    }}>
-                    </button>
+                      : <Login
+                        className="login-style"
+                        login={login}
+                        credentials={credentials}
+                        handleChangeAuth={handleChangeAuth}
+                        setUser={setUser}
+                      />
+                  }
+                  <div className="slogan">
+                    {showSignUp ? 'Don\'t have an account? Register Here' : 'Welcome Back!'}
+                  </div>
+                </div>
 
-                    </div>
-
-                    </>
+              </>
 
 
 
-            }
-
+          }
         </>
       }
 
