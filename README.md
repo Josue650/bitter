@@ -20,6 +20,7 @@ height='39%' width='39%'/>
 - Mayerlin Duluc
 - Josue Cuellar
 
+## Favorite code block
 ```js
 import { useEffect, useState } from 'react'
 import Sidebar from '../../components/sidebar/Sidebar'
