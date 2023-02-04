@@ -6,7 +6,7 @@ const User = require("../../models/user");
 
 const getAllTweets = async (req, res, next) => {
   try {
-    const foundTweets = await Tweet.find({}).populate("comments");
+    const foundTweets = await Tweet.find({}).populate("comments").exec();
     console.log("Found Tweets: ", foundTweets)
     res.locals.data.tweets = foundTweets;
     next();
@@ -18,7 +18,8 @@ const getAllTweets = async (req, res, next) => {
 //DELETE
 const destroyTweet = async (req, res, next) => {
   const currentProfile = await Profile.findById(req.user.profile)
-  if(currentProfile.tweets.includes(req.params.id)){
+  console.log(currentProfile)
+  if (currentProfile.tweets.includes(req.params.id)) {
     try {
       const deletedTweet = await Tweet.findByIdAndDelete(req.params.id);
       res.locals.data.tweet = deletedTweet;
@@ -29,13 +30,15 @@ const destroyTweet = async (req, res, next) => {
   } else {
     res.status(403).json("You can't delete another's bitterness")
   }
-  
+
 };
+
+
 
 //UPDATE
 const updateTweet = async (req, res, next) => {
   const currentProfile = await Profile.findById(req.user.profile)
-  if(currentProfile.tweets.includes(req.params.id)){
+  if (currentProfile.tweets.includes(req.params.id)) {
     try {
       const updatedTweet = await Tweet.findByIdAndUpdate(
         req.params.id,
@@ -57,9 +60,9 @@ const updateTweet = async (req, res, next) => {
 const createTweet = async (req, res, next) => {
   try {
     const createdTweet = await Tweet.create(req.body);
-    
+
     try {
-      await Profile.findByIdAndUpdate(req.user.profile, { $push: {tweets: createdTweet._id} })
+      await Profile.findByIdAndUpdate(req.user.profile, { $push: { tweets: createdTweet._id } })
     } catch (error) {
       res.status(400).json({ msg: error.message });
     }
@@ -81,6 +84,26 @@ const getOneTweet = async (req, res, next) => {
   }
 };
 
+//like / dislike a tweet
+const updateLikes = async (req, res, next) => {
+  try {
+    const currentTweet = await Tweet.findById(req.params.id)
+    if (!currentTweet.likes.includes(req.user._id)) {
+      await currentTweet.updateOne({ $push: { likes: req.user._id } });
+      res.locals.data.tweet = currentTweet
+      next()
+    } else {
+      await currentTweet.updateOne({ $pull: { likes: req.user._id } });
+      res.locals.data.tweet = currentTweet
+      next()
+    }
+  } catch (error) {
+    res.status(400).json({ msg: error.message });
+  }
+}
+
+
+
 
 
 //RESPOND
@@ -97,6 +120,7 @@ module.exports = {
   updateTweet,
   createTweet,
   getOneTweet,
+  updateLikes,
   respondWithTweets,
   respondWithTweet,
 };

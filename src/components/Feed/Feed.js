@@ -1,12 +1,9 @@
 import React from "react";
 import Post from "../Post/Post";
 import './Feed.css';
-import TweetList from "../tweetList/TweetList";
 import TweetForm from "../tweetForm/TweetForm";
 
 function Feed({
-    profile,
-    user,
     tweet,
     tweets,
     createTweet,
@@ -15,72 +12,57 @@ function Feed({
     comment,
     setComment,
     createComment,
-    getAllComments,
     deleteComment,
     editComment,
-    comments }) {
-
-    console.log(tweets)
+    editTweet,
+    user,
+    followProfile,
+    setFollowersProfile,
+    followersProfile,
+    likes,
+    setLikes,
+    setIsLiked,
+    isLiked
+}) {
 
     return (
         <div className="feed">
-            {/* Header */}
             <div className="feed__header">
                 <h2>Home</h2>
             </div>
-
-            {/* TweetBox*/}
             <TweetForm
                 createTweet={createTweet}
                 setTweet={setTweet}
                 tweet={tweet}
+                userId={user._id}
+                username={user.username}
             />
-            <div>
+            <div className="tC">
                 <ul className="tweetsContainer">
-                    {tweets.length ? tweets.map((item) => (
-                        <li key={item._id}>
+                    {tweets.length ? tweets.map((tweet) => (
+                        <li key={tweet._id}>
                             <Post
-                                text={item.text}
                                 user={user}
-                                deleteTweet={deleteTweet}
-                                id={item._id}
-                                comment={comment}
                                 tweet={tweet}
-                                setComment={setComment}
+                                tweetId={tweet._id}
+                                editTweet={editTweet}
+                                deleteTweet={deleteTweet}
                                 createComment={createComment}
-                                comments={comments}
-                                getAllComments={getAllComments}
-                                deleteComment={deleteComment}
+                                setComment={setComment}
+                                comment={comment}
                                 editComment={editComment}
+                                deleteComment={deleteComment}
+                                username={user.username}
+                                followProfile={followProfile}
+                                setFollowersProfile={setFollowersProfile}
+                                followersProfile={followersProfile}
+                                setIsLiked={setIsLiked}
+                                isLiked={isLiked}
                             />
-                            {/* <button onClick={() => deleteTweet(item._id)}>Delete</button>
-                        <button onClick={() => editTweet(item._id)}>Edit</button> */}
-                            {/* <CommentList
-                            tweet={item}
-                            comment={comment}
-                            createComment={createComment}
-                            setComment={setComment}
-                            getAllComments={getAllComments}
-                            id={item._id}
-                            deleteComment={deleteComment}
-                            editComment={editComment}
-                        /> */}
                         </li>
                     )) : <> No Tweet Added</>}
                 </ul>
             </div>
-
-
-            {/* <Post
-                profile={profile}
-                user={user} />
-            <Post />
-            <Post /> */}
-            {/* Post */}
-            {/* Post */}
-            {/* Post */}
-            {/* Post */}
-            {/* Post */}
         </div>
     )
 }

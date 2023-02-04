@@ -1,0 +1,37 @@
+.profile-container {
+    padding: 20px;
+    margin: 10px;
+    position: relative;
+
+}
+
+.avatar {
+    position: absolute;
+    display: grid;
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    margin-top: 90px;
+    margin-left: 10px;
+    z-index: 2;
+}
+
+.header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: white;
+    height: 300px;
+}
+
+img {
+    /* display: block; */
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .bio {
+    margin-top: 100px;
+}
