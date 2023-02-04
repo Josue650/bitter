@@ -33,9 +33,9 @@ export default function Sidebar({ user, setUser }) {
                 <SidebarOptions Icon={PersonIcon} text='Profile' />
             </Link>
             <SidebarOptions Icon={MoreHorizIcon} text='More' />
-            <Logout
+            {/* <Logout
                 user={user}
-                setUser={setUser} />
+                setUser={setUser} /> */}
             <Button variant="outlined" className='sidebar_bleepBtn' fullWidth>Bleep</Button>
 
         </div>
