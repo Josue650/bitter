@@ -57,7 +57,7 @@ export default function Profile() {
                 }
             })
             const data = await response.json()
-            console.log('users tweets', data)
+            // console.log('users tweets', data)
             setUserTweets(data)
         } catch (err) {
             console.log(err)
@@ -292,11 +292,16 @@ export default function Profile() {
         }
     }, [toggleComment, isLiked])
 
-    console.log("userProfile", userProfile)
+    // console.log("userProfile", userProfile)
 
     return (
         <>
-            <ProfileHeader
+            <Sidebar 
+             user={user}
+             setUser={setUser} 
+             userProfile={userProfile}
+             />
+             <ProfileHeader
                 user={user}
                 userProfile={userProfile}
                 updateProfile={updateProfile}
@@ -309,7 +314,7 @@ export default function Profile() {
                 handleChange={handleChange}
                 updatedProfile={updatedProfile}
             />
-            <Sidebar />
+            
             <UserFeed
                 userTweets={userTweets}
                 user={user}
