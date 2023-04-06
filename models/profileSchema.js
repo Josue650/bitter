@@ -11,7 +11,8 @@ const profileSchema = new Schema({
   photo: { type: String },
   followers: [{type: Schema.Types.ObjectId, ref:"Follower"}],
   followings: [{type: Schema.Types.ObjectId, ref:"Following"}],
-  tweets: [{type: Schema.Types.ObjectId, ref:"Tweet"}]
+  tweets: [{type: Schema.Types.ObjectId, ref:"Tweet"}],
+  retweets: [{ type: Schema.Types.ObjectId, ref: "Retweet" }],
 }, {
   timestamps: true
 })
