@@ -5,7 +5,8 @@ export default function TweetForm({
     setTweet,
     tweet,
     userId,
-    username
+    username,
+    currentProfile
 }) {
     return (
         // <form
@@ -47,8 +48,8 @@ export default function TweetForm({
 
                 <div className="tweetBox__input">
                     <Avatar
-                        src="https://wompampsupport.azureedge.net/fetchimage?siteId=7575&v=2&jpgQuality=100&width=700&url=https%3A%2F%2Fi.kym-cdn.com%2Fentries%2Ficons%2Fmedium%2F000%2F022%2F138%2Fhighresrollsafe.jpg"
-                        alt=""
+                         src={ currentProfile?.photo ? `${currentProfile.photo}` : "https://wompampsupport.azureedge.net/fetchimage?siteId=7575&v=2&jpgQuality=100&width=700&url=https%3A%2F%2Fi.kym-cdn.com%2Fentries%2Ficons%2Fmedium%2F000%2F022%2F138%2Fhighresrollsafe.jpg" }
+                        alt="" 
                     />
                     <input
                         value={tweet.text}

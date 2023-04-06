@@ -22,7 +22,8 @@ function UserPost({
     comment,
     setIsLiked,
     isLiked, 
-    username
+    username, 
+    userProfile
 }) {
 
 
@@ -63,7 +64,11 @@ function UserPost({
         <>
             <div className="post">
                 <div className="post__avatar">
-                    <Avatar src="https://mystickermania.com/cdn/stickers/90-512x512.png" />
+                    {/* <Avatar src="https://mystickermania.com/cdn/stickers/90-512x512.png" /> */}
+                    <Avatar
+                         src={ userProfile?.photo ? `${userProfile.photo}` : "https://mystickermania.com/cdn/stickers/90-512x512.png" }
+                        alt="" 
+                    />
                 </div>
                 <div className="post__body">
                     <div className="post__header">

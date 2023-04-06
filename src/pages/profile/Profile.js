@@ -329,6 +329,7 @@ export default function Profile() {
                 editComment={editComment}
                 isLiked={isLiked}
                 setIsLiked={setIsLiked}
+                userProfile={userProfile}
             />
             <Widgets />
         </>
