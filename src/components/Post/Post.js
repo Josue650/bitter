@@ -32,6 +32,8 @@ function Post({
     isLiked
 }) {
 
+    console.log(user, 'post user')
+
 
     const [like, setLike] = useState(null);
     const [tweets, setTweets] = useState([])
@@ -80,7 +82,9 @@ function Post({
         }
     }
 
-
+    //     const handleFollow = ayscn() => {
+    //         if(!user)
+    // }
 
 
 
@@ -101,7 +105,7 @@ function Post({
                             </h3>
                         </div>
                         {user.username !== tweet.username ?
-                            (<button>Follow</button>) : ''}
+                            (<button >Follow</button>) : ''}
                         <div className="post__headerDescripton">
                             <p>{tweet.text}</p>
                         </div>
@@ -118,7 +122,9 @@ function Post({
                 <Repeat fontSize="small" />
                 <FavoriteBorder fontSize="small" onClick={() => likeHandler(tweetId)} />
                 <h6>{tweet.likes.length}</h6>
-                <DeleteOutline fontSize="small" onClick={() => deleteTweet(tweetId)} />
+                {user.username === tweet.username ?
+                    <DeleteOutline fontSize="small" onClick={() => deleteTweet(tweetId)} /> : ''}
+
             </div>
             <div>
                 {toggle === true ?
