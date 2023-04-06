@@ -1,6 +1,7 @@
 require("dotenv").config();
 const Tweet = require("../../models/tweet");
 const Profile = require("../../models/profile");
+const Retweet = require("../../models/retweet")
 const User = require("../../models/user");
 
 
@@ -88,18 +89,74 @@ const getOneTweet = async (req, res, next) => {
 const updateLikes = async (req, res, next) => {
   try {
     const currentTweet = await Tweet.findById(req.params.id)
-    if (!currentTweet.likes.includes(req.user._id)) {
-      await currentTweet.updateOne({ $push: { likes: req.user._id } });
-      res.locals.data.tweet = currentTweet
-      next()
-    } else {
-      await currentTweet.updateOne({ $pull: { likes: req.user._id } });
-      res.locals.data.tweet = currentTweet
-      next()
+    const currentRetweet = await Retweet.findById(req.params.id)
+    if (currentTweet && !currentRetweet) {
+      if (!currentTweet.likes.includes(req.user._id)) {
+        await currentTweet.updateOne({ $push: { likes: req.user._id } });
+        res.locals.data.tweet = currentTweet
+        next()
+      } else {
+        await currentTweet.updateOne({ $pull: { likes: req.user._id } });
+        res.locals.data.tweet = currentTweet
+        next()
+      }
+    } else if (currentRetweet && !currentTweet) {
+      if (!currentRetweet.likes.includes(req.user._id)) {
+        await currentRetweet.updateOne({ $push: { likes: req.user._id } });
+        res.locals.data.retweet = currentRetweet
+        next()
+      } else {
+        await currentRetweet.updateOne({ $pull: { likes: req.user._id } });
+        res.locals.data.retweet = currentRetweet
+        next()
+      }
     }
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
+};
+
+//repost tweet
+const retweet = async (req, res, next) => {
+  try {
+    // console.log(req.params)
+    const currentTweet = await Tweet.findById(req.params.tweetId)
+    if (!currentTweet.retweets.includes(req.user._id)) {
+      await currentTweet.updateOne({ $push: { retweets: req.user._id } });
+      const createdRetweet = await Retweet.create(req.body);
+      createdRetweet.tweet = currentTweet._id
+      res.locals.data.retweet = createdRetweet
+      try {
+        await Profile.findByIdAndUpdate(req.user.profile, { $push: { retweets: createdRetweet._id } })
+      } catch (error) {
+        res.status(400).json({ msg: error.message });
+      }
+    } else {
+      res.status(400).json("You have already retweeted this tweet")
+    }
+    next();
+  } catch (error) {
+    res.status(400).json({ msg: error.message });
+  }
+  // try {
+  //   const currentTweet = await Tweet.findById(req.params.id)
+  //   const currentRetweet = await Retweet.findById(req.params.id)
+  //   if(!currentTweet.reposts.includes(req.user._id)){
+  //     await currentTweet.updateOne({ $push: { reposts: req.user._id }})
+  //     try {
+  //       await Profile.findByIdAndUpdate(req.user.profile, { $push: { tweets: currentTweet._id } })
+
+  //     } catch (error) {
+  //       res.status(400).json({ msg: error.message });
+  //     }
+  //   }  else {
+  //     res.status(400).json("You cannot undo a repost")
+  //   }
+  //   res.locals.data.tweet = currentTweet
+  //   next()
+  // } catch (error) {
+  //   res.status(400).json({ msg: error.message });
+  // }
 }
 
 
@@ -113,6 +170,9 @@ const respondWithTweets = (req, res) => {
 const respondWithTweet = (req, res) => {
   res.json(res.locals.data.tweet);
 };
+const respondWithRetweet = (req, res) => {
+  res.json(res.locals.data.retweet);
+};
 
 module.exports = {
   getAllTweets,
@@ -121,6 +181,8 @@ module.exports = {
   createTweet,
   getOneTweet,
   updateLikes,
+  retweet,
   respondWithTweets,
   respondWithTweet,
+  respondWithRetweet
 };

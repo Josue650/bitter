@@ -11,9 +11,8 @@ const getProfile = async (req, res, next) => {
     console.log(req.query.userId)
     try {
         const user = await User.findOne({ email: res.locals.data.email }).populate("profile").exec()
-        console.log('user', user)
         const foundProfile = user.profile
-
+        
         res.locals.data.profile = foundProfile
         console.log(res.locals.data.profile)
         next()
@@ -41,21 +40,21 @@ const followProfile = async (req, res, next) => {
     const user = await User.findOne({ email: res.locals.data.email }).populate("profile").exec()
     const currentProfile = user.profile
     console.log(currentProfile)
-    if (currentProfile.id !== req.params.followerId) {
+    if(currentProfile.id !== req.params.followerId) {
         try {
             const profile = await Profile.findById(req.params.followerId)
-            if (!profile.followers.includes(currentProfile._id)) {
-                await profile.updateOne({ $push: { followers: currentProfile._id } })
-                await currentProfile.updateOne({ $push: { followings: profile._id } })
+            if(!profile.followers.includes(currentProfile._id)){
+                await profile.updateOne({$push: {followers: currentProfile._id}})
+                await currentProfile.updateOne({$push: {followings: profile._id}})
                 res.locals.data.profile = currentProfile
                 // res.status(200).json("user has been followed");
                 next()
             } else {
                 res.status(403).json("You already follow this user's profile")
             }
-        } catch (error) {
+        } catch(error){
             console.log(req.body)
-            res.status(500).json({ msg: error.messgae })
+            res.status(500).json({msg: error.messgae})
         }
     } else {
         res.status(403).json("You can't follow yourself, you bitter betty")
@@ -66,21 +65,21 @@ const followProfile = async (req, res, next) => {
 const unfollowProfile = async (req, res, next) => {
     const user = await User.findOne({ email: res.locals.data.email }).populate("profile").exec()
     const currentProfile = user.profile
-    if (currentProfile.id !== req.params.followerId) {
+    if(currentProfile.id !== req.params.followerId) {
         try {
             const profile = await Profile.findById(req.params.followerId)
-            if (profile.followers.includes(currentProfile._id)) {
-                await profile.updateOne({ $pull: { followers: currentProfile._id } })
-                await currentProfile.updateOne({ $pull: { followings: profile._id } })
+            if(profile.followers.includes(currentProfile._id)){
+                await profile.updateOne({$pull: {followers: currentProfile._id}})
+                await currentProfile.updateOne({$pull: {followings: profile._id}})
                 // res.status(200).json("user has been unfollowed");
                 res.locals.data.profile = currentProfile
                 next()
             } else {
                 res.status(403).json("You don't follow this user")
             }
-        } catch (error) {
+        } catch(error){
             // console.log(req.body)
-            res.status(500).json({ msg: error.messgae })
+            res.status(500).json({msg: error.messgae})
         }
     } else {
         res.status(403).json("You can't unfollow yourself, stay bitter")
@@ -89,26 +88,26 @@ const unfollowProfile = async (req, res, next) => {
 
 
 const getFollowers = async (req, res, next) => {
-
+   
     try {
         const profile = await Profile.findById(req.user.profile)
-        const followers = profile.followers
+        const followers= profile.followers
         console.log(followers)
         res.locals.data.followers = followers
         next()
-    } catch (error) {
+    } catch(error){
         res.status(500).json("You dont have any followers")
     }
 }
 
 const getFollowings = async (req, res, next) => {
-
+    
     try {
         const profile = await Profile.findById(req.user.profile)
         const followings = profile.followings
         res.locals.data.followings = followings
         next()
-    } catch (error) {
+    } catch(error){
         res.status(500).json("You don't follow anyone")
     }
 }
@@ -119,7 +118,7 @@ const getRandomProfile = async (req, res, next) => {
         const foundProfile = await Profile.findById(req.params.randomId).populate("tweets").exec()
         res.locals.data.profile = foundProfile
         next()
-    } catch (error) {
+    } catch(error){
         res.status(400).json({ msg: error.message })
     }
 }
@@ -150,7 +149,7 @@ const getUserTweets = async (req, res, next) => {
         const tweets = profile.tweets
         // console.log("User tweets: ", tweets)
         res.locals.data.tweets = tweets
-
+        
         next()
     } catch (error) {
         res.status(400).json({ msg: error.message })

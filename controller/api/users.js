@@ -21,25 +21,7 @@ const dataController = {
       const token = createJWT(user)
       res.locals.data.user = user
       res.locals.data.token = token
-      console.log(token)
-
-
       user.save()
-
-      // user.create(() => {
-      //   async (error, createdProfile) =>{
-      //     if (error) {
-      //       res.status(400).send({
-      //         msg: error.message
-      //       })
-      //     } else {
-      //      createdProfile = await Profile.create({})
-      //      user.profile = createdProfile
-      //      user.save()
-      //     }
-      //   }
-      // })
-      console.log(user)
       next()
     } catch (err) {
       console.log('Error!')

@@ -10,9 +10,13 @@ router.delete('/:id', tweets.destroyTweet, tweets.respondWithTweet)
 router.put('/:id', tweets.updateTweet, tweets.respondWithTweet)
 //localhost:3001/api/tweets/
 router.post('/', tweets.createTweet, tweets.respondWithTweet)
+//localhost:3001/api/tweets/:tweetId/retweet
+router.post('/:tweetId/retweet', tweets.retweet, tweets.respondWithRetweet)
 //localhost:3001/api/tweets/:id
 router.get('/:id', tweets.getOneTweet, tweets.respondWithTweet)
 //localhost:3001/api/tweets/:id/like
+router.put('/:id/like', tweets.updateLikes, tweets.respondWithTweet)
+//localhost:3001/api/tweets/:id/re
 router.put('/:id/like', tweets.updateLikes, tweets.respondWithTweet)
 
 
