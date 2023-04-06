@@ -31,6 +31,7 @@ function Feed({
                 <h2>Home</h2>
             </div>
             <TweetForm
+                photo={user.photo}
                 createTweet={createTweet}
                 setTweet={setTweet}
                 tweet={tweet}
