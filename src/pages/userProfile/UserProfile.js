@@ -50,6 +50,23 @@ export default function UserProfile() {
         setUpdatedProfile({ ...updatedProfile, [e.target.name]: e.target.value })
     }
 
+    const getUser = async () => {
+        try {
+            const response = await fetch('/api/users', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
+            })
+            const data = await response.json()
+            console.log(data)
+            setUser(data)
+        } catch (error) {
+            console.error(error)
+        }
+    } 
+
     const getAUserTweets = async () => {
         try {
             const response = await fetch('/api/profile/tweets', {
@@ -175,7 +192,7 @@ export default function UserProfile() {
 
     const getUserProfile = async (randomId) => {
         try {
-            const response = await fetch(`/api/profile/random/${randomId}`, {
+            const response = await fetch(`/api/profile/${randomId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -193,6 +210,7 @@ export default function UserProfile() {
     useEffect(() => {
         getFollowers()
         getAUserTweets()
+        getUser()
     }, [token])
 
     useEffect(() => {

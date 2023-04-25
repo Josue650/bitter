@@ -64,7 +64,8 @@ export default function Profile() {
         }
     }
 
-    const getProfile = async () => {
+    const getProfile = async (userId) => {
+
         try {
             const response = await fetch('/api/profile', {
                 method: 'GET',
