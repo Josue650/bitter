@@ -29,17 +29,18 @@ function Post({
     deleteComment,
     followProfile,
     setIsLiked,
-    isLiked
+    isLiked,
+    userId
 }) {
-
-    console.log(user, 'post user')
 
 
     const [like, setLike] = useState(null);
     const [tweets, setTweets] = useState([])
     const [toggle, setToggle] = useState(false)
     const [oneTweet, setOneTweet] = useState(null)
+    const [userProfile, setUserProfile] = useState(null)
 
+    const navigate = useNavigate()
 
     const likeHandler = (tweetId) => {
         updateLikes(tweetId)
@@ -82,11 +83,31 @@ function Post({
         }
     }
 
-    //     const handleFollow = ayscn() => {
-    //         if(!user)
-    // }
+    const getUserProfile = async (userId) => {
+        try {
+            const response = await fetch(`/api/profile/${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
+            })
+            const data = await response.json()
+            // console.log(data, 'profile')
+            setUserProfile(data)
+            console.log(userProfile, 'getting userprofile')
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
+    const handleRoute = (userId) => {
+        console.log(userId, 'userId')
+        getUserProfile(userId)
+        console.log(userProfile, 'userProfile')
+        navigate(`/profile/${userId}`)
+    }
 
     return (
         <>
@@ -98,7 +119,7 @@ function Post({
                     <div className="post__header">
                         <div className="post__headerText">
                             <h3>
-                                @{tweet.username}
+                                <button onClick={() => { handleRoute(userId) }}>@{userId}</button>
                                 <span className="post__headerSpecial">
                                     <Verified className="post__badge"></Verified>
                                 </span>
