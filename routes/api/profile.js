@@ -21,5 +21,7 @@ router.get('/followings', profile.getFollowings, profile.respondWithFollowings)
 router.get('/', profile.getProfile, profile.respondWithProfile)
 //localhost:3001/api/profile/all
 router.get('/all', profile.getAllProfiles, profile.respondWithProfiles)
+// localhost:3001/api/profile/:userId
+router.get('/:userId', profile.getUserProfile, profile.respondWithProfile)
 
 module.exports = router

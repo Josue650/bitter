@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom'
 import Homepage from './pages/homepage/Homepage'
 import Profile from './pages/profile/Profile'
+import UserProfile from './pages/userProfile/UserProfile'
 
 
 
@@ -12,7 +13,8 @@ export default function App() {
     return (
         <Routes>
             <Route path='/' element={<Homepage />} />
-            <Route path='/profile' element={<Profile />} />
+            <Route exact path='/profile' element={<Profile />} />
+            <Route path='/profile/:userId' element={<UserProfile />} />
         </Routes>
     )
 }
