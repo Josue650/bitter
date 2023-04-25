@@ -14,8 +14,8 @@ import { useParams } from 'react-router-dom';
 
 export default function UserProfile() {
 
-    const { randomId } = useParams()
-    console.log(randomId, "randomId")
+    const { userId } = useParams()
+    console.log(userId, "randomId")
 
     const [isLiked, setIsLiked] = useState(false);
     const [toggleComment, setToggleComment] = useState(false)
@@ -190,9 +190,9 @@ export default function UserProfile() {
     }
 
 
-    const getUserProfile = async (randomId) => {
+    const getUserProfile = async () => {
         try {
-            const response = await fetch(`/api/profile/${randomId}`, {
+            const response = await fetch(`/api/profile/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -210,6 +210,7 @@ export default function UserProfile() {
     useEffect(() => {
         getFollowers()
         getAUserTweets()
+        getUserProfile()
         getUser()
     }, [token])
 

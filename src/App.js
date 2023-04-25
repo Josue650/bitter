@@ -1,6 +1,7 @@
 import {
     Routes,
-    Route
+    Route,
+    useParams
 } from 'react-router-dom'
 import Homepage from './pages/homepage/Homepage'
 import Profile from './pages/profile/Profile'
@@ -10,6 +11,7 @@ import UserProfile from './pages/userProfile/UserProfile'
 
 
 export default function App() {
+    let { userId } = useParams()
     return (
         <Routes>
             <Route path='/' element={<Homepage />} />
