@@ -23,7 +23,8 @@ function Feed({
     likes,
     setLikes,
     setIsLiked,
-    isLiked
+    isLiked, 
+    currentProfile
 }) {
 
     const [userId, setUserId] = useState(null)
@@ -34,6 +35,7 @@ function Feed({
                 <h2>Home</h2>
             </div>
             <TweetForm
+                currentProfile={currentProfile}
                 createTweet={createTweet}
                 setTweet={setTweet}
                 tweet={tweet}
@@ -62,6 +64,7 @@ function Feed({
                                 followersProfile={followersProfile}
                                 setIsLiked={setIsLiked}
                                 isLiked={isLiked}
+                                currentProfile={currentProfile}
                             />
                         </li>
                     )) : <> No Tweet Added</>}

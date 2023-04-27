@@ -14,7 +14,8 @@ export default function UserFeed({
     editComment,
     comments,
     isLiked,
-    setIsLiked
+    setIsLiked,
+    userProfile
 }) {
     return (
         <div className="feed">
@@ -34,6 +35,7 @@ export default function UserFeed({
                             createComment={createComment}
                             isLiked={isLiked}
                             setIsLiked={setIsLiked}
+                            userProfile={userProfile}
                         />
                     </li>
                 )) : <> No Tweet Added</>}

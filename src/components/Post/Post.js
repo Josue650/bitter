@@ -29,6 +29,7 @@ function Post({
     deleteComment,
     followProfile,
     setIsLiked,
+    currentProfile,
     isLiked,
     userId
 }) {
@@ -113,7 +114,10 @@ function Post({
         <>
             <div className="post">
                 <div className="post__avatar">
-                    <Avatar src="https://wompampsupport.azureedge.net/fetchimage?siteId=7575&v=2&jpgQuality=100&width=700&url=https%3A%2F%2Fi.kym-cdn.com%2Fentries%2Ficons%2Fmedium%2F000%2F022%2F138%2Fhighresrollsafe.jpg" />
+                    <Avatar
+                        src={user.username === tweet.username && currentProfile?.photo ? `${currentProfile.photo}` : "https://wompampsupport.azureedge.net/fetchimage?siteId=7575&v=2&jpgQuality=100&width=700&url=https%3A%2F%2Fi.kym-cdn.com%2Fentries%2Ficons%2Fmedium%2F000%2F022%2F138%2Fhighresrollsafe.jpg"}
+                        alt=""
+                    />
                 </div>
                 <div className="post__body">
                     <div className="post__header">
