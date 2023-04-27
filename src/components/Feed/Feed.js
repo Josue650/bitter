@@ -2,6 +2,7 @@ import React from "react";
 import Post from "../Post/Post";
 import './Feed.css';
 import TweetForm from "../tweetForm/TweetForm";
+import { useState } from 'react'
 
 function Feed({
     tweet,
@@ -26,6 +27,8 @@ function Feed({
     currentProfile
 }) {
 
+    const [userId, setUserId] = useState(null)
+
     return (
         <div className="feed">
             <div className="feed__header">
@@ -44,6 +47,7 @@ function Feed({
                     {tweets.length ? tweets.map((tweet) => (
                         <li key={tweet._id}>
                             <Post
+                                userId={tweet.userId}
                                 user={user}
                                 tweet={tweet}
                                 tweetId={tweet._id}
