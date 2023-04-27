@@ -14,7 +14,7 @@ import Register from '../register/Register';
 export default function Homepage() {
     const [user, setUser] = useState(null);
 
-    const [currentUser, setCurrentUser] = useState(null)
+    const [currentProfile, setCurrentProfile] = useState(null)
 
     const [userTweet, setUserTweet] = useState(null)
 
@@ -293,6 +293,23 @@ export default function Homepage() {
         }
     }
 
+    const getProfile = async () => {
+        try {
+            const response = await fetch('/api/profile', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
+            })
+            const data = await response.json()
+            console.log('profile data', data)
+            setCurrentProfile(data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     // const getLikes = async (tweetId) => {
     //     try {
     //         const response = await fetch(`/api/tweets/${tweetId}/like`, {
@@ -316,6 +333,7 @@ export default function Homepage() {
         }
         getUser()
         getAllTweets()
+        getProfile()
     }, [token, toggleComment, isLiked])
 
 
@@ -347,7 +365,7 @@ export default function Homepage() {
                             comment={comment}
                             setComment={setComment}
                             createComment={createComment}
-                            currentUser={currentUser}
+                            currentProfile={currentProfile}
                             followProfile={followProfile}
                             setFollowersProfile={setFollowersProfile}
                             followersProfile={followersProfile}

@@ -11,8 +11,11 @@ export default function ProfileHeader({ user, userProfile, updateProfile, handle
                 <div className="header">
                     <img src="https://i.imgur.com/i8FBGNE.jpg" className="header" alt="" />
                     <div className="avatar">
-                        <img src={userProfile?.photo ? userProfile.photo : 'need to edit'} className="avatar" alt="" />
-                    </div></div>
+                        {/* <h1>Test Spot</h1> */}
+                        {/* <img src={userProfile?.photo ? `${userProfile.photo}` : 'need to edit'} className="avatar" alt="" /> */}
+                        { userProfile?.photo ? <img src={userProfile.photo} className="avatar" alt="" /> : <h3>No Photo Added</h3>}
+                    </div>
+                </div>
 
 
                 <div className="bio">
