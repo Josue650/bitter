@@ -8,7 +8,6 @@ const User = require("../../models/user");
 const getAllTweets = async (req, res, next) => {
   try {
     const foundTweets = await Tweet.find({}).populate("comments").exec();
-    // console.log("Found Tweets: ", foundTweets)
     res.locals.data.tweets = foundTweets;
     next();
   } catch (error) {
@@ -19,7 +18,6 @@ const getAllTweets = async (req, res, next) => {
 //DELETE
 const destroyTweet = async (req, res, next) => {
   const currentProfile = await Profile.findById(req.user.profile)
-  console.log(currentProfile)
   if (currentProfile.tweets.includes(req.params.id)) {
     try {
       const deletedTweet = await Tweet.findByIdAndDelete(req.params.id);
@@ -46,7 +44,6 @@ const updateTweet = async (req, res, next) => {
         req.body,
         { new: true }
       );
-      // res.locals.data.profile = currentProfile.updatedTweet
       res.locals.data.tweet = updatedTweet;
       next();
     } catch (error) {
@@ -61,7 +58,6 @@ const updateTweet = async (req, res, next) => {
 const createTweet = async (req, res, next) => {
   try {
     const createdTweet = await Tweet.create(req.body);
-
     try {
       await Profile.findByIdAndUpdate(req.user.profile, { $push: { tweets: createdTweet._id } })
     } catch (error) {
@@ -77,7 +73,6 @@ const createTweet = async (req, res, next) => {
 const getOneTweet = async (req, res, next) => {
   try {
     const foundTweet = await Tweet.findById(req.params.id).populate("comments");
-    console.log("Found Tweets: ", foundTweet)
     res.locals.data.tweet = foundTweet;
     next();
   } catch (error) {
@@ -119,7 +114,6 @@ const updateLikes = async (req, res, next) => {
 //repost tweet
 const retweet = async (req, res, next) => {
   try {
-    // console.log(req.params)
     const currentTweet = await Tweet.findById(req.params.tweetId)
     if (!currentTweet.retweets.includes(req.user._id)) {
       await currentTweet.updateOne({ $push: { retweets: req.user._id } });
@@ -138,30 +132,7 @@ const retweet = async (req, res, next) => {
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
-  // try {
-  //   const currentTweet = await Tweet.findById(req.params.id)
-  //   const currentRetweet = await Retweet.findById(req.params.id)
-  //   if(!currentTweet.reposts.includes(req.user._id)){
-  //     await currentTweet.updateOne({ $push: { reposts: req.user._id }})
-  //     try {
-  //       await Profile.findByIdAndUpdate(req.user.profile, { $push: { tweets: currentTweet._id } })
-
-  //     } catch (error) {
-  //       res.status(400).json({ msg: error.message });
-  //     }
-  //   }  else {
-  //     res.status(400).json("You cannot undo a repost")
-  //   }
-  //   res.locals.data.tweet = currentTweet
-  //   next()
-  // } catch (error) {
-  //   res.status(400).json({ msg: error.message });
-  // }
 }
-
-
-
-
 
 //RESPOND
 const respondWithTweets = (req, res) => {
