@@ -14,7 +14,7 @@ const getProfile = async (req, res, next) => {
         const foundProfile = user.profile
 
         res.locals.data.profile = foundProfile
-        console.log(res.locals.data.profile)
+        // console.log(res.locals.data.profile)
         next()
     } catch (error) {
         res.status(400).json({ msg: error.message })
@@ -26,7 +26,7 @@ const getAllProfiles = async (req, res, next) => {
     // console.log(req.query.userId)
     try {
         const profiles = await Profile.find({})
-        console.log(profiles)
+        // console.log(profiles)
         res.locals.data.profiles = profiles
         // console.log(res.locals.data.profiles)
         next()
@@ -92,7 +92,7 @@ const getFollowers = async (req, res, next) => {
     try {
         const profile = await Profile.findById(req.user.profile)
         const followers = profile.followers
-        console.log(followers)
+        // console.log(followers)
         res.locals.data.followers = followers
         next()
     } catch (error) {
@@ -141,13 +141,34 @@ const updateProfile = async (req, res, next) => {
 
 
 const getUserTweets = async (req, res, next) => {
-    console.log(res.locals.data.profile)
     try {
 
         const profile = await Profile.findById(req.user.profile).populate('tweets').sort('tweets.createdAt').exec()
         // console.log("User profile: ", profile)
         const tweets = profile.tweets
         // console.log("User tweets: ", tweets)
+        res.locals.data.tweets = tweets
+
+        next()
+    } catch (error) {
+        res.status(400).json({ msg: error.message })
+    }
+}
+
+const getAProfileTweets = async (req, res, next) => {
+    try {
+        // console.log("Params ID: ", req.params.userId)
+        const user = await User.findById(req.params.userId)
+        .populate({path: 'profile', 
+        populate: {
+            path: 'tweets'
+        }})
+        .exec()
+        const profile = user.profile
+        console.log("User profile: ", profile)
+
+        const tweets = profile.tweets
+        console.log("User tweets: ", tweets)
         res.locals.data.tweets = tweets
 
         next()
@@ -163,7 +184,7 @@ const getUserProfile = async (req, res, next) => {
         const foundProfile = user.profile
 
         res.locals.data.profile = foundProfile
-        console.log(res.locals.data.profile)
+        // console.log(res.locals.data.profile)
         next()
     } catch (error) {
         res.status(400).json({ msg: error.message })
@@ -201,6 +222,7 @@ module.exports = {
     getFollowers,
     getFollowings,
     getUserTweets,
+    getAProfileTweets,
     getRandomProfile,
     followProfile,
     unfollowProfile,

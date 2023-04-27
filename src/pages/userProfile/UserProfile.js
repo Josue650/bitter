@@ -14,8 +14,8 @@ import { useParams } from 'react-router-dom';
 
 export default function UserProfile() {
 
-    const { randomId } = useParams()
-    console.log(randomId, "randomId")
+    const { userId } = useParams()
+    // console.log(userId, "randomId")
 
     const [isLiked, setIsLiked] = useState(false);
     const [toggleComment, setToggleComment] = useState(false)
@@ -24,13 +24,6 @@ export default function UserProfile() {
     const [followers, setFollowers] = useState([])
     const [userTweets, setUserTweets] = useState([])
     const [foundProfile, setFoundProfile] = useState(null)
-    const [updatedProfile, setUpdatedProfile] = useState({
-        dob: '',
-        name: '',
-        location: '',
-        interests: '',
-        photo: '',
-    })
     const [tweet, setTweet] = useState({
         userId: '',
         username: '',
@@ -45,14 +38,14 @@ export default function UserProfile() {
         text: ''
     })
 
-    const handleChange = (e) => {
-        e.preventDefault()
-        setUpdatedProfile({ ...updatedProfile, [e.target.name]: e.target.value })
-    }
+    // const handleChange = (e) => {
+    //     e.preventDefault()
+    //     setUpdatedProfile({ ...updatedProfile, [e.target.name]: e.target.value })
+    // }
 
-    const getAUserTweets = async () => {
+    const getUser = async () => {
         try {
-            const response = await fetch('/api/profile/tweets', {
+            const response = await fetch('/api/users', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -60,7 +53,24 @@ export default function UserProfile() {
                 }
             })
             const data = await response.json()
-            // console.log('users tweets', data)
+            console.log(data)
+            setUser(data)
+        } catch (error) {
+            console.error(error)
+        }
+    } 
+
+    const getAProfileTweets = async () => {
+        try {
+            const response = await fetch(`/api/profile/${userId}/tweets`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
+            })
+            const data = await response.json()
+            console.log('users tweets', data)
             setUserTweets(data)
         } catch (err) {
             console.log(err)
@@ -173,9 +183,9 @@ export default function UserProfile() {
     }
 
 
-    const getUserProfile = async (randomId) => {
+    const getUserProfile = async () => {
         try {
-            const response = await fetch(`/api/profile/random/${randomId}`, {
+            const response = await fetch(`/api/profile/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -191,8 +201,11 @@ export default function UserProfile() {
     }
 
     useEffect(() => {
+
+        getUserProfile()
+        getUser()
+        getAProfileTweets()
         getFollowers()
-        getAUserTweets()
     }, [token])
 
     useEffect(() => {
@@ -213,22 +226,15 @@ export default function UserProfile() {
                 setUser={setUser}
             />
             <ProfileHeader
-                user={user}
+                // user={user}
                 userProfile={userProfile}
-                handleChange={handleChange}
-                updatedProfile={updatedProfile} />
+                />
             <Follows />
-            <EditButton
-                userProfile={userProfile}
-                handleChange={handleChange}
-                updatedProfile={updatedProfile}
-            />
 
             <UserFeed
                 userTweets={userTweets}
-                user={user}
-                createTweet={createTweet}
-                deleteTweet={deleteTweet}
+                // user={user}
+                userProfile={userProfile}
                 comment={comment}
                 setComment={setComment}
                 createComment={createComment}

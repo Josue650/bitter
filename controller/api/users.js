@@ -19,7 +19,7 @@ const dataController = {
       user.profile = createdProfile._id
       // console.log("User: ", user)
       const token = createJWT(user)
-      console.log(token)
+      // console.log(token)
       res.locals.data.user = user
       res.locals.data.token = token
       user.save()

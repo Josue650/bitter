@@ -95,6 +95,7 @@ function UserPost({
                 <EditOutlined fontSize="small" onClick={() => editTweet(tweetId)} />
                 <Repeat fontSize="small" />
                 <FavoriteBorder fontSize="small" onClick={() => likeHandler(tweetId)} />
+                {/* FIX TWEET LIKES */}
                 <h6>{tweet.likes.length}</h6>
                 <DeleteOutline fontSize="small" onClick={() => deleteTweet(tweetId)} />
             </div>
