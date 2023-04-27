@@ -8,13 +8,11 @@ const User = require("../../models/user")
 
 //Get current users profile
 const getProfile = async (req, res, next) => {
-    console.log(req.query.userId)
     try {
         const user = await User.findOne({ email: res.locals.data.email }).populate("profile").exec()
         const foundProfile = user.profile
 
         res.locals.data.profile = foundProfile
-        // console.log(res.locals.data.profile)
         next()
     } catch (error) {
         res.status(400).json({ msg: error.message })
@@ -23,12 +21,9 @@ const getProfile = async (req, res, next) => {
 
 //Get all profiles
 const getAllProfiles = async (req, res, next) => {
-    // console.log(req.query.userId)
     try {
         const profiles = await Profile.find({})
-        // console.log(profiles)
         res.locals.data.profiles = profiles
-        // console.log(res.locals.data.profiles)
         next()
     } catch (error) {
         res.status(400).json({ msg: error.message })
@@ -39,7 +34,6 @@ const getAllProfiles = async (req, res, next) => {
 const followProfile = async (req, res, next) => {
     const user = await User.findOne({ email: res.locals.data.email }).populate("profile").exec()
     const currentProfile = user.profile
-    console.log(currentProfile)
     if (currentProfile.id !== req.params.followerId) {
         try {
             const profile = await Profile.findById(req.params.followerId)
@@ -53,7 +47,6 @@ const followProfile = async (req, res, next) => {
                 res.status(403).json("You already follow this user's profile")
             }
         } catch (error) {
-            console.log(req.body)
             res.status(500).json({ msg: error.messgae })
         }
     } else {
@@ -78,7 +71,6 @@ const unfollowProfile = async (req, res, next) => {
                 res.status(403).json("You don't follow this user")
             }
         } catch (error) {
-            // console.log(req.body)
             res.status(500).json({ msg: error.messgae })
         }
     } else {
@@ -92,7 +84,6 @@ const getFollowers = async (req, res, next) => {
     try {
         const profile = await Profile.findById(req.user.profile)
         const followers = profile.followers
-        // console.log(followers)
         res.locals.data.followers = followers
         next()
     } catch (error) {
@@ -129,9 +120,7 @@ const updateProfile = async (req, res, next) => {
     try {
 
         const updatedProfile = await Profile.findByIdAndUpdate(req.params.id, req.body, { new: true })
-        console.log(req.body)
         res.locals.data.profile = updatedProfile
-        console.log(res.locals.data.profile)
         next()
     } catch (error) {
         res.status(400).json({ msg: error.message })
@@ -142,13 +131,9 @@ const updateProfile = async (req, res, next) => {
 
 const getUserTweets = async (req, res, next) => {
     try {
-
         const profile = await Profile.findById(req.user.profile).populate('tweets').sort('tweets.createdAt').exec()
-        // console.log("User profile: ", profile)
         const tweets = profile.tweets
-        // console.log("User tweets: ", tweets)
         res.locals.data.tweets = tweets
-
         next()
     } catch (error) {
         res.status(400).json({ msg: error.message })
@@ -157,7 +142,6 @@ const getUserTweets = async (req, res, next) => {
 
 const getAProfileTweets = async (req, res, next) => {
     try {
-        // console.log("Params ID: ", req.params.userId)
         const user = await User.findById(req.params.userId)
         .populate({path: 'profile', 
         populate: {
@@ -165,10 +149,7 @@ const getAProfileTweets = async (req, res, next) => {
         }})
         .exec()
         const profile = user.profile
-        console.log("User profile: ", profile)
-
         const tweets = profile.tweets
-        console.log("User tweets: ", tweets)
         res.locals.data.tweets = tweets
 
         next()
@@ -180,11 +161,8 @@ const getAProfileTweets = async (req, res, next) => {
 const getUserProfile = async (req, res, next) => {
     try {
         const user = await User.findById(req.params.userId).populate("profile").exec()
-        console.log(user, 'backend user')
         const foundProfile = user.profile
-
         res.locals.data.profile = foundProfile
-        // console.log(res.locals.data.profile)
         next()
     } catch (error) {
         res.status(400).json({ msg: error.message })

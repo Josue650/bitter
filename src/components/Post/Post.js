@@ -104,10 +104,12 @@ function Post({
 
 
     const handleRoute = (userId) => {
-        console.log(userId, 'userId')
         getUserProfile(userId)
-        console.log(userProfile, 'userProfile')
-        navigate(`/profile/${userId}`)
+        if (user._id === userId) {
+            navigate('/profile')
+        } else {
+            navigate(`/profile/${userId}`)
+        }
     }
 
     return (
