@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 
 export default function Logout({ user, setUser, userProfile }) {
-    console.log("Logout: ", user)
+    // console.log("Logout: ", user)
     const navigate = useNavigate()
 
     function logOut() {
