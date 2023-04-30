@@ -1,4 +1,4 @@
-import "./sidebar.css"
+
 import SidebarOptions from "../sidebarOptions/SidebarOptions";
 import EmojiFoodBeverageIcon from '@mui/icons-material/EmojiFoodBeverage';
 import HomeIcon from '@mui/icons-material/Home';

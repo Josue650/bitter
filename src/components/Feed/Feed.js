@@ -1,6 +1,5 @@
 import React from "react";
 import Post from "../Post/Post";
-import './Feed.css';
 import TweetForm from "../tweetForm/TweetForm";
 import { useState } from 'react'
 
@@ -23,7 +22,7 @@ function Feed({
     likes,
     setLikes,
     setIsLiked,
-    isLiked, 
+    isLiked,
     currentProfile
 }) {
 

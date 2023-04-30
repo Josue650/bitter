@@ -1,25 +1,73 @@
-import {
-    Routes,
-    Route,
-    useParams
-} from 'react-router-dom'
-import Homepage from './pages/homepage/Homepage'
-import Profile from './pages/profile/Profile'
-import UserProfile from './pages/userProfile/UserProfile'
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
+import "./styles.css"
+import Homepage from "./pages/homepage/Homepage"
+import Profile from "./pages/profile/Profile"
+import Explore from './pages/explore/Explore'
+import Register from './pages/register/Register'
+import Navbar from './components/Navbar/Navbar'
 
-
-
-
-export default function App() {
-    let { userId } = useParams()
+const Layout = () => {
     return (
-        <Routes>
-            <Route path='/' element={<Homepage />} />
-            <Route exact path='/profile' element={<Profile />} />
-            <Route path='/profile/:userId' element={<UserProfile />} />
-        </Routes>
+        <div className='md:w-8/12 mx-auto'>
+            <Navbar />
+            <Outlet></Outlet>
+        </div>
     )
 }
+
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <Layout />,
+        children: [
+            {
+                path: '/',
+                element: <Homepage />
+            },
+            {
+                path: '/profile/:id',
+                element: <Profile />
+            },
+            {
+                path: '/explore',
+                element: <Explore />
+            },
+            {
+                path: '/register',
+                element: <Register />
+            },
+            {
+                path: '/signout',
+                element: <Register />
+            },
+        ]
+    }
+])
+
+export default function App() {
+    return (
+        <RouterProvider router={router}> </RouterProvider>
+    )
+}
+
+// import {
+//     Routes,
+//     Route,
+//     useParams
+// } from 'react-router-dom'
+// import Homepage from './pages/homepage/Homepage'
+// import Profile from './pages/profile/Profile'
+// import UserProfile from './pages/userProfile/UserProfile'
+
+
+    // let { userId } = useParams()
+    // return (
+    //     <Routes>
+    //         <Route path='/' element={<Homepage />} />
+    //         <Route exact path='/profile' element={<Profile />} />
+    //         <Route path='/profile/:userId' element={<UserProfile />} />
+    //     </Routes>
+    // )
 
 
 // import React from "react";

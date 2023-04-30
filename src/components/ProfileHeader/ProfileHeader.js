@@ -1,6 +1,6 @@
 import React from "react";
 import EditProfile from "../EditProfile/EditProfile";
-import './ProfileHeader.css';
+
 
 export default function ProfileHeader({ user, userProfile, updateProfile, handleChange, updatedProfile }) {
 
@@ -13,7 +13,7 @@ export default function ProfileHeader({ user, userProfile, updateProfile, handle
                     <div className="avatar">
                         {/* <h1>Test Spot</h1> */}
                         {/* <img src={userProfile?.photo ? `${userProfile.photo}` : 'need to edit'} className="avatar" alt="" /> */}
-                        { userProfile?.photo ? <img src={userProfile.photo} className="avatar" alt="" /> : <h3>No Photo Added</h3>}
+                        {userProfile?.photo ? <img src={userProfile.photo} className="avatar" alt="" /> : <h3>No Photo Added</h3>}
                     </div>
                 </div>
 

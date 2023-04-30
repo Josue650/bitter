@@ -1,5 +1,5 @@
 import React from "react";
-import "./Widgets.css";
+
 import {
     TwitterTimelineEmbed,
     TwitterShareButton,
@@ -9,7 +9,7 @@ import {
 import Search from "@mui/icons-material/Search";
 
 function Widgets() {
-    return(
+    return (
         <div className="widgets">
             <div className="widgets__input">
                 <Search className="widgets__searchIcon" />
@@ -22,14 +22,14 @@ function Widgets() {
                 <TwitterTweetEmbed tweetId={"1618837765269098496"} />
 
                 <TwitterTimelineEmbed
-                sourceType="profile"
-                screenName="taylorswift13"
-                options={{ height: 400 }} 
+                    sourceType="profile"
+                    screenName="taylorswift13"
+                    options={{ height: 400 }}
                 />
 
                 <TwitterShareButton
                     url={"https://facebook.com/TaylorSwift"}
-                    options={{ text: "T-Swizzle is awesome", via: "taylorswift13"}} 
+                    options={{ text: "T-Swizzle is awesome", via: "taylorswift13" }}
                 />
             </div>
         </div>

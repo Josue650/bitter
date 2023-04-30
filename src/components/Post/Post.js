@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import './Post.css';
 import { Avatar } from "@mui/material";
 import { Add, Comment, CommentOutlined, CommentRounded, DeleteOutline, Edit, EditOutlined, EditTwoTone, Verified } from "@mui/icons-material";
 import { ChatBubbleOutline } from "@mui/icons-material";

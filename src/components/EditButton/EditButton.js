@@ -1,5 +1,4 @@
 import React from "react";
-import './EditButton.css';
 import EditProfile from "../EditProfile/EditProfile";
 import { useState } from "react";
 

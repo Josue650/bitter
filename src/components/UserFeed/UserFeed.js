@@ -1,5 +1,5 @@
 import UserPost from "../../UserPost/UserPost"
-import "./UserFeed.css"
+
 
 export default function UserFeed({
     userTweets,
