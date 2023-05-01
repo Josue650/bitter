@@ -4,7 +4,7 @@ import SearchIcon from '@mui/icons-material/Search'
 
 export default function Navbar() {
     return (
-        <div className='grid grid-col-1 md:grid-cols-4 my-5 justify-center'>
+        <div className='grid grid-cols-1 md:grid-cols-4 my-5 justify-center'>
             <div className='mx-auto md:mx-0'>
                 <img
                     src="/logo512.png"

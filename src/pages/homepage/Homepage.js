@@ -1,10 +1,18 @@
+import Widgets from "../../components/Widgets/Widgets"
 import SidebarOptions from "../../components/sidebarOptions/SidebarOptions"
+import Feed from "../../components/Feed/Feed"
 
 export default function Homepage() {
     return (
         <div className="grid grid-cols-1 md:grid-cols-4">
-            <div>
+            <div className="px-6">
                 <SidebarOptions />
+            </div>
+            <div className="col-span-2 border-x-2 border-t-slate-800 px-6">
+                <Feed />
+            </div>
+            <div className="px-6">
+                <Widgets />
             </div>
         </div>
     )

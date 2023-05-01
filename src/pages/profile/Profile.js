@@ -1,7 +1,18 @@
+import SidebarOptions from "../../components/sidebarOptions/SidebarOptions";
+import Widgets from "../../components/Widgets/Widgets";
+  
 export default function Profile() {
     return (
-        <div>
-            <h1>Profile Page</h1>
+        <div className="grid grid-cols-1 md:grid-cols-4">
+            <div className="px-6">
+                <SidebarOptions/>
+            </div>
+            <div className="col-span-2 border-x-2 boreder-t-slate-800 px-6">
+
+            </div>
+            <div className="px-6">
+                <Widgets/>
+            </div>
         </div>
     )
 }

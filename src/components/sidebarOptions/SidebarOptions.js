@@ -16,6 +16,29 @@ export default function SidebarOptions() {
                         <p>Home</p>
                     </div>
                 </Link>
+                <Link to='/explore'>
+                    <div className='flex items-center space-x-6 px-2 py-2 hover:bg-slate-200 rounded-full cursor-pointer'>
+                        <TagIcon fontSize='large' />
+                        <p>Explore</p>
+                    </div>
+                </Link>
+                <Link to='/profile/'>
+                    <div className='flex items-center space-x-6 px-2 py-2 hover:bg-slate-200 rounded-full cursor-pointer'>
+                        <PersonIcon fontSize='large' />
+                        <p>Profile</p>
+                    </div>
+                </Link>
+            </div>
+            <div className='flex justify-between'>
+                <div>
+                    <p className='font-bold'>Username</p>
+                    <p className='font-bold'>@Username</p>
+                </div>
+                <div>
+                    <Link to='register'>
+                        <button className='bg-red-500 px-4 py-2 text-white rounded-full'>Logout</button>
+                    </Link>
+                </div>
             </div>
         </div>
     )
