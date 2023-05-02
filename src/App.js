@@ -5,6 +5,7 @@ import Profile from "./pages/profile/Profile"
 import Explore from './pages/explore/Explore'
 import Register from './pages/register/Register'
 import Navbar from './components/Navbar/Navbar'
+import Error from './pages/Error/Error'
 
 const Layout = () => {
     return (
@@ -18,6 +19,7 @@ const Layout = () => {
 const router = createBrowserRouter([
     {
         path: '/',
+        errorElement: <Error />,
         element: <Layout />,
         children: [
             {
