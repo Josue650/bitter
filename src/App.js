@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 import "./styles.css"
 import Homepage from "./pages/homepage/Homepage"
+import Discover from './pages/Discover/Discover'
 import Profile from "./pages/profile/Profile"
-import Explore from './pages/explore/Explore'
 import Register from './pages/register/Register'
 import Navbar from './components/Navbar/Navbar'
 import Error from './pages/Error/Error'
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/explore',
-                element: <Explore />
+                element: <Discover />
             },
             {
                 path: '/register',

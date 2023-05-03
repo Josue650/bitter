@@ -25,7 +25,7 @@ const dataController = {
       user.save()
       next()
     } catch (err) {
-      res.status(400).json({ msg: err.message})
+      res.status(400).json({ msg: err.message })
     }
   },
 
@@ -37,7 +37,6 @@ const dataController = {
       if (!match) throw new Error()
       res.locals.data.user = user
       res.locals.data.token = createJWT(user)
-      // console.log(res.locals.data.token)
       next()
     } catch (error) {
       res.status(400).json({ msg: error.message })

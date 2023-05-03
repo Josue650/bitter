@@ -2,7 +2,7 @@ import Widgets from "../../components/Widgets/Widgets";
 import SidebarOptions from "../../components/sidebarOptions/SidebarOptions";
 import ExploreTweets from '../../components/exploreTweets/ExploreTweets'
 
-export default function Explore() {
+export default function Discover() {
     return (
         <div className="grid grid-cols-1 md:grid-cols-4">
             <div className='px-6'>
